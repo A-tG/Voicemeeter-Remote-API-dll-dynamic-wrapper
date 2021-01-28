@@ -10,28 +10,6 @@ namespace AtgDev.Voicemeeter
     using vmFloat = Single;
 
     /// <summary>
-    /// List of Voicemeeter fucntions/parameters
-    /// <list type="table">
-    ///     <listheader>
-    ///         <term>Parameter name</term>
-    ///         <description>test</description>
-    ///     </listheader>
-    ///     <listheader>
-    ///         <term>Value range</term>
-    ///         <description>test</description>
-    ///     </listheader>
-    ///     <listheader>
-    ///         <term>Remark</term>
-    ///         <description>test</description>
-    ///     </listheader>
-    ///     <item>
-    ///         <description>"Strip[i].Mono"</description>
-    ///         <description>0 (off) or 1 (on)</description>
-    ///         <description>Mono Button</description>
-    ///     </item>
-    /// </list>
-    /// </summary>
-    /// <summary>
     ///     <para>Voicemeeter Remote API</para>
     ///     Wrapper for library that allows communication with Voicemeeter Applications
     /// </summary>
