@@ -30,12 +30,6 @@ namespace AtgDev.Voicemeeter
             m_getParameterString = GetReadyDelegate<VBVMR_GetParameterStringA>();
         }
 
-        private IntPtr ConvertStringToNullTermAscii(in string str)
-        {
-            return Marshal.StringToHGlobalAnsi(str);
-        }
-
-
         private delegate vmLong VBVMR_Login();
         private VBVMR_Login m_login;
         ///<summary>
@@ -98,9 +92,8 @@ namespace AtgDev.Voicemeeter
             return m_isParametersDirty();
         }
 
-        // using just string for paramName works, 
-        // but stil better to convert it to null terminated ASCII according to DLL header just in case
-        private delegate vmLong VBVMR_GetParameterFloat(IntPtr paramName, out vmFloat value);
+        [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+        private delegate vmLong VBVMR_GetParameterFloat([MarshalAs(UnmanagedType.LPStr)] string paramName, out vmFloat value);
         private VBVMR_GetParameterFloat m_getParameterFloat;
         ///<summary>
         ///    Get parameter value.
@@ -116,11 +109,11 @@ namespace AtgDev.Voicemeeter
         ///</returns>
         public vmLong GetParameter(string paramName, out vmFloat val)
         {
-            var paramNamePtr = ConvertStringToNullTermAscii(in paramName);
-            return m_getParameterFloat(paramNamePtr, out val);
+            return m_getParameterFloat(paramName, out val);
         }
 
-        private delegate vmLong VBVMR_GetParameterStringA(IntPtr paramName, StringBuilder strVal);
+        [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+        private delegate vmLong VBVMR_GetParameterStringA([MarshalAs(UnmanagedType.LPStr)] string paramName, StringBuilder strVal);
         private VBVMR_GetParameterStringA m_getParameterString;
         ///<summary>
         ///    Get parameter value.
@@ -137,8 +130,7 @@ namespace AtgDev.Voicemeeter
         public vmLong GetParameter(string paramName, out string strVal)
         {
             var strB = new StringBuilder(512);
-            var paramNamePtr = ConvertStringToNullTermAscii(in paramName);
-            var resp = m_getParameterString(paramNamePtr, strB);
+            var resp = m_getParameterString(paramName, strB);
             strVal = strB.ToString();
             return resp;
         }
