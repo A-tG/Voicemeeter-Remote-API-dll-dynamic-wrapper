@@ -14,12 +14,12 @@ namespace AtgDev.Voicemeeter.Utils
 
         private static string GetDllName()
         {
-            string result = "VoicemeeterRemote";
-            if (Environment.Is64BitOperatingSystem)
+            string name = "VoicemeeterRemote";
+            if (Environment.Is64BitProcess)
             {
-                result += "64";
+                name += "64";
             }
-            return result + ".dll";
+            return name + ".dll";
         }
 
         /// <exception cref="DirectoryNotFoundException">Thrown when cannot find Voicemeeter registry key</exception>
