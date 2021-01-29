@@ -35,6 +35,7 @@ namespace AtgDev.Voicemeeter
 
             m_macroButtonIsDirty = GetReadyDelegate<VBVMR_MacroButton_IsDirty>();
             m_macroButtonGetStatus = GetReadyDelegate<VBVMR_MacroButton_GetStatus>();
+            m_MacroButtonSetStatus = GetReadyDelegate<VBVMR_MacroButton_SetStatus>();
         }
 
         // LOGIN
@@ -266,5 +267,24 @@ namespace AtgDev.Voicemeeter
         }
 
         // VBVMR_MacroButton_SetStatus(long nuLogicalButton, float fValue, long bitmode)
+        private delegate vmLong VBVMR_MacroButton_SetStatus(vmLong buttonIndex, vmFloat val, MacrobuttonMode mode);
+        private VBVMR_MacroButton_SetStatus m_MacroButtonSetStatus;
+        /// <summary>
+        ///     Set current button value.
+        /// </summary>
+        /// <param name="buttonIndex">button index: 0 to 79</param>
+        /// <param name="val">Value giving the status (0.0 = OFF / 1.0 = ON).</param>
+        /// <param name="mode">define what kind of value you want to write/modify</param>
+        /// <returns>
+        ///     0: OK (no error).<br/>
+        ///     -1: error<br/>
+        ///     -2: no server.<br/>
+        ///     -3: unknown parameter<br/>
+        ///     -5: structure mismatch<br/>
+        /// </returns>
+        public vmLong MacroButtonSetStatus(vmLong buttonIndex, vmFloat val, MacrobuttonMode mode)
+        {
+            return m_MacroButtonSetStatus(buttonIndex, val, mode);
+        }
     }
 }
