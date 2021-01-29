@@ -63,7 +63,7 @@ namespace AtgDev.Voicemeeter
             return m_logout();
         }
         
-        private delegate vmLong VBVMR_RunVoicemeeter(out vmLong type);
+        private delegate vmLong VBVMR_RunVoicemeeter(vmLong type);
         private VBVMR_RunVoicemeeter m_runVoicemeeter;
         ///<summary>
         ///    Run Voicemeeter Application (get installation directory and run Voicemeeter Application).
@@ -73,9 +73,9 @@ namespace AtgDev.Voicemeeter
         ///    0: Ok.<br/>
 		///	   -1: not installed<br/>
         ///</returns>
-        public vmLong RunVoicemeeter(out vmLong type)
+        public vmLong RunVoicemeeter(vmLong type)
         {
-            return m_runVoicemeeter(out type);
+            return m_runVoicemeeter(type);
         }
 
         // GENERAL INFORMATION
