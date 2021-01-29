@@ -33,7 +33,7 @@ namespace AtgDev.Voicemeeter
             m_getParameterFloat = GetReadyDelegate<VBVMR_GetParameterFloat>();
             m_getParameterString = GetReadyDelegate<VBVMR_GetParameterStringA>();
 
-            m_macroButton_IsDirty = GetReadyDelegate<VBVMR_MacroButton_IsDirty>();
+            m_macroButtonIsDirty = GetReadyDelegate<VBVMR_MacroButton_IsDirty>();
             m_macroButtonGetStatus = GetReadyDelegate<VBVMR_MacroButton_GetStatus>();
         }
 
@@ -226,7 +226,7 @@ namespace AtgDev.Voicemeeter
         }
 
         private delegate vmLong VBVMR_MacroButton_IsDirty();
-        private VBVMR_MacroButton_IsDirty m_macroButton_IsDirty;
+        private VBVMR_MacroButton_IsDirty m_macroButtonIsDirty;
         /// <summary>
         ///     Check if Macro Buttons states changed.<br/>   
         ///     Call this function periodically (typically every 50 or 500ms) to know if something happen on MacroButton states.<br/>
@@ -238,9 +238,9 @@ namespace AtgDev.Voicemeeter
         ///     -1: error (unexpected)br/>
         ///     -2: no server.
         /// </returns>
-        public vmLong MacroButton_IsDirty()
+        public vmLong MacroButtonIsDirty()
         {
-            return m_macroButton_IsDirty();
+            return m_macroButtonIsDirty();
         }
 
         // VBVMR_MacroButton_GetStatus()
@@ -265,6 +265,6 @@ namespace AtgDev.Voicemeeter
             return m_macroButtonGetStatus(buttonIndex, out val, mode);
         }
 
-        // VBVMR_MacroButton_SetStatus()
+        // VBVMR_MacroButton_SetStatus(long nuLogicalButton, float fValue, long bitmode)
     }
 }
