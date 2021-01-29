@@ -76,7 +76,7 @@ namespace AtgDev.Voicemeeter
         /// <param name="type">Voicemeeter type (1 = Voicemeeter, 2 = Voicemeeter Banana).</param>
         /// <returns>
         ///     0: Ok.<br/>
-		/// 	   -1: not installed<br/>
+		///     -1: not installed<br/>
         /// </returns>
         public vmLong RunVoicemeeter(vmLong type)
         {
@@ -244,8 +244,6 @@ namespace AtgDev.Voicemeeter
             return m_macroButtonIsDirty();
         }
 
-        // VBVMR_MacroButton_GetStatus()
-
         private delegate vmLong VBVMR_MacroButton_GetStatus(vmLong buttonIndex, out vmFloat val, MacrobuttonMode mode);
         private VBVMR_MacroButton_GetStatus m_macroButtonGetStatus;
         /// <summary>
@@ -266,7 +264,6 @@ namespace AtgDev.Voicemeeter
             return m_macroButtonGetStatus(buttonIndex, out val, mode);
         }
 
-        // VBVMR_MacroButton_SetStatus(long nuLogicalButton, float fValue, long bitmode)
         private delegate vmLong VBVMR_MacroButton_SetStatus(vmLong buttonIndex, vmFloat val, MacrobuttonMode mode);
         private VBVMR_MacroButton_SetStatus m_MacroButtonSetStatus;
         /// <summary>
