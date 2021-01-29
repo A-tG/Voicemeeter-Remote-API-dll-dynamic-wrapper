@@ -34,6 +34,7 @@ namespace AtgDev.Voicemeeter
             m_getParameterString = GetReadyDelegate<VBVMR_GetParameterStringA>();
 
             m_macroButton_IsDirty = GetReadyDelegate<VBVMR_MacroButton_IsDirty>();
+            m_macroButtonGetStatus = GetReadyDelegate<VBVMR_MacroButton_GetStatus>();
         }
 
         // LOGIN
@@ -104,7 +105,7 @@ namespace AtgDev.Voicemeeter
         ///     Get Voicemeeter Version
         /// </summary>
         /// <param name="ver">
-        ///     Variable receiving the version (v1.v2.v3.v4)
+        ///     Variable receiving the version (v1.v2.v3.v4)<br/>
         ///     <c>
         ///          v1 = (version &amp; 0xFF000000)>>24;<br/>
 		/// 	        v2 = (version &amp; 0x00FF0000)>>16;<br/>
@@ -214,6 +215,16 @@ namespace AtgDev.Voicemeeter
         // VBVMR_AudioCallbackUnregister()
 
         // MACRO BUTTONS
+        public enum MacrobuttonMode
+        {
+            /// <summary>PUSH or RELEASE state</summary>
+            Default = 0,
+            /// <summary>change Displayed State only</summary>
+            State = 2,
+            /// <summary>change Trigger State</summary>
+            Trigger = 3
+        }
+
         private delegate vmLong VBVMR_MacroButton_IsDirty();
         private VBVMR_MacroButton_IsDirty m_macroButton_IsDirty;
         /// <summary>
@@ -223,7 +234,7 @@ namespace AtgDev.Voicemeeter
         /// </summary>
         /// <returns>
         ///      0: no new status.br/>
-        ///     >0: last logical button status changed.br/>
+        ///     >0: last nu logical button status changed.br/>
         ///     -1: error (unexpected)br/>
         ///     -2: no server.
         /// </returns>
@@ -233,6 +244,26 @@ namespace AtgDev.Voicemeeter
         }
 
         // VBVMR_MacroButton_GetStatus()
+
+        private delegate vmLong VBVMR_MacroButton_GetStatus(vmLong buttonIndex, out vmFloat val, MacrobuttonMode mode);
+        private VBVMR_MacroButton_GetStatus m_macroButtonGetStatus;
+        /// <summary>
+        ///     Get current status of a given button.
+        /// </summary>
+        /// <param name="buttonIndex">button index: 0 to 79</param>
+        /// <param name="val">Variable receiving the wanted value (0.0 = OFF / 1.0 = ON)</param>
+        /// <param name="mode">Define what kind of value you want to read</param>
+        /// <returns>
+        ///     0: OK (no error).<br/>
+        ///     -1: error<br/>
+        ///     -2: no server.<br/>
+        ///     -3: unknown parameter<br/>
+        ///     -5: structure mismatch<br/>
+        /// </returns>
+        public vmLong MacroButtonGetStatus(vmLong buttonIndex, out vmFloat val, MacrobuttonMode mode)
+        {
+            return m_macroButtonGetStatus(buttonIndex, out val, mode);
+        }
 
         // VBVMR_MacroButton_SetStatus()
     }
