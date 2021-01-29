@@ -27,6 +27,7 @@ namespace AtgDev.Voicemeeter
             m_runVoicemeeter = GetReadyDelegate<VBVMR_RunVoicemeeter>();
 
             m_getVoicemeeterType = GetReadyDelegate<VBVMR_GetVoicemeeterType>();
+            m_getVoicemeeterVersion = GetReadyDelegate<VBVMR_GetVoicemeeterVersion>();
 
             m_isParametersDirty = GetReadyDelegate<VBVMR_IsParametersDirty>();
             m_getParameterFloat = GetReadyDelegate<VBVMR_GetParameterFloat>();
@@ -36,15 +37,15 @@ namespace AtgDev.Voicemeeter
         // LOGIN
         private delegate vmLong VBVMR_Login();
         private VBVMR_Login m_login;
-        ///<summary>
-        ///    Open Communication Pipe With Voicemeeter (typically called on software startup).
-        ///</summary>
-        ///<returns> 
-        ///    0: OK (no error).<br/>
-        ///    1: OK but Voicemeeter Application not launched.<br/>
-        ///    -1: cannot get client (unexpected)<br/>
-        ///    -2: unexpected login (logout was expected before).<br/>
-        ///</returns>
+        /// <summary>
+        ///     Open Communication Pipe With Voicemeeter (typically called on software startup).
+        /// </summary>
+        /// <returns> 
+        ///     0: OK (no error).<br/>
+        ///     1: OK but Voicemeeter Application not launched.<br/>
+        ///     -1: cannot get client (unexpected)<br/>
+        ///     -2: unexpected login (logout was expected before).<br/>
+        /// </returns>
         public vmLong Login()
         {
             return m_login();
@@ -52,12 +53,12 @@ namespace AtgDev.Voicemeeter
 
         private delegate vmLong VBVMR_Logout();
         private VBVMR_Logout m_logout;
-        ///<summary>
-        ///    Close Communication Pipe With Voicemeeter (typically called on software end).
-        ///</summary>
-        ///<returns>
-        ///    0 if ok.<br/>
-        ///</returns>
+        /// <summary>
+        ///     Close Communication Pipe With Voicemeeter (typically called on software end).
+        /// </summary>
+        /// <returns>
+        ///     0 if ok.<br/>
+        /// </returns>
         public vmLong Logout()
         {
             return m_logout();
@@ -65,14 +66,14 @@ namespace AtgDev.Voicemeeter
         
         private delegate vmLong VBVMR_RunVoicemeeter(vmLong type);
         private VBVMR_RunVoicemeeter m_runVoicemeeter;
-        ///<summary>
-        ///    Run Voicemeeter Application (get installation directory and run Voicemeeter Application).
-        ///</summary>
-        ///<param name="type">Voicemeeter type (1 = Voicemeeter, 2= Voicemeeter Banana).</param>
-        ///<returns>
-        ///    0: Ok.<br/>
-		///	   -1: not installed<br/>
-        ///</returns>
+        /// <summary>
+        ///     Run Voicemeeter Application (get installation directory and run Voicemeeter Application).
+        /// </summary>
+        /// <param name="type">Voicemeeter type (1 = Voicemeeter, 2 = Voicemeeter Banana).</param>
+        /// <returns>
+        ///     0: Ok.<br/>
+		/// 	   -1: not installed<br/>
+        /// </returns>
         public vmLong RunVoicemeeter(vmLong type)
         {
             return m_runVoicemeeter(type);
@@ -81,35 +82,57 @@ namespace AtgDev.Voicemeeter
         // GENERAL INFORMATION
         private delegate vmLong VBVMR_GetVoicemeeterType(out vmLong type);
         private VBVMR_GetVoicemeeterType m_getVoicemeeterType;
-        ///<summary>
-        ///    Get Voicemeeter Type.
-        ///</summary>
-        ///<param name="type">The variable receiving the type (1 = Voicemeeter, 2 = Voicemeeter Banana, 3 = Voicemeeter Potato).</param>
-        ///<returns>
-        ///    0: OK (no error).<br/>
-        ///    -1: cannot get client (unexpected)<br/>
-        ///    -2: no server.<br/>
-        ///</returns>
+        /// <summary>
+        ///     Get Voicemeeter Type.
+        /// </summary>
+        /// <param name="type">The variable receiving the type (1 = Voicemeeter, 2 = Voicemeeter Banana, 3 = Voicemeeter Potato).</param>
+        /// <returns>
+        ///     0: OK (no error).<br/>
+        ///     -1: cannot get client (unexpected)<br/>
+        ///     -2: no server.<br/>
+        /// </returns>
         public vmLong GetVoicemeeterType(out vmLong type)
         {
             return m_getVoicemeeterType(out type);
         }
 
-        // VBVMR_GetVoicemeeterVersion()
+        private delegate vmLong VBVMR_GetVoicemeeterVersion(out vmLong ver);
+        private VBVMR_GetVoicemeeterVersion m_getVoicemeeterVersion;
+        /// <summary>
+        ///     Get Voicemeeter Version
+        /// </summary>
+        /// <param name="ver">
+        ///     Variable receiving the version (v1.v2.v3.v4)
+        ///     <c>
+        ///          v1 = (version &amp; 0xFF000000)>>24;<br/>
+		/// 	        v2 = (version &amp; 0x00FF0000)>>16;<br/>
+		/// 	        v3 = (version &amp; 0x0000FF00)>>8;<br/>
+		/// 	        v4 = version &amp; 0x000000FF;<br/>
+        /// 	   </c>
+        /// </param>
+        /// <returns>
+        ///     0: OK (no error).<br/>
+        ///     -1: cannot get client (unexpected)<br/>
+        ///     -2: no server.<br/>
+        /// </returns>
+        public vmLong GetVoicemeeterVersion(out vmLong ver)
+        {
+            return m_getVoicemeeterVersion(out ver);
+        }
 
         // GET PARAMETERS
         private delegate vmLong VBVMR_IsParametersDirty();
         private VBVMR_IsParametersDirty m_isParametersDirty;
-        ///<summary>
-        ///    Check if parameters have changed.
-        ///    Call this function periodically (typically every 10 or 20ms).
-        ///</summary>
-        ///<returns>
-        ///    0: no new paramters.<br/>
-        ///    1: New parameters -> update your display.<br/>
-        ///    -1: error (unexpected)<br/>
-        ///    -2: no server.<br/>
-        ///</returns>
+        /// <summary>
+        ///     Check if parameters have changed.
+        ///     Call this function periodically (typically every 10 or 20ms).
+        /// </summary>
+        /// <returns>
+        ///     0: no new paramters.<br/>
+        ///     1: New parameters -> update your display.<br/>
+        ///     -1: error (unexpected)<br/>
+        ///     -2: no server.<br/>
+        /// </returns>
         public vmLong IsParametersDirty()
         {
             return m_isParametersDirty();
@@ -118,18 +141,18 @@ namespace AtgDev.Voicemeeter
         [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         private delegate vmLong VBVMR_GetParameterFloat([MarshalAs(UnmanagedType.LPStr)] string paramName, out vmFloat value);
         private VBVMR_GetParameterFloat m_getParameterFloat;
-        ///<summary>
-        ///    Get parameter value.
-        ///</summary>
-        ///<param name="paramName">The name of the parameter (see VoicemeeterRemoteAPI parameters name table)</param>
-        ///<param name="val">The float variable receiving the wanted value.</param>
-        ///<returns>
-        ///    0: OK (no error).<br/>
-        ///    -1: error<br/>
-        ///    -2: no server.<br/>
-        ///    -3: unknown parameter<br/>
-        ///    -5: structure mismatch<br/>
-        ///</returns>
+        /// <summary>
+        ///     Get parameter value.
+        /// </summary>
+        /// <param name="paramName">The name of the parameter (see VoicemeeterRemoteAPI parameters name table)</param>
+        /// <param name="val">The float variable receiving the wanted value.</param>
+        /// <returns>
+        ///     0: OK (no error).<br/>
+        ///     -1: error<br/>
+        ///     -2: no server.<br/>
+        ///     -3: unknown parameter<br/>
+        ///     -5: structure mismatch<br/>
+        /// </returns>
         public vmLong GetParameter(string paramName, out vmFloat val)
         {
             return m_getParameterFloat(paramName, out val);
@@ -138,18 +161,18 @@ namespace AtgDev.Voicemeeter
         [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         private delegate vmLong VBVMR_GetParameterStringA([MarshalAs(UnmanagedType.LPStr)] string paramName, StringBuilder strVal);
         private VBVMR_GetParameterStringA m_getParameterString;
-        ///<summary>
-        ///    Get parameter value.
-        ///</summary>
-        ///<param name="paramName">The name of the parameter (see VoicemeeterRemoteAPI parameters name table)</param>
-        ///<param name="strVal">The string variable receiving the wanted value.</param>
-        ///<returns>
-        ///    0: OK (no error).<br/>
-        ///    -1: error<br/>
-        ///    -2: no server.<br/>
-        ///    -3: unknown parameter<br/>
-        ///    -5: structure mismatch<br/>
-        ///</returns>
+        /// <summary>
+        ///     Get parameter value.
+        /// </summary>
+        /// <param name="paramName">The name of the parameter (see VoicemeeterRemoteAPI parameters name table)</param>
+        /// <param name="strVal">The string variable receiving the wanted value.</param>
+        /// <returns>
+        ///     0: OK (no error).<br/>
+        ///     -1: error<br/>
+        ///     -2: no server.<br/>
+        ///     -3: unknown parameter<br/>
+        ///     -5: structure mismatch<br/>
+        /// </returns>
         public vmLong GetParameter(string paramName, out string strVal)
         {
             var strB = new StringBuilder(512);
