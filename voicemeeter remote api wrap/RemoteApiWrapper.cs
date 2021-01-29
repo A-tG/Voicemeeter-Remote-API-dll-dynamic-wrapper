@@ -11,7 +11,7 @@ namespace AtgDev.Voicemeeter
 
     /// <summary>
     ///     <para>Voicemeeter Remote API</para>
-    ///     Wrapper for library that allows communication with Voicemeeter Applications
+    ///     Wrapper for the library that allows communication with Voicemeeter Applications
     /// </summary>
     class RemoteApiWrapper : DllWrapperBase
     {
@@ -30,6 +30,7 @@ namespace AtgDev.Voicemeeter
             m_getParameterString = GetReadyDelegate<VBVMR_GetParameterStringA>();
         }
 
+        // LOGIN
         private delegate vmLong VBVMR_Login();
         private VBVMR_Login m_login;
         ///<summary>
@@ -46,6 +47,8 @@ namespace AtgDev.Voicemeeter
             return m_login();
         }
 
+        // VBVMR_RunVoicemeeter()
+
         private delegate vmLong VBVMR_Logout();
         private VBVMR_Logout m_logout;
         ///<summary>
@@ -59,6 +62,7 @@ namespace AtgDev.Voicemeeter
             return m_logout();
         }
 
+        // GENERAL INFORMATION
         private delegate vmLong VBVMR_GetVoicemeeterType(out vmLong type);
         private VBVMR_GetVoicemeeterType m_getVoicemeeterType;
         ///<summary>
@@ -75,6 +79,9 @@ namespace AtgDev.Voicemeeter
             return m_getVoicemeeterType(out type);
         }
 
+        // VBVMR_GetVoicemeeterVersion()
+
+        // GET PARAMETERS
         private delegate vmLong VBVMR_IsParametersDirty();
         private VBVMR_IsParametersDirty m_isParametersDirty;
         ///<summary>
@@ -134,5 +141,42 @@ namespace AtgDev.Voicemeeter
             strVal = strB.ToString();
             return resp;
         }
+
+        // GET LEVELS
+        // VBVMR_GetLevel()
+
+        // VBVMR_GetMidiMessage()
+
+        // SET PARAMETERS
+        // VBVMR_SetParameterFloat()
+
+        // VBVMR_SetParameterStringA()
+
+        // VBVMR_SetParameters()
+
+        // DEVICES ENUMERATOR
+        // VBVMR_Output_GetDeviceNumber()
+
+        // VBVMR_Output_GetDeviceDescA()
+
+        // VBVMR_Input_GetDeviceNumber()
+
+        // VBVMR_Input_GetDeviceDescA()
+
+        // VB-AUDIO CALLBACK
+        // VBVMR_AudioCallbackRegister()
+
+        // VBVMR_AudioCallbackStart()
+
+        // VBVMR_AudioCallbackStop()
+
+        // VBVMR_AudioCallbackUnregister()
+
+        // MACRO BUTTONS
+        // VBVMR_MacroButton_IsDirty()
+
+        // VBVMR_MacroButton_GetStatus()
+
+        // VBVMR_MacroButton_SetStatus()
     }
 }
