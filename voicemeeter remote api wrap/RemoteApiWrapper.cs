@@ -32,6 +32,8 @@ namespace AtgDev.Voicemeeter
             m_isParametersDirty = GetReadyDelegate<VBVMR_IsParametersDirty>();
             m_getParameterFloat = GetReadyDelegate<VBVMR_GetParameterFloat>();
             m_getParameterString = GetReadyDelegate<VBVMR_GetParameterStringA>();
+
+            m_macroButton_IsDirty = GetReadyDelegate<VBVMR_MacroButton_IsDirty>();
         }
 
         // LOGIN
@@ -124,7 +126,7 @@ namespace AtgDev.Voicemeeter
         private delegate vmLong VBVMR_IsParametersDirty();
         private VBVMR_IsParametersDirty m_isParametersDirty;
         /// <summary>
-        ///     Check if parameters have changed.
+        ///     Check if parameters have changed.<br/>
         ///     Call this function periodically (typically every 10 or 20ms).
         /// </summary>
         /// <returns>
@@ -212,7 +214,23 @@ namespace AtgDev.Voicemeeter
         // VBVMR_AudioCallbackUnregister()
 
         // MACRO BUTTONS
-        // VBVMR_MacroButton_IsDirty()
+        private delegate vmLong VBVMR_MacroButton_IsDirty();
+        private VBVMR_MacroButton_IsDirty m_macroButton_IsDirty;
+        /// <summary>
+        ///     Check if Macro Buttons states changed.<br/>   
+        ///     Call this function periodically (typically every 50 or 500ms) to know if something happen on MacroButton states.<br/>
+        ///     (this function must be called from one thread only)<br/>
+        /// </summary>
+        /// <returns>
+        ///      0: no new status.br/>
+        ///     >0: last logical button status changed.br/>
+        ///     -1: error (unexpected)br/>
+        ///     -2: no server.
+        /// </returns>
+        public vmLong MacroButton_IsDirty()
+        {
+            return m_macroButton_IsDirty();
+        }
 
         // VBVMR_MacroButton_GetStatus()
 
