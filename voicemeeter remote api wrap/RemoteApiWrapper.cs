@@ -24,7 +24,10 @@ namespace AtgDev.Voicemeeter
         {
             m_login = GetReadyDelegate<VBVMR_Login>();
             m_logout = GetReadyDelegate<VBVMR_Logout>();
+            m_runVoicemeeter = GetReadyDelegate<VBVMR_RunVoicemeeter>();
+
             m_getVoicemeeterType = GetReadyDelegate<VBVMR_GetVoicemeeterType>();
+
             m_isParametersDirty = GetReadyDelegate<VBVMR_IsParametersDirty>();
             m_getParameterFloat = GetReadyDelegate<VBVMR_GetParameterFloat>();
             m_getParameterString = GetReadyDelegate<VBVMR_GetParameterStringA>();
@@ -47,8 +50,6 @@ namespace AtgDev.Voicemeeter
             return m_login();
         }
 
-        // VBVMR_RunVoicemeeter()
-
         private delegate vmLong VBVMR_Logout();
         private VBVMR_Logout m_logout;
         ///<summary>
@@ -60,6 +61,21 @@ namespace AtgDev.Voicemeeter
         public vmLong Logout()
         {
             return m_logout();
+        }
+        
+        private delegate vmLong VBVMR_RunVoicemeeter(out vmLong type);
+        private VBVMR_RunVoicemeeter m_runVoicemeeter;
+        ///<summary>
+        ///    Run Voicemeeter Application (get installation directory and run Voicemeeter Application).
+        ///</summary>
+        ///<param name="type">Voicemeeter type (1 = Voicemeeter, 2= Voicemeeter Banana).</param>
+        ///<returns>
+        ///    0: Ok.<br/>
+		///	   -1: not installed<br/>
+        ///</returns>
+        public vmLong RunVoicemeeter(out vmLong type)
+        {
+            return m_runVoicemeeter(out type);
         }
 
         // GENERAL INFORMATION
