@@ -4,10 +4,6 @@ using System.Runtime.InteropServices;
 
 namespace AtgDev.Voicemeeter
 {
-    /// <summary>
-    ///     <para>Voicemeeter Remote API</para>
-    ///     Wrapper for the library that allows communication with Voicemeeter Applications
-    /// </summary>
     partial class RemoteApiWrapper
     {
         private void InitGetParameters()
