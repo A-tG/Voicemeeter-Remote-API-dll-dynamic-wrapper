@@ -20,6 +20,7 @@ namespace AtgDev.Voicemeeter
             InitLogin();
             InitGeneralInformation();
             InitGetParameters();
+            InitSetParameters();
             InitMacroButtons();
         }
 
@@ -27,13 +28,6 @@ namespace AtgDev.Voicemeeter
         // VBVMR_GetLevel()
 
         // VBVMR_GetMidiMessage()
-
-        // SET PARAMETERS
-        // VBVMR_SetParameterFloat()
-
-        // VBVMR_SetParameterStringA()
-
-        // VBVMR_SetParameters()
 
         // DEVICES ENUMERATOR
         // VBVMR_Output_GetDeviceNumber()

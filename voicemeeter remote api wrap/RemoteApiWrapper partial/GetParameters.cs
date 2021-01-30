@@ -37,7 +37,7 @@ namespace AtgDev.Voicemeeter
         ///     Get parameter value.
         /// </summary>
         /// <param name="paramName">The name of the parameter (see VoicemeeterRemoteAPI parameters name table)</param>
-        /// <param name="val">The float variable receiving the wanted value.</param>
+        /// <param name="val">The variable receiving the wanted value.</param>
         /// <returns>
         ///     0: OK (no error).<br/>
         ///     -1: error<br/>
