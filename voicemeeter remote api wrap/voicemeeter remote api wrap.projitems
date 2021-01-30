@@ -15,5 +15,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)RemoteApiWrapper partial\Login.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RemoteApiWrapper partial\MacroButtons.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RemoteApiWrapper partial\RemoteApiWrapper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RemoteApiWrapper partial\SetParameters.cs" />
   </ItemGroup>
 </Project>
