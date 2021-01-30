@@ -30,7 +30,6 @@ namespace AtgDev.Voicemeeter
             return m_isParametersDirty();
         }
 
-        [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         private delegate Int32 VBVMR_GetParameterFloat([MarshalAs(UnmanagedType.LPStr)] string paramName, out Single value);
         private VBVMR_GetParameterFloat m_getParameterFloat;
         /// <summary>
@@ -50,8 +49,10 @@ namespace AtgDev.Voicemeeter
             return m_getParameterFloat(paramName, out val);
         }
 
-        [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Ansi)]
-        private delegate Int32 VBVMR_GetParameterStringA([MarshalAs(UnmanagedType.LPStr)] string paramName, StringBuilder strVal);
+        private delegate Int32 VBVMR_GetParameterStringA(
+            [MarshalAs(UnmanagedType.LPStr)] string paramName,
+            [MarshalAs(UnmanagedType.LPStr)] StringBuilder strVal
+        );
         private VBVMR_GetParameterStringA m_getParameterString;
         /// <summary>
         ///     Get parameter value.
