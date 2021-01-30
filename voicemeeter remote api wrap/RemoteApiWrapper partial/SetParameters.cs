@@ -9,6 +9,7 @@ namespace AtgDev.Voicemeeter
         {
             m_setParameterFloat = GetReadyDelegate<VBVMR_SetParameterFloat>();
             m_setParameterStringA = GetReadyDelegate<VBVMR_SetParameterStringA>();
+            m_setParameters = GetReadyDelegate<VBVMR_SetParameters>();
         }
 
         [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Ansi)]
@@ -52,6 +53,37 @@ namespace AtgDev.Voicemeeter
             return m_setParameterStringA(paramName, strVal);
         }
 
-        // VBVMR_SetParameters()
+        private delegate Int32 VBVMR_SetParameters([MarshalAs(UnmanagedType.LPStr)] string script);
+        private VBVMR_SetParameters m_setParameters;
+
+        /// <summary>
+        ///     Set one or several parameters by a script (&lt; 48 kB).
+        /// </summary>
+        /// <param name="script">
+        ///     Null Terminal ASCII String giving the script<br/>                  
+        ///     (script allows to change several parameters in the same time - SYNCHRO).<br/>                  
+        ///     Possible Instuction separators: ',' ';' or '\n'(CR)<br/> 
+        ///     EXAMPLE:<br/>
+        ///     <c>                
+        ///         "Strip[0].gain = -6.0<br/>                 
+        ///         Strip[0].A1 = 0<br/>                      
+        ///         Strip[0].B1 = 1<br/>                      
+        ///         Strip[1].gain = -6.0<br/>                      
+        ///         Strip[2].gain = 0.0 <br/>                     
+        ///         Strip[3].name = "Skype Caller" "
+        ///     </c>
+        /// </param>
+        /// <returns>
+        ///     0: OK (no error).<br/> 
+        ///		>0: number of line causing script error.<br/> 
+        ///		-1: error<br/> 
+        ///		-2: no server<br/> 
+        ///		-3: unexpected error<br/> 
+        ///		-4: unexpected error<br/> 
+        /// </returns>
+        public Int32 SetParameters(string script)
+        {
+            return m_setParameters(script);
+        }
     }
 }
