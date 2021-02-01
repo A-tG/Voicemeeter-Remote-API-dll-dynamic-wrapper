@@ -20,14 +20,10 @@ namespace AtgDev.Voicemeeter
             InitLogin();
             InitGeneralInformation();
             InitGetParameters();
+            InitGetLevels();
             InitSetParameters();
             InitMacroButtons();
         }
-
-        // GET LEVELS
-        // VBVMR_GetLevel()
-
-        // VBVMR_GetMidiMessage()
 
         // DEVICES ENUMERATOR
         // VBVMR_Output_GetDeviceNumber()

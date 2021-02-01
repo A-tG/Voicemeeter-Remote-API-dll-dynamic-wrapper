@@ -11,6 +11,7 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)PathHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RemoteApiWrapper partial\GeneralInformation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RemoteApiWrapper partial\GetLevels.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RemoteApiWrapper partial\GetParameters.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RemoteApiWrapper partial\Login.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RemoteApiWrapper partial\MacroButtons.cs" />
