@@ -11,16 +11,6 @@ namespace AtgDev.Voicemeeter
             m_MacroButtonSetStatus = GetReadyDelegate<VBVMR_MacroButton_SetStatus>();
         }
 
-        public enum MacrobuttonMode
-        {
-            /// <summary>PUSH or RELEASE state</summary>
-            Default = 0,
-            /// <summary>change Displayed State only</summary>
-            State = 2,
-            /// <summary>change Trigger State</summary>
-            Trigger = 3
-        }
-
         private delegate Int32 VBVMR_MacroButton_IsDirty();
         private VBVMR_MacroButton_IsDirty m_macroButtonIsDirty;
         /// <summary>
@@ -39,8 +29,25 @@ namespace AtgDev.Voicemeeter
             return m_macroButtonIsDirty();
         }
 
-        private delegate Int32 VBVMR_MacroButton_GetStatus(Int32 buttonIndex, out Single val, MacrobuttonMode mode);
+        private delegate Int32 VBVMR_MacroButton_GetStatus(Int32 buttonIndex, out Single val, Int32 mode);
         private VBVMR_MacroButton_GetStatus m_macroButtonGetStatus;
+        /// <summary>
+        ///     Get current status of a given button.
+        /// </summary>
+        /// <param name="buttonIndex">button index: 0 to 79</param>
+        /// <param name="val">Variable receiving the wanted value (0.0 = OFF / 1.0 = ON)</param>
+        /// <param name="mode">Define what kind of value you want to read</param>
+        /// <returns>
+        ///     0: OK (no error).<br/>
+        ///     -1: error<br/>
+        ///     -2: no server.<br/>
+        ///     -3: unknown parameter<br/>
+        ///     -5: structure mismatch<br/>
+        /// </returns>
+        public Int32 MacroButtonGetStatus(Int32 buttonIndex, out Single val, Int32 mode)
+        {
+            return m_macroButtonGetStatus(buttonIndex, out val, mode);
+        }
         /// <summary>
         ///     Get current status of a given button.
         /// </summary>
@@ -56,11 +63,29 @@ namespace AtgDev.Voicemeeter
         /// </returns>
         public Int32 MacroButtonGetStatus(Int32 buttonIndex, out Single val, MacrobuttonMode mode)
         {
-            return m_macroButtonGetStatus(buttonIndex, out val, mode);
+            var modeVal = (Int32) mode;
+            return m_macroButtonGetStatus(buttonIndex, out val, modeVal);
         }
 
-        private delegate Int32 VBVMR_MacroButton_SetStatus(Int32 buttonIndex, Single val, MacrobuttonMode mode);
+        private delegate Int32 VBVMR_MacroButton_SetStatus(Int32 buttonIndex, Single val, Int32 mode);
         private VBVMR_MacroButton_SetStatus m_MacroButtonSetStatus;
+        /// <summary>
+        ///     Set current button value.
+        /// </summary>
+        /// <param name="buttonIndex">button index: 0 to 79</param>
+        /// <param name="val">Value giving the status (0.0 = OFF / 1.0 = ON).</param>
+        /// <param name="mode">define what kind of value you want to write/modify</param>
+        /// <returns>
+        ///     0: OK (no error).<br/>
+        ///     -1: error<br/>
+        ///     -2: no server.<br/>
+        ///     -3: unknown parameter<br/>
+        ///     -5: structure mismatch<br/>
+        /// </returns>
+        public Int32 MacroButtonSetStatus(Int32 buttonIndex, Single val, Int32 mode)
+        {
+            return m_MacroButtonSetStatus(buttonIndex, val, mode);
+        }
         /// <summary>
         ///     Set current button value.
         /// </summary>
@@ -76,7 +101,8 @@ namespace AtgDev.Voicemeeter
         /// </returns>
         public Int32 MacroButtonSetStatus(Int32 buttonIndex, Single val, MacrobuttonMode mode)
         {
-            return m_MacroButtonSetStatus(buttonIndex, val, mode);
+            var modeVal = (Int32) mode;
+            return m_MacroButtonSetStatus(buttonIndex, val, modeVal);
         }
     }
 }
