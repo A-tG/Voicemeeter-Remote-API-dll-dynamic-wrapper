@@ -25,22 +25,6 @@ namespace AtgDev.Voicemeeter
         {
             return m_getVoicemeeterType(out type);
         }
-        /// <summary>
-        ///     Get Voicemeeter Type.
-        /// </summary>
-        /// <param name="type">The variable receiving the type</param>
-        /// <returns>
-        ///     0: OK (no error).<br/>
-        ///     -1: cannot get client (unexpected)<br/>
-        ///     -2: no server.<br/>
-        /// </returns>
-        public Int32 GetVoicemeeterType(out VoicemeeterType type)
-        {
-            Int32 typeVal;
-            var resp = GetVoicemeeterType(out typeVal);
-            type = (VoicemeeterType) typeVal;
-            return resp;
-        }
 
         private delegate Int32 VBVMR_GetVoicemeeterVersion(out Int32 ver);
         private VBVMR_GetVoicemeeterVersion m_getVoicemeeterVersion;
