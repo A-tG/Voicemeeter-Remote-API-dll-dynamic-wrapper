@@ -9,6 +9,7 @@ namespace AtgDev.Voicemeeter
         {
             m_setParameterFloat = GetReadyDelegate<VBVMR_SetParameterFloat>();
             m_setParameterStringA = GetReadyDelegate<VBVMR_SetParameterStringA>();
+            m_setParameterStringW = GetReadyDelegate<VBVMR_SetParameterStringW>();
             m_setParameters = GetReadyDelegate<VBVMR_SetParameters>();
         }
 
@@ -31,7 +32,6 @@ namespace AtgDev.Voicemeeter
             return m_setParameterFloat(paramName, val);
         }
 
-        [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         private delegate Int32 VBVMR_SetParameterStringA(
             [MarshalAs(UnmanagedType.LPStr)] string paramName,
             [MarshalAs(UnmanagedType.LPStr)] string strVal
@@ -41,7 +41,28 @@ namespace AtgDev.Voicemeeter
         ///     Get parameter value.
         /// </summary>
         /// <param name="paramName">The name of the parameter (see parameters name table)</param>
-        /// <param name="strVal">The variable containing the new value.</param>
+        /// <param name="strVal">The variable containing the new value (ANSI).</param>
+        /// <returns>
+        ///     0: OK (no error).<br/>
+        ///     -1: error<br/>
+        ///     -2: no server.<br/>
+        ///     -3: unknown parameter<br/>
+        /// </returns>
+        public Int32 Legacy_SetParameter(string paramName, string strVal)
+        {
+            return m_setParameterStringA(paramName, strVal);
+        }
+
+        private delegate Int32 VBVMR_SetParameterStringW(
+            [MarshalAs(UnmanagedType.LPStr)] string paramName,
+            [MarshalAs(UnmanagedType.LPWStr)] string strVal
+        );
+        private VBVMR_SetParameterStringW m_setParameterStringW;
+        /// <summary>
+        ///     Get parameter value.
+        /// </summary>
+        /// <param name="paramName">The name of the parameter (see parameters name table)</param>
+        /// <param name="strVal">The variable containing the new value. (UTF-16)</param>
         /// <returns>
         ///     0: OK (no error).<br/>
         ///     -1: error<br/>
@@ -50,7 +71,7 @@ namespace AtgDev.Voicemeeter
         /// </returns>
         public Int32 SetParameter(string paramName, string strVal)
         {
-            return m_setParameterStringA(paramName, strVal);
+            return m_setParameterStringW(paramName, strVal);
         }
 
         private delegate Int32 VBVMR_SetParameters([MarshalAs(UnmanagedType.LPStr)] string script);
