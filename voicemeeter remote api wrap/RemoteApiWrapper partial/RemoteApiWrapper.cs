@@ -22,17 +22,9 @@ namespace AtgDev.Voicemeeter
             InitGetParameters();
             InitGetLevels();
             InitSetParameters();
+            InitDevicesEnumerator();
             InitMacroButtons();
         }
-
-        // DEVICES ENUMERATOR
-        // VBVMR_Output_GetDeviceNumber()
-
-        // VBVMR_Output_GetDeviceDescA()
-
-        // VBVMR_Input_GetDeviceNumber()
-
-        // VBVMR_Input_GetDeviceDescA()
 
         // VB-AUDIO CALLBACK
         // VBVMR_AudioCallbackRegister()

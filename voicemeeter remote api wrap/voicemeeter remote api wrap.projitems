@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)PathHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RemoteApiWrapper partial\DevicesEnumerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RemoteApiWrapper partial\GeneralInformation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RemoteApiWrapper partial\GetLevels.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RemoteApiWrapper partial\GetParameters.cs" />
