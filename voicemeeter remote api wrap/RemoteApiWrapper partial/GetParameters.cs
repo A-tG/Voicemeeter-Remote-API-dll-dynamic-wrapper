@@ -10,7 +10,7 @@ namespace AtgDev.Voicemeeter
         {
             m_isParametersDirty = GetReadyDelegate<VBVMR_IsParametersDirty>();
             m_getParameterFloat = GetReadyDelegate<VBVMR_GetParameterFloat>();
-            m_getParameterString = GetReadyDelegate<VBVMR_GetParameterStringA>();
+            m_getParameterStringA = GetReadyDelegate<VBVMR_GetParameterStringA>();
         }
 
         private delegate Int32 VBVMR_IsParametersDirty();
@@ -53,7 +53,7 @@ namespace AtgDev.Voicemeeter
             [MarshalAs(UnmanagedType.LPStr)] string paramName,
             [MarshalAs(UnmanagedType.LPStr)] StringBuilder strVal
         );
-        private VBVMR_GetParameterStringA m_getParameterString;
+        private VBVMR_GetParameterStringA m_getParameterStringA;
         /// <summary>
         ///     Get parameter value.
         /// </summary>
@@ -69,7 +69,7 @@ namespace AtgDev.Voicemeeter
         public Int32 GetParameter(string paramName, out string strVal)
         {
             var strB = new StringBuilder(512);
-            var resp = m_getParameterString(paramName, strB);
+            var resp = m_getParameterStringA(paramName, strB);
             strVal = strB.ToString();
             return resp;
         }
