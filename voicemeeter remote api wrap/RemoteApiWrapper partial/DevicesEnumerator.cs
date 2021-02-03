@@ -10,6 +10,7 @@ namespace AtgDev.Voicemeeter
         {
             m_output_getDeviceNumber = GetReadyDelegate<VBVMR_Output_GetDeviceNumber>();
             m_output_getDeviceDescA = GetReadyDelegate<VBVMR_Output_GetDeviceDescA>();
+            m_input_getDeviceNumber = GetReadyDelegate<VBVMR_Input_GetDeviceNumber>();
         }
 
         private delegate Int32 VBVMR_Output_GetDeviceNumber();
@@ -25,7 +26,6 @@ namespace AtgDev.Voicemeeter
             return m_output_getDeviceNumber();
         }
 
-        
         private delegate Int32 VBVMR_Output_GetDeviceDescA(
             Int32 index, 
             out Int32 type,
@@ -53,7 +53,18 @@ namespace AtgDev.Voicemeeter
             return resp;
         }
 
-        // long __stdcall VBVMR_Input_GetDeviceNumber(void);
+        private delegate Int32 VBVMR_Input_GetDeviceNumber();
+        private VBVMR_Input_GetDeviceNumber m_input_getDeviceNumber;
+        /// <summary>
+        ///     Get number of Audio Input Devices available on the system
+        /// </summary>
+        /// <returns>
+        ///     Return number of devices found.
+        /// </returns>
+        public Int32 GetInputDevicesNumber()
+        {
+            return m_input_getDeviceNumber();
+        }
 
         // long __stdcall VBVMR_Input_GetDeviceDescA(long zindex, long * nType, char * szDeviceName, char * szHardwareId);
     }
