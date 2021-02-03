@@ -11,6 +11,7 @@ namespace AtgDev.Voicemeeter
             m_isParametersDirty = GetReadyDelegate<VBVMR_IsParametersDirty>();
             m_getParameterFloat = GetReadyDelegate<VBVMR_GetParameterFloat>();
             m_getParameterStringA = GetReadyDelegate<VBVMR_GetParameterStringA>();
+            m_getParameterStringW = GetReadyDelegate<VBVMR_GetParameterStringW>();
         }
 
         private delegate Int32 VBVMR_IsParametersDirty();
@@ -58,7 +59,33 @@ namespace AtgDev.Voicemeeter
         ///     Get parameter value.
         /// </summary>
         /// <param name="paramName">The name of the parameter (see VoicemeeterRemoteAPI parameters name table)</param>
-        /// <param name="strVal">The string variable receiving the wanted value.</param>
+        /// <param name="strVal">The string variable receiving the wanted value. (ANSI)</param>
+        /// <returns>
+        ///     0: OK (no error).<br/>
+        ///     -1: error<br/>
+        ///     -2: no server.<br/>
+        ///     -3: unknown parameter<br/>
+        ///     -5: structure mismatch<br/>
+        /// </returns>
+        public Int32 Legacy_GetParameter(string paramName, out string strVal)
+        {
+            // 512 characters according to DLL documentation
+            var strB = new StringBuilder(512);
+            var resp = m_getParameterStringA(paramName, strB);
+            strVal = strB.ToString();
+            return resp;
+        }
+
+        private delegate Int32 VBVMR_GetParameterStringW(
+            [MarshalAs(UnmanagedType.LPStr)] string paramName,
+            [MarshalAs(UnmanagedType.LPWStr)] StringBuilder strVal
+        );
+        private VBVMR_GetParameterStringW m_getParameterStringW;
+        /// <summary>
+        ///     Get parameter value.
+        /// </summary>
+        /// <param name="paramName">The name of the parameter (see VoicemeeterRemoteAPI parameters name table)</param>
+        /// <param name="strVal">The string variable receiving the wanted value. (UTF-16)</param>
         /// <returns>
         ///     0: OK (no error).<br/>
         ///     -1: error<br/>
@@ -68,8 +95,9 @@ namespace AtgDev.Voicemeeter
         /// </returns>
         public Int32 GetParameter(string paramName, out string strVal)
         {
+            // 512 characters according to DLL documentation
             var strB = new StringBuilder(512);
-            var resp = m_getParameterStringA(paramName, strB);
+            var resp = m_getParameterStringW(paramName, strB);
             strVal = strB.ToString();
             return resp;
         }
