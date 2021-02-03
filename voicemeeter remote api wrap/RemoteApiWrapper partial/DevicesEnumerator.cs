@@ -11,6 +11,7 @@ namespace AtgDev.Voicemeeter
             m_output_getDeviceNumber = GetReadyDelegate<VBVMR_Output_GetDeviceNumber>();
             m_output_getDeviceDescA = GetReadyDelegate<VBVMR_Output_GetDeviceDescA>();
             m_input_getDeviceNumber = GetReadyDelegate<VBVMR_Input_GetDeviceNumber>();
+            m_input_getDeviceDescA = GetReadyDelegate<VBVMR_Input_GetDeviceDescA>();
         }
 
         private delegate Int32 VBVMR_Output_GetDeviceNumber();
@@ -34,7 +35,7 @@ namespace AtgDev.Voicemeeter
         );
         private VBVMR_Output_GetDeviceDescA m_output_getDeviceDescA;
         /// <summary>
-        ///     Get name and hardware ID of the device according index
+        ///     Get name and hardware ID of the output device according index
         /// </summary>
         /// <param name="index">zero based index</param>
         /// <param name="type">Variable receiving the type</param>
@@ -45,6 +46,7 @@ namespace AtgDev.Voicemeeter
         /// </returns>
         public Int32 GetOutputDeviceDescriptor(Int32 index, out Int32 type, out string deviceName, out string hardwareID)
         {
+            // 256 characters minimum according to DLL documentation
             var devideNameSB = new StringBuilder(256);
             var hardwareIDsb = new StringBuilder(256);
             var resp = m_output_getDeviceDescA(index, out type, devideNameSB, hardwareIDsb);
@@ -66,6 +68,32 @@ namespace AtgDev.Voicemeeter
             return m_input_getDeviceNumber();
         }
 
-        // long __stdcall VBVMR_Input_GetDeviceDescA(long zindex, long * nType, char * szDeviceName, char * szHardwareId);
+        private delegate Int32 VBVMR_Input_GetDeviceDescA(
+            Int32 index,
+            out Int32 type,
+            [MarshalAs(UnmanagedType.LPStr)] StringBuilder deviceName,
+            [MarshalAs(UnmanagedType.LPStr)] StringBuilder hardwareID
+        );
+        private VBVMR_Input_GetDeviceDescA m_input_getDeviceDescA;
+        /// <summary>
+        ///     Get name and hardware ID of the input device according index
+        /// </summary>
+        /// <param name="index">zero based index</param>
+        /// <param name="type">Variable receiving the type</param>
+        /// <param name="deviceName">Variable receiving the the device name</param>
+        /// <param name="hardwareID">Variable receiving the the hardware ID</param>
+        /// <returns>
+        ///     0: OK (no error).<br/>
+        /// </returns>
+        public Int32 GetInputDeviceDescriptor(Int32 index, out Int32 type, out string deviceName, out string hardwareID)
+        {
+            // 256 characters minimum according to DLL documentation
+            var devideNameSB = new StringBuilder(256);
+            var hardwareIDsb = new StringBuilder(256);
+            var resp = m_input_getDeviceDescA(index, out type, devideNameSB, hardwareIDsb);
+            deviceName = devideNameSB.ToString();
+            hardwareID = hardwareIDsb.ToString();
+            return resp;
+        }
     }
 }
