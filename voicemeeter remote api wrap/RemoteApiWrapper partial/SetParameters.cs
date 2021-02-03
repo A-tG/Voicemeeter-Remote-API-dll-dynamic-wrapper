@@ -80,7 +80,7 @@ namespace AtgDev.Voicemeeter
         ///     Set one or several parameters by a script (&lt; 48 kB).
         /// </summary>
         /// <param name="script">
-        ///     Null Terminal ASCII String giving the script<br/>                  
+        ///     String giving the script (ASCII)<br/>                  
         ///     (script allows to change several parameters in the same time - SYNCHRO).<br/>                  
         ///     Possible Instuction separators: ',' ';' or '\n'(CR)<br/> 
         ///     EXAMPLE:<br/>
@@ -112,7 +112,7 @@ namespace AtgDev.Voicemeeter
         ///     Set one or several parameters by a script (&lt; 48 kB).
         /// </summary>
         /// <param name="script">
-        ///     Null Terminal ASCII String giving the script<br/>                  
+        ///     String giving the script (UTF16)<br/>                  
         ///     (script allows to change several parameters in the same time - SYNCHRO).<br/>                  
         ///     Possible Instuction separators: ',' ';' or '\n'(CR)<br/> 
         ///     EXAMPLE:<br/>
