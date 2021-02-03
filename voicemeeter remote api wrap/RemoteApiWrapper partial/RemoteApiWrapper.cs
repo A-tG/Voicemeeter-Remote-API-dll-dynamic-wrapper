@@ -23,16 +23,8 @@ namespace AtgDev.Voicemeeter
             InitGetLevels();
             InitSetParameters();
             InitDevicesEnumerator();
+            InitAudioCallback();
             InitMacroButtons();
         }
-
-        // VB-AUDIO CALLBACK
-        // VBVMR_AudioCallbackRegister()
-
-        // VBVMR_AudioCallbackStart()
-
-        // VBVMR_AudioCallbackStop()
-
-        // VBVMR_AudioCallbackUnregister()
     }
 }
