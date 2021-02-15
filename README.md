@@ -1,9 +1,9 @@
 # Voicemeeter Remote API dll C# dynamic wrapper
  Visual Studio C# **Shared Project**. 
  
- Helps dynamically load VoicemeeterRemote64.dll or VoicemeeterRemote.dll depending on OS.
+ Helps dynamically load VoicemeeterRemote64.dll or VoicemeeterRemote.dll depending.
  
- Not tested on 32 bit Windows.
+ Not tested manually on 32 bit Windows, but should work anyway.
  
  **WIP** - Not all procedures are implemented.
  ### Not implemented yet:
