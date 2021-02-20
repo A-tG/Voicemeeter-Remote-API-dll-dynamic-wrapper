@@ -7,7 +7,7 @@
  
  **WIP** - Not all procedures are implemented.
  ### Not implemented yet:
- * VBVMR_GetMidiMessage - *need some research how to marshal as unsinged char pointer and about midi messages*
+ * VBVMR_GetMidiMessage - *need some research about midi messages and how to marshal as unsinged char pointer*
  * VBVMR_AudioCallbackRegister
  * VBVMR_AudioCallbackStart
  * VBVMR_AudioCallbackStop
