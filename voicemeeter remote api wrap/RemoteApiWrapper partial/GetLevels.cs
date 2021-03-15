@@ -7,6 +7,7 @@ namespace AtgDev.Voicemeeter
         private void InitGetLevels()
         {
             m_getLevel = GetReadyDelegate<VBVMR_GetLevel>();
+            m_getMidiMessage = GetReadyDelegate<VBVMR_GetMidiMessage>();
         }
 
         private delegate Int32 VBVMR_GetLevel(Int32 type, Int32 channel, out Single val);
@@ -35,6 +36,30 @@ namespace AtgDev.Voicemeeter
             return m_getLevel(type, channel, out val);
         }
 
-        // long __stdcall VBVMR_GetMidiMessage(unsigned char *pMIDIBuffer, long nbByteMax);
+        private delegate Int32 VBVMR_GetMidiMessage(byte[] midiBuffer, Int32 ByteMax);
+        private VBVMR_GetMidiMessage m_getMidiMessage;
+        /// <summary>
+        ///     <para>Get MIDI message from M.I.D.I. input device used by Voicemeeter M.I.D.I. mapping.</para>
+        ///     this function must be called from one thread only
+        /// </summary>
+        /// <param name="midiBuffer">
+        ///     MIDI Buffer array. Expected message size is below 4 bytes, 
+        ///     but larger local buffer is used to receive
+        ///     possible multiple MIDI event message in optimal way.
+        /// </param>
+        /// <returns>
+        ///     >0: number of bytes placed in buffer (2 or 3 byte for usual M.I.D.I. message)<br/>
+        ///     -1: error<br/>
+        ///     -2: no server.<br/>
+        ///     -5: no MIDI data<br/>
+        ///     -6: no MIDI data<br/>
+        /// </returns>
+        public Int32 GetMidiMessage(out byte[] midiBuffer)
+        {
+            // size according to the dll documentation
+            const Int32 maxLen = 1024;
+            midiBuffer = new byte[maxLen]; 
+            return m_getMidiMessage(midiBuffer, maxLen);
+        }
     }
 }

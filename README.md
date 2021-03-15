@@ -7,11 +7,13 @@
  
  **WIP** - Not all procedures are implemented.
  ### Not implemented yet:
- * VBVMR_GetMidiMessage - *need some research about midi messages and how to marshal as unsinged char pointer*
  * VBVMR_AudioCallbackRegister
  * VBVMR_AudioCallbackStart
  * VBVMR_AudioCallbackStop
  * VBVMR_AudioCallbackUnregister
+
+ ### Not tested:
+ * VBVMR_GetMidiMessage
  
  [Depends on base class](https://github.com/A-tG/Dynamic-wrapper-for-umanaged-dll/blob/main/dll%20wrapper%20base/DllWrapperBase.cs)
  
