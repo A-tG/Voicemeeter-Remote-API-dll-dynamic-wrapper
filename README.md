@@ -13,7 +13,7 @@
  * VBVMR_AudioCallbackUnregister
 
  ### Not tested:
- * VBVMR_GetMidiMessage
+ * VBVMR_GetMidiMessage (no midi device to test)
  
  [Depends on base class](https://github.com/A-tG/Dynamic-wrapper-for-umanaged-dll/blob/main/dll%20wrapper%20base/DllWrapperBase.cs)
  
