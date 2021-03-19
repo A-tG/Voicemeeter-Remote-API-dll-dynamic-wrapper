@@ -44,8 +44,11 @@ namespace AtgDev.Voicemeeter
         /// </summary>
         /// <param name="midiBuffer">
         ///     MIDI Buffer array. Expected message size is below 4 bytes, 
-        ///     but larger local buffer is used to receive
+        ///     but it's recommended to use larger buffer to receive
         ///     possible multiple MIDI event message in optimal way.
+        /// </param>
+        /// <param name="bufferSize">
+        ///     [Optional] MIDI Buffer size (1024 is recommended)
         /// </param>
         /// <returns>
         ///     >0: number of bytes placed in buffer (2 or 3 byte for usual M.I.D.I. message)<br/>
@@ -54,12 +57,10 @@ namespace AtgDev.Voicemeeter
         ///     -5: no MIDI data<br/>
         ///     -6: no MIDI data<br/>
         /// </returns>
-        public Int32 GetMidiMessage(out byte[] midiBuffer)
+        public Int32 GetMidiMessage(out byte[] midiBuffer, int bufferSize = 1024)
         {
-            // size according to the dll documentation
-            const Int32 maxLen = 1024;
-            midiBuffer = new byte[maxLen]; 
-            return m_getMidiMessage(midiBuffer, maxLen);
+            midiBuffer = new byte[bufferSize]; 
+            return m_getMidiMessage(midiBuffer, bufferSize);
         }
     }
 }
