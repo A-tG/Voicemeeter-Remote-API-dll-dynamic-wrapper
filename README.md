@@ -5,13 +5,7 @@
  
  Not tested manually on 32 bit Windows, but should work anyway.
  
- **WIP** - Not all procedures are implemented.
- ### Not implemented yet:
- *AudioCallback is almost implemented but C# doing weird stuff with pointers in unsafe context, e.g. incorrect pointer arithmetics on x64*
- * VBVMR_AudioCallbackRegister 
- * VBVMR_AudioCallbackStart
- * VBVMR_AudioCallbackStop
- * VBVMR_AudioCallbackUnregister
+ **Unsafe code required to use Audio Callback efficiently**
 
  ### Not tested:
  * VBVMR_GetMidiMessage (no midi device to test)
