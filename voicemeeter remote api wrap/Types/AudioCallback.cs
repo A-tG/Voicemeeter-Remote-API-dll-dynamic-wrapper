@@ -22,17 +22,19 @@ namespace AtgDev.Voicemeeter.Types.AudioCallback
         public Int32 outputsNumber;
         /// <summary>
         ///     Array (length=inputsNumber) of pointers to frames (array with length=samplesPerFrame)<br/>
+        ///     Example:
         ///     <code>
         ///         var frame = (Single*)audioBufferPointer->inBufferP[channelIndex];<br/>
-        ///         frame[sampleIndex] = someFloatValue;
+        ///         Single val = frame[sampleIndex];
         ///     </code>
         /// </summary>
         public fixed UInt32 inBufferP[128];
         ///<summary>
         ///     Array (length=outputsNumber) of pointers to frames (array with length=samplesPerFrame)<br/>
+        ///     Example:
         ///     <code>
         ///         var frame = (Single*)audioBufferPointer->outBufferP[channelIndex];<br/>
-        ///         Single val = frame[sampleIndex];
+        ///         frame[sampleIndex] = someFloatValue;
         ///     </code>
         /// </summary>
         public fixed UInt32 outBufferP[128];
@@ -50,17 +52,19 @@ namespace AtgDev.Voicemeeter.Types.AudioCallback
         public Int32 outputsNumber;
         /// <summary>
         ///     Array (length=inputsNumber) of pointers to frames (array with length=samplesPerFrame)<br/>
+        ///     Example:
         ///     <code>
         ///         var frame = (Single*)audioBufferPointer->inBufferP[channelIndex];<br/>
-        ///         frame[sampleIndex] = someFloatValue;
+        ///         Single val = frame[sampleIndex];
         ///     </code>
         /// </summary>
         public fixed UInt64 inBufferP[128];
         ///<summary>
         ///     Array (length=outputsNumber) of pointers to frames (array with length=samplesPerFrame)<br/>
+        ///     Example:
         ///     <code>
         ///         var frame = (Single*)audioBufferPointer->outBufferP[channelIndex];<br/>
-        ///         Single val = frame[sampleIndex];
+        ///         frame[sampleIndex] = someFloatValue;
         ///     </code>
         /// </summary>
         public fixed UInt64 outBufferP[128];
