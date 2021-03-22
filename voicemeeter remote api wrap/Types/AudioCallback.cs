@@ -32,7 +32,7 @@ namespace AtgDev.Voicemeeter.Types.AudioCallback
         ///     Array (length=outputsNumber) of pointers to frames (array with length=samplesPerFrame)<br/>
         ///     <code>
         ///         var frame = (Single*)audioBufferPointer->outBufferP[channelIndex];<br/>
-        ///         frame[sampleIndex] = someFloatValue;
+        ///         Single val = frame[sampleIndex];
         ///     </code>
         /// </summary>
         public fixed UInt32 outBufferP[128];
@@ -60,7 +60,7 @@ namespace AtgDev.Voicemeeter.Types.AudioCallback
         ///     Array (length=outputsNumber) of pointers to frames (array with length=samplesPerFrame)<br/>
         ///     <code>
         ///         var frame = (Single*)audioBufferPointer->outBufferP[channelIndex];<br/>
-        ///         frame[sampleIndex] = someFloatValue;
+        ///         Single val = frame[sampleIndex];
         ///     </code>
         /// </summary>
         public fixed UInt64 outBufferP[128];
