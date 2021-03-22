@@ -19,5 +19,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)RemoteApiWrapper partial\MacroButtons.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RemoteApiWrapper partial\RemoteApiWrapper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RemoteApiWrapper partial\SetParameters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Types\AudioCallback.cs" />
   </ItemGroup>
 </Project>
