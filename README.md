@@ -7,7 +7,8 @@
  
  **WIP** - Not all procedures are implemented.
  ### Not implemented yet:
- * VBVMR_AudioCallbackRegister
+ *AudioCallback is almost implemented but C# doing weird stuff with pointers in unsafe context, e.g. incorrect pointer arithmetics on x64*
+ * VBVMR_AudioCallbackRegister 
  * VBVMR_AudioCallbackStart
  * VBVMR_AudioCallbackStop
  * VBVMR_AudioCallbackUnregister
