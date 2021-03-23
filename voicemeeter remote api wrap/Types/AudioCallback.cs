@@ -82,9 +82,10 @@ namespace AtgDev.Voicemeeter.Types.AudioCallback
 
     enum Mode
     {
-        In = 1,
-        Out,
-        Main = 4
+        Inputs = 1,
+        Outputs,
+        Main = 4,
+        All = 4
     }
 
     /// <summary>
