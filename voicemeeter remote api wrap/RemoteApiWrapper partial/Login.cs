@@ -45,7 +45,7 @@ namespace AtgDev.Voicemeeter
         /// <summary>
         ///     Run Voicemeeter Application (get installation directory and run Voicemeeter Application).
         /// </summary>
-        /// <param name="type">Voicemeeter type (1 = Voicemeeter, 2 = Voicemeeter Banana).</param>
+        /// <param name="type">Voicemeeter type (1 = Voicemeeter, 2 = Voicemeeter Banana, 3 = Voicemeeter Potato, 6 = Potato x64).</param>
         /// <returns>
         ///     0: Ok.<br/>
 		///     -1: not installed<br/>
