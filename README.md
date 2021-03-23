@@ -6,7 +6,7 @@
  Not tested manually on 32 bit Windows, but should work anyway.
  
  **Unsafe code required to use Audio Callback efficiently**
- [Example how to use callback](https://github.com/A-tG/Voicemeeter-AudioCallback-Simple-Example)
+ [Example how to use callback](https://github.com/A-tG/Voicemeeter-AudioCallback-Simple-Example/blob/main/Voicemeeter%20Audio%20Callback%20Simple%20Example/Program.cs)
 
  ### Not tested:
  * VBVMR_GetMidiMessage (no midi device to test)
