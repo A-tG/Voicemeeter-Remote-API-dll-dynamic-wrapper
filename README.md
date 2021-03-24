@@ -1,5 +1,5 @@
 # Voicemeeter Remote API dll C# dynamic wrapper
- Visual Studio C# **Shared Project**. 
+ Visual Studio C# [**Shared Project**](https://github.com/A-tG/Voicemeeter-Remote-API-dll-dynamic-wrapper/wiki/Useful-Info#how-to-useadd-a-visual-studio-shared-project).
  
  Helps to dynamically load VoicemeeterRemote64.dll or VoicemeeterRemote.dll.
  
