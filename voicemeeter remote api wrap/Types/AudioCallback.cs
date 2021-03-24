@@ -24,7 +24,8 @@ namespace AtgDev.Voicemeeter.Types.AudioCallback
         ///     Array (length=inputsNumber) of pointers to frames (array with length=samplesPerFrame)<br/>
         ///     Example:
         ///     <code>
-        ///         var frame = (Single*)audioBufferPointer->inBufferP[channelIndex];<br/>
+        ///         var buffer = audioBufferPointer->inBufferP;
+        ///         var frame = (Single*)buffer[channelIndex];<br/>
         ///         Single val = frame[sampleIndex];
         ///     </code>
         /// </summary>
@@ -33,7 +34,8 @@ namespace AtgDev.Voicemeeter.Types.AudioCallback
         ///     Array (length=outputsNumber) of pointers to frames (array with length=samplesPerFrame)<br/>
         ///     Example:
         ///     <code>
-        ///         var frame = (Single*)audioBufferPointer->outBufferP[channelIndex];<br/>
+        ///         var buffer = audioBufferPointer->outBufferP;
+        ///         var frame = (Single*)buffer[channelIndex];<br/>
         ///         frame[sampleIndex] = someFloatValue;
         ///     </code>
         /// </summary>
@@ -54,7 +56,8 @@ namespace AtgDev.Voicemeeter.Types.AudioCallback
         ///     Array (length=inputsNumber) of pointers to frames (array with length=samplesPerFrame)<br/>
         ///     Example:
         ///     <code>
-        ///         var frame = (Single*)audioBufferPointer->inBufferP[channelIndex];<br/>
+        ///         var buffer = audioBufferPointer->inBufferP;
+        ///         var frame = (Single*)buffer[channelIndex];<br/>
         ///         Single val = frame[sampleIndex];
         ///     </code>
         /// </summary>
@@ -63,7 +66,8 @@ namespace AtgDev.Voicemeeter.Types.AudioCallback
         ///     Array (length=outputsNumber) of pointers to frames (array with length=samplesPerFrame)<br/>
         ///     Example:
         ///     <code>
-        ///         var frame = (Single*)audioBufferPointer->outBufferP[channelIndex];<br/>
+        ///         var buffer = audioBufferPointer->outBufferP;
+        ///         var frame = (Single*)buffer[channelIndex];<br/>
         ///         frame[sampleIndex] = someFloatValue;
         ///     </code>
         /// </summary>
