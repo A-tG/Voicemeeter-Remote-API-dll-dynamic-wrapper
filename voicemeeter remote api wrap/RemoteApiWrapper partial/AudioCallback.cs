@@ -38,7 +38,7 @@ namespace AtgDev.Voicemeeter
         /// </summary>
         /// <param name="mode">callback type</param>
         /// <param name="customDataP">Pointer that will be passed in callback first argument</param>
-        /// <param name="ClientName">Name of the application registering the Callback. / Name of the application already registered.</param>
+        /// <param name="ClientName">Name of the application registering the Callback. / Name of the application already registered. (max 64 characters)</param>
         /// <returns>
         ///     0: OK (no error).<br/>
         ///     -1: error<br/>
@@ -46,7 +46,9 @@ namespace AtgDev.Voicemeeter
         /// </returns>
         unsafe public Int32 AudioCallbackRegister(Mode mode, Callback callback, void* customDataP, ref string ClientName)
         {
-            var name = new StringBuilder(ClientName, 64);
+            const int maxLen = 64;
+            var len = Math.Min(ClientName.Length, maxLen);
+            var name = new StringBuilder(ClientName, 0, len, maxLen);
             var resp = m_audioCallbackRegister(mode, callback, customDataP, name);
             ClientName = name.ToString();
             return resp;
