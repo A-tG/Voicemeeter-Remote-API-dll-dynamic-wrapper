@@ -12,9 +12,11 @@
  ### Not tested:
  * VBVMR_GetMidiMessage (no midi device to test)
  
- [Depends on base class](https://github.com/A-tG/Dynamic-wrapper-for-umanaged-dll)
+ ### Dependencies:
+ * [Base class](https://github.com/A-tG/Dynamic-wrapper-for-umanaged-dll)
  
- [Extended class with custom types and methods](https://github.com/A-tG/voicemeeter-remote-api-extended)
+ ### Extended:
+ * [Extended class with custom types and methods](https://github.com/A-tG/voicemeeter-remote-api-extended)
 
 ## Donate to support the developer
 [![Paypal Logo](https://www.paypalobjects.com/webstatic/paypalme/images/pp_logo_small.png)](https://www.paypal.me/atgDeveloperMusician/5)
