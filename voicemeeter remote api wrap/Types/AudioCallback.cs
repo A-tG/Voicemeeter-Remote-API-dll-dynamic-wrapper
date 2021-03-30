@@ -89,7 +89,9 @@ namespace AtgDev.Voicemeeter.Types.AudioCallback
         Inputs = 1,
         Outputs,
         Main = 4,
-        All = 4
+        All = Main,
+        In = Inputs,
+        Out = Outputs
     }
 
     /// <summary>
