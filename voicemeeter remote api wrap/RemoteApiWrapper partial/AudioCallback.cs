@@ -57,7 +57,10 @@ namespace AtgDev.Voicemeeter
         private delegate Int32 VBVMR_AudioCallbackStart();
         private VBVMR_AudioCallbackStart m_audioCallbackStart;
         /// <summary>
-        ///     Start Audio processing
+        ///     Start Audio processing<br/>
+        ///     <b>Important:</b> if audio start glitching without any reason, 
+        ///     make sure that ~10-20ms have passed after AudioCallbackRegister() function
+        ///     (e.g add Thread.Sleep())
         /// </summary>
         /// <returns>
         ///     0: OK (no error).<br/>
