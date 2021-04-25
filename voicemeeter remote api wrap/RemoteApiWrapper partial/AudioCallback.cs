@@ -27,7 +27,7 @@ namespace AtgDev.Voicemeeter
         );
         unsafe private VBVMR_AudioCallbackRegister m_audioCallbackRegister;
         /// <summary>
-        ///     register your audio callback function to receive real time audio buffer
+        ///     Register your audio callback function to receive real time audio buffer
         ///     it's possible to register up to 3x different Audio Callback in the same application or in 
 		///	    3x different applications.In the same application, this is possible because Voicemeeter
         ///     provides 3 kind of audio Streams:<br/>

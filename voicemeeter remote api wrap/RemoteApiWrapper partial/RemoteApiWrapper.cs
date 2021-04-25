@@ -15,6 +15,8 @@ namespace AtgDev.Voicemeeter
             InitProcedures();
         }
 
+        private const int ProcNotFoundReturnCode = -1;
+
         private void InitProcedures()
         {
             InitLogin();

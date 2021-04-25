@@ -4,11 +4,12 @@ namespace AtgDev.Voicemeeter
 {
     partial class RemoteApiWrapper
     {
+        // Added in 3.0.1.4 / 2.0.5.4 / 1.0.7.4
         private void InitMacroButtons()
         {
-            m_macroButtonIsDirty = GetReadyDelegate<VBVMR_MacroButton_IsDirty>();
-            m_macroButtonGetStatus = GetReadyDelegate<VBVMR_MacroButton_GetStatus>();
-            m_MacroButtonSetStatus = GetReadyDelegate<VBVMR_MacroButton_SetStatus>();
+            TryGetReadyDelegate<VBVMR_MacroButton_IsDirty>(ref m_macroButtonIsDirty);
+            TryGetReadyDelegate<VBVMR_MacroButton_GetStatus>(ref m_macroButtonGetStatus);
+            TryGetReadyDelegate<VBVMR_MacroButton_SetStatus>(ref m_MacroButtonSetStatus);
         }
 
         private delegate Int32 VBVMR_MacroButton_IsDirty();
@@ -26,6 +27,7 @@ namespace AtgDev.Voicemeeter
         /// </returns>
         public Int32 MacroButtonIsDirty()
         {
+            if (m_macroButtonIsDirty is null) return ProcNotFoundReturnCode;
             return m_macroButtonIsDirty();
         }
 
@@ -46,6 +48,11 @@ namespace AtgDev.Voicemeeter
         /// </returns>
         public Int32 MacroButtonGetStatus(Int32 buttonIndex, out Single val, Int32 mode)
         {
+            if (m_macroButtonGetStatus is null)
+            {
+                val = 0;
+                return ProcNotFoundReturnCode;
+            }
             return m_macroButtonGetStatus(buttonIndex, out val, mode);
         }
 
@@ -66,6 +73,7 @@ namespace AtgDev.Voicemeeter
         /// </returns>
         public Int32 MacroButtonSetStatus(Int32 buttonIndex, Single val, Int32 mode)
         {
+            if (m_MacroButtonSetStatus is null) return ProcNotFoundReturnCode;
             return m_MacroButtonSetStatus(buttonIndex, val, mode);
         }
     }
