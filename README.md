@@ -13,7 +13,7 @@
  * VBVMR_GetMidiMessage (no midi device to test)
  
  ### Dependencies:
- * [Base class](https://github.com/A-tG/Dynamic-wrapper-for-umanaged-dll)
+ * [Base class](https://github.com/A-tG/Dynamic-wrapper-for-unmanaged-dll)
  
  ### Extended:
  * [Extended class with custom types and methods](https://github.com/A-tG/voicemeeter-remote-api-extended)
