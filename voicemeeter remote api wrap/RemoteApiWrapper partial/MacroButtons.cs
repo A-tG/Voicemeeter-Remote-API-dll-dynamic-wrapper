@@ -7,9 +7,9 @@ namespace AtgDev.Voicemeeter
         // Added in 3.0.1.4 / 2.0.5.4 / 1.0.7.4
         private void InitMacroButtons()
         {
-            TryGetReadyDelegate<VBVMR_MacroButton_IsDirty>(ref m_macroButtonIsDirty);
-            TryGetReadyDelegate<VBVMR_MacroButton_GetStatus>(ref m_macroButtonGetStatus);
-            TryGetReadyDelegate<VBVMR_MacroButton_SetStatus>(ref m_MacroButtonSetStatus);
+            TryGetReadyDelegate(ref m_macroButtonIsDirty);
+            TryGetReadyDelegate(ref m_macroButtonGetStatus);
+            TryGetReadyDelegate(ref m_MacroButtonSetStatus);
         }
 
         private delegate Int32 VBVMR_MacroButton_IsDirty();
