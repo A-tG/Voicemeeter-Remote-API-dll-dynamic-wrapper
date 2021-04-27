@@ -6,8 +6,8 @@ namespace AtgDev.Voicemeeter
     {
         private void InitGetLevels()
         {
-            m_getLevel = GetReadyDelegate<VBVMR_GetLevel>();
-            m_getMidiMessage = GetReadyDelegate<VBVMR_GetMidiMessage>();
+            GetReadyDelegate(ref m_getLevel);
+            GetReadyDelegate(ref m_getMidiMessage);
         }
 
         private delegate Int32 VBVMR_GetLevel(Int32 type, Int32 channel, out Single val);

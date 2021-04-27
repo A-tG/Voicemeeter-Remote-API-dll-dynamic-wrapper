@@ -8,10 +8,10 @@ namespace AtgDev.Voicemeeter
     {
         private void InitGetParameters()
         {
-            m_isParametersDirty = GetReadyDelegate<VBVMR_IsParametersDirty>();
-            m_getParameterFloat = GetReadyDelegate<VBVMR_GetParameterFloat>();
-            m_getParameterStringA = GetReadyDelegate<VBVMR_GetParameterStringA>();
-            m_getParameterStringW = GetReadyDelegate<VBVMR_GetParameterStringW>();
+            GetReadyDelegate(ref m_isParametersDirty);
+            GetReadyDelegate(ref m_getParameterFloat);
+            GetReadyDelegate(ref m_getParameterStringA);
+            GetReadyDelegate(ref m_getParameterStringW);
         }
 
         private delegate Int32 VBVMR_IsParametersDirty();

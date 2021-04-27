@@ -7,11 +7,11 @@ namespace AtgDev.Voicemeeter
     {
         private void InitSetParameters()
         {
-            m_setParameterFloat = GetReadyDelegate<VBVMR_SetParameterFloat>();
-            m_setParameterStringA = GetReadyDelegate<VBVMR_SetParameterStringA>();
-            m_setParameterStringW = GetReadyDelegate<VBVMR_SetParameterStringW>();
-            m_setParameters = GetReadyDelegate<VBVMR_SetParameters>();
-            m_setParametersW = GetReadyDelegate<VBVMR_SetParametersW>();
+            GetReadyDelegate(ref m_setParameterFloat);
+            GetReadyDelegate(ref m_setParameterStringA);
+            GetReadyDelegate(ref m_setParameterStringW);
+            GetReadyDelegate(ref m_setParameters);
+            GetReadyDelegate(ref m_setParametersW);
         }
 
         private delegate Int32 VBVMR_SetParameterFloat([MarshalAs(UnmanagedType.LPStr)] string paramName, Single val);

@@ -6,9 +6,9 @@ namespace AtgDev.Voicemeeter
     {
         private void InitLogin()
         {
-            m_login = GetReadyDelegate<VBVMR_Login>();
-            m_logout = GetReadyDelegate<VBVMR_Logout>();
-            m_runVoicemeeter = GetReadyDelegate<VBVMR_RunVoicemeeter>();
+            GetReadyDelegate(ref m_login);
+            GetReadyDelegate(ref m_logout);
+            GetReadyDelegate(ref m_runVoicemeeter);
         }
 
         private delegate Int32 VBVMR_Login();

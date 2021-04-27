@@ -6,8 +6,8 @@ namespace AtgDev.Voicemeeter
     {
         private void InitGeneralInformation()
         {
-            m_getVoicemeeterType = GetReadyDelegate<VBVMR_GetVoicemeeterType>();
-            m_getVoicemeeterVersion = GetReadyDelegate<VBVMR_GetVoicemeeterVersion>();
+            GetReadyDelegate(ref m_getVoicemeeterType);
+            GetReadyDelegate(ref m_getVoicemeeterVersion);
         }
 
         private delegate Int32 VBVMR_GetVoicemeeterType(out Int32 type);
