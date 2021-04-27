@@ -8,10 +8,10 @@ namespace AtgDev.Voicemeeter
     {
         private void InitDevicesEnumerator()
         {
-            m_output_getDeviceNumber = GetReadyDelegate<VBVMR_Output_GetDeviceNumber>();
-            m_output_getDeviceDescA = GetReadyDelegate<VBVMR_Output_GetDeviceDescA>();
-            m_input_getDeviceNumber = GetReadyDelegate<VBVMR_Input_GetDeviceNumber>();
-            m_input_getDeviceDescA = GetReadyDelegate<VBVMR_Input_GetDeviceDescA>();
+            GetReadyDelegate(ref m_output_getDeviceNumber);
+            GetReadyDelegate(ref m_output_getDeviceDescA);
+            GetReadyDelegate(ref m_input_getDeviceNumber);
+            GetReadyDelegate(ref m_input_getDeviceDescA);
         }
 
         private delegate Int32 VBVMR_Output_GetDeviceNumber();
