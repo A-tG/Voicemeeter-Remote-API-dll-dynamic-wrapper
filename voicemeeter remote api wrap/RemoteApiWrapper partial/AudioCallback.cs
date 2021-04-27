@@ -8,15 +8,16 @@ namespace AtgDev.Voicemeeter
 
     partial class RemoteApiWrapper
     {
+        // Added in 2.0.2.7 / 1.0.4.7
         private void InitAudioCallback()
         {
             unsafe
             {
-                m_audioCallbackRegister = GetReadyDelegate<VBVMR_AudioCallbackRegister>();
+                TryGetReadyDelegate(ref m_audioCallbackRegister);
             }
-            m_audioCallbackStart = GetReadyDelegate<VBVMR_AudioCallbackStart>();
-            m_audioCallbackStop = GetReadyDelegate<VBVMR_AudioCallbackStop>();
-            m_audioCallbackUnregister = GetReadyDelegate<VBVMR_AudioCallbackUnregister>();
+            TryGetReadyDelegate(ref m_audioCallbackStart);
+            TryGetReadyDelegate(ref m_audioCallbackStop);
+            TryGetReadyDelegate(ref m_audioCallbackUnregister);
         }
 
         unsafe private delegate Int32 VBVMR_AudioCallbackRegister(
@@ -46,6 +47,7 @@ namespace AtgDev.Voicemeeter
         /// </returns>
         unsafe public Int32 AudioCallbackRegister(Mode mode, Callback callback, void* customDataP, ref string ClientName)
         {
+            if (m_audioCallbackRegister is null) return ProcNotFoundReturnCode;
             const int maxLen = 64;
             var len = Math.Min(ClientName.Length, maxLen);
             var name = new StringBuilder(ClientName, 0, len, maxLen);
@@ -69,6 +71,7 @@ namespace AtgDev.Voicemeeter
         /// </returns>
         public Int32 AudioCallbackStart()
         {
+            if (m_audioCallbackStart is null) return ProcNotFoundReturnCode;
             return m_audioCallbackStart();
         }
 
@@ -84,6 +87,7 @@ namespace AtgDev.Voicemeeter
         /// </returns>
         public Int32 AudioCallbackStop()
         {
+            if (m_audioCallbackStop is null) return ProcNotFoundReturnCode;
             return m_audioCallbackStop();
         }
 
@@ -100,6 +104,7 @@ namespace AtgDev.Voicemeeter
         /// </returns>
         public Int32 AudioCallbackUnregister()
         {
+            if (m_audioCallbackUnregister is null) return ProcNotFoundReturnCode;
             return m_audioCallbackUnregister();
         }
     }
