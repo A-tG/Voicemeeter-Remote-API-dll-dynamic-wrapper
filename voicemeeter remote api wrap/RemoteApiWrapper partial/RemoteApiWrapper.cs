@@ -15,7 +15,7 @@ namespace AtgDev.Voicemeeter
             InitProcedures();
         }
 
-        private const int ProcNotFoundReturnCode = -1;
+        private const int ProcedureNotImportedErrorCode = -100;
 
         private void InitProcedures()
         {

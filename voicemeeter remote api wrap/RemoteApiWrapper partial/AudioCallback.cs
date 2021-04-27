@@ -44,10 +44,11 @@ namespace AtgDev.Voicemeeter
         ///     0: OK (no error).<br/>
         ///     -1: error<br/>
         ///     1: callback already registered (by another application).<br/>
+        ///     -100: procedure was not successfully imported from the DLL<br/>
         /// </returns>
         unsafe public Int32 AudioCallbackRegister(Mode mode, Callback callback, void* customDataP, ref string ClientName)
         {
-            if (m_audioCallbackRegister is null) return ProcNotFoundReturnCode;
+            if (m_audioCallbackRegister is null) return ProcedureNotImportedErrorCode;
             const int maxLen = 64;
             var len = Math.Min(ClientName.Length, maxLen);
             var name = new StringBuilder(ClientName, 0, len, maxLen);
@@ -68,10 +69,11 @@ namespace AtgDev.Voicemeeter
         ///     0: OK (no error).<br/>
         ///     -1: error<br/>
         ///     -2: no callback registred.<br/>
+        ///     -100: procedure was not successfully imported from the DLL<br/>
         /// </returns>
         public Int32 AudioCallbackStart()
         {
-            if (m_audioCallbackStart is null) return ProcNotFoundReturnCode;
+            if (m_audioCallbackStart is null) return ProcedureNotImportedErrorCode;
             return m_audioCallbackStart();
         }
 
@@ -84,10 +86,11 @@ namespace AtgDev.Voicemeeter
         ///     0: OK (no error).<br/>
         ///     -1: error<br/>
         ///     -2: no callback registred.<br/>
+        ///     -100: procedure was not successfully imported from the DLL<br/>
         /// </returns>
         public Int32 AudioCallbackStop()
         {
-            if (m_audioCallbackStop is null) return ProcNotFoundReturnCode;
+            if (m_audioCallbackStop is null) return ProcedureNotImportedErrorCode;
             return m_audioCallbackStop();
         }
 
@@ -101,10 +104,11 @@ namespace AtgDev.Voicemeeter
         ///     0: OK (no error).<br/>
         ///     -1: error<br/>
         ///     1: callback already unregistered.<br/>
+        ///     -100: procedure was not successfully imported from the DLL<br/>
         /// </returns>
         public Int32 AudioCallbackUnregister()
         {
-            if (m_audioCallbackUnregister is null) return ProcNotFoundReturnCode;
+            if (m_audioCallbackUnregister is null) return ProcedureNotImportedErrorCode;
             return m_audioCallbackUnregister();
         }
     }

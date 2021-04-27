@@ -22,12 +22,13 @@ namespace AtgDev.Voicemeeter
         /// <returns>
         ///      0: no new status.br/>
         ///     >0: last nu logical button status changed.br/>
-        ///     -1: error (unexpected)br/>
-        ///     -2: no server.
+        ///     -1: error (unexpected)<br/>
+        ///     -2: no server.<br/>
+        ///     -100: procedure was not successfully imported from the DLL<br/>
         /// </returns>
         public Int32 MacroButtonIsDirty()
         {
-            if (m_macroButtonIsDirty is null) return ProcNotFoundReturnCode;
+            if (m_macroButtonIsDirty is null) return ProcedureNotImportedErrorCode;
             return m_macroButtonIsDirty();
         }
 
@@ -45,13 +46,14 @@ namespace AtgDev.Voicemeeter
         ///     -2: no server.<br/>
         ///     -3: unknown parameter<br/>
         ///     -5: structure mismatch<br/>
+        ///     -100: procedure was not successfully imported from the DLL<br/>
         /// </returns>
         public Int32 MacroButtonGetStatus(Int32 buttonIndex, out Single val, Int32 mode)
         {
             if (m_macroButtonGetStatus is null)
             {
                 val = 0;
-                return ProcNotFoundReturnCode;
+                return ProcedureNotImportedErrorCode;
             }
             return m_macroButtonGetStatus(buttonIndex, out val, mode);
         }
@@ -70,10 +72,11 @@ namespace AtgDev.Voicemeeter
         ///     -2: no server.<br/>
         ///     -3: unknown parameter<br/>
         ///     -5: structure mismatch<br/>
+        ///     -100: procedure was not successfully imported from the DLL<br/>
         /// </returns>
         public Int32 MacroButtonSetStatus(Int32 buttonIndex, Single val, Int32 mode)
         {
-            if (m_MacroButtonSetStatus is null) return ProcNotFoundReturnCode;
+            if (m_MacroButtonSetStatus is null) return ProcedureNotImportedErrorCode;
             return m_MacroButtonSetStatus(buttonIndex, val, mode);
         }
     }
