@@ -4,7 +4,7 @@ using Microsoft.Win32;
 
 namespace AtgDev.Voicemeeter.Utils
 {
-    static class PathHelper
+    public static class PathHelper
     {
         private const string VmKey = "VB:Voicemeeter {17359A74-1236-5467}";
         private const string regkeyHead = @"HKEY_LOCAL_MACHINE\SOFTWARE\";
