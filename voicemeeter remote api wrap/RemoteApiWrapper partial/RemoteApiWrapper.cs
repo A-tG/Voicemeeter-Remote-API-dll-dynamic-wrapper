@@ -8,7 +8,7 @@ namespace AtgDev.Voicemeeter
     ///     <para>Voicemeeter Remote API</para>
     ///     Wrapper for the library that allows communication with Voicemeeter Applications
     /// </summary>
-    partial class RemoteApiWrapper : DllWrapperBase
+    public partial class RemoteApiWrapper : DllWrapperBase
     {
         public RemoteApiWrapper(string dllPath) : base(dllPath) 
         {

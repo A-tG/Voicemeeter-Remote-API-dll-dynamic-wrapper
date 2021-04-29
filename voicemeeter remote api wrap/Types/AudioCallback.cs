@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 namespace AtgDev.Voicemeeter.Types.AudioCallback
 {
     [StructLayout(LayoutKind.Sequential)]
-    struct AudioInfo
+    public struct AudioInfo
     {
         public Int32 samplerate;
         public Int32 samplesPerFrame;
@@ -14,7 +14,7 @@ namespace AtgDev.Voicemeeter.Types.AudioCallback
     ///     Struct used inside Audio Callback for x86 API
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
-    unsafe struct AudioBuffer32
+    unsafe public struct AudioBuffer32
     {
         public Int32 samplerate;
         public Int32 samplesPerFrame;
@@ -46,7 +46,7 @@ namespace AtgDev.Voicemeeter.Types.AudioCallback
     ///     Struct used inside Audio Callback for x64 API 
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
-    unsafe struct AudioBuffer64
+    unsafe public struct AudioBuffer64
     {
         public Int32 samplerate;
         public Int32 samplesPerFrame;
@@ -74,7 +74,7 @@ namespace AtgDev.Voicemeeter.Types.AudioCallback
         public fixed UInt64 outBufferP[128];
     }
 
-    enum Command
+    public enum Command
     {
         Starting = 1,
         Ending,
@@ -84,7 +84,7 @@ namespace AtgDev.Voicemeeter.Types.AudioCallback
         BufferMain = 20
     }
 
-    enum Mode
+    public enum Mode
     {
         Inputs = 1,
         Outputs,
@@ -110,5 +110,5 @@ namespace AtgDev.Voicemeeter.Types.AudioCallback
     /// <returns>
     ///     0: always 0 (unused).<br/>
     /// </returns>
-    unsafe delegate Int32 Callback(void* customDataP, Command command, void* callbackDataP, Int32 addData);
+    unsafe public delegate Int32 Callback(void* customDataP, Command command, void* callbackDataP, Int32 addData);
 }
