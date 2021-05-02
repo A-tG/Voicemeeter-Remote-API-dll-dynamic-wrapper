@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.InteropServices;
 using Microsoft.Win32;
 
 namespace AtgDev.Voicemeeter.Utils
@@ -40,9 +41,19 @@ namespace AtgDev.Voicemeeter.Utils
             return Path.GetDirectoryName((string)result);
         }
 
+        /// <exception cref="DirectoryNotFoundException">Thrown when cannot find Voicemeeter registry key on Windows</exception>
+        /// <exception cref="PlatformNotSupportedException">Thrown when cannot get API's dll on current platform (OS)</exception>
         public static string GetDllPath()
         {
-            return Path.Combine(GetProgramFolder(), GetDllName());
+            var result = "";
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                result = Path.Combine(GetProgramFolder(), GetDllName());
+            } else
+            {
+                throw new PlatformNotSupportedException("Cannot get Voicemeeter API dll path on current OS");
+            }
+            return result;
         }
     }
 }
