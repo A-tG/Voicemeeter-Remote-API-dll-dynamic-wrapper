@@ -24,6 +24,10 @@ namespace AtgDev.Voicemeeter.Utils
         }
 
         /// <exception cref="DirectoryNotFoundException">Thrown when cannot find Voicemeeter registry key</exception>
+        /// <exception cref="System.Security.SecurityException"/>
+        /// <exception cref="IOException"/>
+        /// <exception cref="ArgumentException"/>
+        /// <exception cref="PathTooLongException"/>
         public static string GetProgramFolder()
         {
             var regKey = regkeyHead + regKeyTail;
@@ -42,7 +46,12 @@ namespace AtgDev.Voicemeeter.Utils
         }
 
 #if (NET5_0_OR_GREATER || NETCOREAPP3_0_OR_GREATER)
-        /// <exception cref="DirectoryNotFoundException">Thrown when cannot find Voicemeeter registry key on Windows</exception>
+        /// <exception cref="DirectoryNotFoundException">Thrown when cannot find Voicemeeter registry key</exception>
+        /// <exception cref="System.Security.SecurityException"/>
+        /// <exception cref="IOException"/>
+        /// <exception cref="ArgumentException"/>
+        /// <exception cref="ArgumentNullException"/>
+        /// <exception cref="PathTooLongException"/>
         /// <exception cref="PlatformNotSupportedException">Thrown when cannot get API's dll on current platform (OS)</exception>
         public static string GetDllPath()
         {
@@ -57,7 +66,12 @@ namespace AtgDev.Voicemeeter.Utils
             return result;
         }
 #else
-        /// <exception cref="DirectoryNotFoundException">Thrown when cannot find Voicemeeter registry key on Windows</exception>
+        /// <exception cref="DirectoryNotFoundException">Thrown when cannot find Voicemeeter registry key</exception>
+        /// <exception cref="System.Security.SecurityException"/>
+        /// <exception cref="IOException"/>
+        /// <exception cref="ArgumentException"/>
+        /// <exception cref="ArgumentNullException"/>
+        /// <exception cref="PathTooLongException"/>
         public static string GetDllPath()
         {
             return Path.Combine(GetProgramFolder(), GetDllName());
