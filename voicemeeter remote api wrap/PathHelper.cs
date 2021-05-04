@@ -41,6 +41,7 @@ namespace AtgDev.Voicemeeter.Utils
             return Path.GetDirectoryName((string)result);
         }
 
+#if (NET5_0_OR_GREATER || NETCOREAPP3_0_OR_GREATER)
         /// <exception cref="DirectoryNotFoundException">Thrown when cannot find Voicemeeter registry key on Windows</exception>
         /// <exception cref="PlatformNotSupportedException">Thrown when cannot get API's dll on current platform (OS)</exception>
         public static string GetDllPath()
@@ -55,5 +56,12 @@ namespace AtgDev.Voicemeeter.Utils
             }
             return result;
         }
+#else
+        /// <exception cref="DirectoryNotFoundException">Thrown when cannot find Voicemeeter registry key on Windows</exception>
+        public static string GetDllPath()
+        {
+            return Path.Combine(GetProgramFolder(), GetDllName());
+        }
+#endif
     }
 }
