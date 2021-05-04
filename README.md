@@ -13,6 +13,7 @@
  * VBVMR_GetMidiMessage (no midi device to test)
  
  ### Dependencies:
+ * .NET 5.0 will be required to support possible cross platform availability in the future
  * [Base class](https://github.com/A-tG/Dynamic-wrapper-for-unmanaged-dll)
  
  ### Extended:
