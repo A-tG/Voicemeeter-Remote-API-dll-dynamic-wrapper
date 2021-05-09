@@ -50,7 +50,6 @@ namespace AtgDev.Voicemeeter.Utils
         /// <exception cref="System.Security.SecurityException"/>
         /// <exception cref="IOException"/>
         /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
         /// <exception cref="PathTooLongException"/>
         /// <exception cref="PlatformNotSupportedException">Thrown when cannot get API's dll on current platform (OS)</exception>
         public static string GetDllPath()
@@ -70,7 +69,6 @@ namespace AtgDev.Voicemeeter.Utils
         /// <exception cref="System.Security.SecurityException"/>
         /// <exception cref="IOException"/>
         /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
         /// <exception cref="PathTooLongException"/>
         public static string GetDllPath()
         {
