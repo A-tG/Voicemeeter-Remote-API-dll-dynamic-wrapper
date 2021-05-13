@@ -75,5 +75,27 @@ namespace AtgDev.Voicemeeter.Utils
             return Path.Combine(GetProgramFolder(), GetDllName());
         }
 #endif
+
+        public static bool TryGetDllPath(ref string path)
+        {
+            var result = false;
+            try
+            {
+                path = GetDllPath();
+                result = true;
+            } catch {}
+            return result;
+        }
+
+        public static bool TryGetProgramFolder(ref string path)
+        {
+            var result = false;
+            try
+            {
+                path = GetProgramFolder();
+                result = true;
+            } catch { }
+            return result;
+        }
     }
 }
