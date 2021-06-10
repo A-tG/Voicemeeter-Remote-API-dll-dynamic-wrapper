@@ -15,11 +15,12 @@ Not tested on 32 bit Windows manually, but supposed to work anyway.
 
 [Example how to use callback](https://github.com/A-tG/Voicemeeter-AudioCallback-Simple-Example/blob/main/Voicemeeter%20Audio%20Callback%20Simple%20Example/Program.cs)
 
+**.NET 5.0 will be required to support possible cross platform availability in the future**
+
 ### Not tested:
 * VBVMR_GetMidiMessage (no midi device to test)
 
-### Dependencies:
-* .NET 5.0 will be required to support possible cross platform availability in the future
+### Uses:
 * [Base class](https://github.com/A-tG/Dynamic-wrapper-for-unmanaged-dll)
 
 ### Extended:
