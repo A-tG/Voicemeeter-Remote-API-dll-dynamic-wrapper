@@ -18,7 +18,7 @@ Not tested on 32 bit Windows manually, but supposed to work anyway.
 
 ### Dependencies:
 * .NET 5.0 will be required to support possible cross platform availability in the future
-* [Base class](https://github.com/A-tG/Dynamic-wrapper-for-unmanaged-dll) ([nuget](https://www.nuget.org/packages/a-tg.UnmanagedLibWrap/))
+* [Base class](https://github.com/A-tG/Dynamic-wrapper-for-unmanaged-dll) [![nuget](https://img.shields.io/nuget/v/a-tg.UnmanagedLibWrap)](https://www.nuget.org/packages/a-tg.UnmanagedLibWrap)
 
 ### Extended:
 * [Extended class with custom types and methods](https://github.com/A-tG/voicemeeter-remote-api-extended)
