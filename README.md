@@ -7,6 +7,8 @@ Helps to dynamically load VoicemeeterRemote64.dll or VoicemeeterRemote.dll.
 
 All API procedures have been implemented at the moment (March 2021).
 
+Basic return codes, methods and types Similar to original DLL. Use extended class for more functionality or you can write you own.
+
 Backward compability with older API DLL's versions: no crash if you try to load old DLL without Audio callback and Macro buttons procedures (possible to add backward compability to other methods if needed)
 
 Not tested on 32 bit Windows manually, but supposed to work anyway.
