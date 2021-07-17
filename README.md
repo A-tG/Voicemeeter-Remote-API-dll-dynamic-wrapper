@@ -5,9 +5,9 @@ Visual Studio C# [**Shared Project**](https://github.com/A-tG/Voicemeeter-Remote
 
 Helps to dynamically load VoicemeeterRemote64.dll or VoicemeeterRemote.dll.
 
-All API procedures have been implemented at the moment (March 2021).
+**Basic return codes, methods and types similar to original DLL. Use extended class for more functionality or you can write your own.**
 
-Basic return codes, methods and types similar to original DLL. Use extended class for more functionality or you can write your own.
+All API procedures have been implemented at the moment (March 2021).
 
 Backward compability with older API DLL's versions: no crash if you try to load old DLL without Audio callback and Macro buttons procedures (possible to add backward compability to other methods if needed)
 
