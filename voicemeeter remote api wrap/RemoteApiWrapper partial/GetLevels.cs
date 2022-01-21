@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 
 namespace AtgDev.Voicemeeter
 {
@@ -37,7 +38,7 @@ namespace AtgDev.Voicemeeter
             return m_getLevel(type, channel, out val);
         }
 
-        private delegate Int32 VBVMR_GetMidiMessage(byte[] midiBuffer, Int32 ByteMax);
+        private delegate Int32 VBVMR_GetMidiMessage([Out] byte[] midiBuffer, Int32 ByteMax);
         private VBVMR_GetMidiMessage m_getMidiMessage;
         /// <summary>
         ///     <para>Get MIDI message from M.I.D.I. input device used by Voicemeeter M.I.D.I. mapping.</para>
@@ -64,7 +65,7 @@ namespace AtgDev.Voicemeeter
             return m_getMidiMessage(midiBuffer, bufferSize);
         }
 
-        private delegate Int32 VBVMR_SendMidiMessage(byte[] midiBuffer, Int32 ByteMax);
+        private delegate Int32 VBVMR_SendMidiMessage(in byte[] midiBuffer, Int32 ByteMax);
         private VBVMR_SendMidiMessage m_sendMidiMessage;
         /// <summary>
         ///     Added in 3.02.2 / 2.0.6.2 / 1.0.8.2
@@ -73,7 +74,7 @@ namespace AtgDev.Voicemeeter
         {
             if (m_sendMidiMessage is null) return ProcedureNotImportedErrorCode;
 
-            return m_sendMidiMessage(midiBuffer, midiBuffer.Length);
+            return m_sendMidiMessage(in midiBuffer, midiBuffer.Length);
         }
     }
 }
