@@ -8,6 +8,7 @@ namespace AtgDev.Voicemeeter
         {
             GetReadyDelegate(ref m_getLevel);
             GetReadyDelegate(ref m_getMidiMessage);
+            TryGetReadyDelegate(ref m_sendMidiMessage);
         }
 
         private delegate Int32 VBVMR_GetLevel(Int32 type, Int32 channel, out Single val);
@@ -61,6 +62,18 @@ namespace AtgDev.Voicemeeter
         {
             midiBuffer = new byte[bufferSize]; 
             return m_getMidiMessage(midiBuffer, bufferSize);
+        }
+
+        private delegate Int32 VBVMR_SendMidiMessage(byte[] midiBuffer, Int32 ByteMax);
+        private VBVMR_SendMidiMessage m_sendMidiMessage;
+        /// <summary>
+        ///     Added in 3.02.2 / 2.0.6.2 / 1.0.8.2
+        /// </summary>
+        public Int32 SendMidiMessage(byte[] midiBuffer)
+        {
+            if (m_sendMidiMessage is null) return ProcedureNotImportedErrorCode;
+
+            return m_sendMidiMessage(midiBuffer, midiBuffer.Length);
         }
     }
 }
