@@ -95,6 +95,7 @@ namespace AtgDev.Voicemeeter
         private delegate Int32 VBVMR_SendMidiMessage([In] byte[] midiBuffer, Int32 ByteMax);
         private VBVMR_SendMidiMessage m_sendMidiMessage;
         /// <summary>
+        ///     NOT FULLY DOCUMENTED YET
         ///     Added in 3.0.2.2 / 2.0.6.2 / 1.0.8.2
         /// </summary>
         public Int32 SendMidiMessage(byte[] midiBuffer)
