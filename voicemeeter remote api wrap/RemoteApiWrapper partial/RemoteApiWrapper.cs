@@ -10,12 +10,13 @@ namespace AtgDev.Voicemeeter
     /// </summary>
     public partial class RemoteApiWrapper : DllWrapperBase
     {
+        public const int ProcedureNotImportedErrorCode = -100;
+
         public RemoteApiWrapper(string dllPath) : base(dllPath) 
         {
             InitProcedures();
         }
 
-        private const int ProcedureNotImportedErrorCode = -100;
 
         private void InitProcedures()
         {
