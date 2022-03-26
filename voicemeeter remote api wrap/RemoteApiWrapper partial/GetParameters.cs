@@ -144,11 +144,9 @@ namespace AtgDev.Voicemeeter
         ///     -3: unknown parameter<br/>
         ///     -5: structure mismatch<br/>
         /// </returns>
-        /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="ArgumentException">Thrown if strVal Capacity is not 512</exception>
-        public Int32 GetParameter(IntPtr paramBuffPtr, IntPtr strBuffPtr)
+        public Int32 GetParameter(IntPtr paramPtr, IntPtr strValPtr)
         {
-            return m_getParameterStringW(paramBuffPtr, strBuffPtr);
+            return m_getParameterStringW(paramPtr, strValPtr);
         }
     }
 }
