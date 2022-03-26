@@ -24,7 +24,7 @@ namespace AtgDev.Voicemeeter
             Mode mode,
             Callback callback,
             void* customDataP,
-            [MarshalAs(UnmanagedType.LPStr)] StringBuilder ClientName
+            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder ClientName
         );
         unsafe private VBVMR_AudioCallbackRegister m_audioCallbackRegister;
         /// <summary>
