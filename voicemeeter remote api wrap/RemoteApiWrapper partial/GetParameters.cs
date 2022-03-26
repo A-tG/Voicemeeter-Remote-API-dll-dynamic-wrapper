@@ -93,7 +93,7 @@ namespace AtgDev.Voicemeeter
             // 512 of char (8 bits) according to DLL documentation
             var strValPtr = Marshal.AllocHGlobal(512);
 
-            var resp = m_getParameterStringW(paramNamePtr, strValPtr);
+            var resp = m_getParameterStringA(paramNamePtr, strValPtr);
             strVal = Marshal.PtrToStringAnsi(strValPtr) ?? string.Empty;
 
             Marshal.FreeHGlobal(paramNamePtr);
