@@ -14,7 +14,7 @@ namespace AtgDev.Voicemeeter
             GetReadyDelegate(ref m_setParametersW);
         }
 
-        private delegate Int32 VBVMR_SetParameterFloat([MarshalAs(UnmanagedType.LPStr)] string paramName, Single val);
+        private delegate Int32 VBVMR_SetParameterFloat([In, MarshalAs(UnmanagedType.LPStr)] string paramName, Single val);
         private VBVMR_SetParameterFloat m_setParameterFloat;
         /// <summary>
         ///     Set a single parameter.
@@ -33,8 +33,8 @@ namespace AtgDev.Voicemeeter
         }
 
         private delegate Int32 VBVMR_SetParameterStringA(
-            [MarshalAs(UnmanagedType.LPStr)] string paramName,
-            [MarshalAs(UnmanagedType.LPStr)] string strVal
+            [In, MarshalAs(UnmanagedType.LPStr)] string paramName,
+            [In, MarshalAs(UnmanagedType.LPStr)] string strVal
         );
         private VBVMR_SetParameterStringA m_setParameterStringA;
         /// <summary>
@@ -54,8 +54,8 @@ namespace AtgDev.Voicemeeter
         }
 
         private delegate Int32 VBVMR_SetParameterStringW(
-            [MarshalAs(UnmanagedType.LPStr)] string paramName,
-            [MarshalAs(UnmanagedType.LPWStr)] string strVal
+            [In, MarshalAs(UnmanagedType.LPStr)] string paramName,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string strVal
         );
         private VBVMR_SetParameterStringW m_setParameterStringW;
         /// <summary>
@@ -74,7 +74,7 @@ namespace AtgDev.Voicemeeter
             return m_setParameterStringW(paramName, strVal);
         }
 
-        private delegate Int32 VBVMR_SetParameters([MarshalAs(UnmanagedType.LPStr)] string script);
+        private delegate Int32 VBVMR_SetParameters([In, MarshalAs(UnmanagedType.LPStr)] string script);
         private VBVMR_SetParameters m_setParameters;
         /// <summary>
         ///     Set one or several parameters by a script (&lt; 48 kB).
@@ -106,7 +106,7 @@ namespace AtgDev.Voicemeeter
             return m_setParameters(script);
         }
 
-        private delegate Int32 VBVMR_SetParametersW([MarshalAs(UnmanagedType.LPWStr)] string script);
+        private delegate Int32 VBVMR_SetParametersW([In, MarshalAs(UnmanagedType.LPWStr)] string script);
         private VBVMR_SetParametersW m_setParametersW;
         /// <summary>
         ///     Set one or several parameters by a script (&lt; 48 kB).
