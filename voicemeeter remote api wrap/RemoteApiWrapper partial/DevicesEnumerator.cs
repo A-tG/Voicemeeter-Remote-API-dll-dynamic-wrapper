@@ -30,8 +30,8 @@ namespace AtgDev.Voicemeeter
         private delegate Int32 VBVMR_Output_GetDeviceDescA(
             Int32 index, 
             out Int32 type,
-            [MarshalAs(UnmanagedType.LPStr)] StringBuilder deviceName,
-            [MarshalAs(UnmanagedType.LPStr)] StringBuilder hardwareID
+            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder deviceName,
+            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder hardwareID
         );
         private VBVMR_Output_GetDeviceDescA m_output_getDeviceDescA;
         /// <summary>
@@ -71,8 +71,8 @@ namespace AtgDev.Voicemeeter
         private delegate Int32 VBVMR_Input_GetDeviceDescA(
             Int32 index,
             out Int32 type,
-            [MarshalAs(UnmanagedType.LPStr)] StringBuilder deviceName,
-            [MarshalAs(UnmanagedType.LPStr)] StringBuilder hardwareID
+            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder deviceName,
+            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder hardwareID
         );
         private VBVMR_Input_GetDeviceDescA m_input_getDeviceDescA;
         /// <summary>
