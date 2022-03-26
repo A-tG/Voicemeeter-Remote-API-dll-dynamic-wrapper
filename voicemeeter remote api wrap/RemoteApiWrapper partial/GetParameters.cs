@@ -57,7 +57,7 @@ namespace AtgDev.Voicemeeter
         /// <summary>
         ///     Get parameter value. Alternative low-level, faster method.
         /// </summary>
-        /// <param name="paramNamePtr">Buffer pointer (null terminated ANSI) with the name of the parameter 
+        /// <param name="paramNamePtr">Buffer pointer (null terminated ASCII) with the name of the parameter 
         /// (see VoicemeeterRemoteAPI parameters name table)</param>
         /// <param name="val">The variable receiving the wanted value.</param>
         /// <returns>
@@ -79,7 +79,7 @@ namespace AtgDev.Voicemeeter
         ///     Get parameter value.
         /// </summary>
         /// <param name="paramName">The name of the parameter (see VoicemeeterRemoteAPI parameters name table)</param>
-        /// <param name="strVal">The string variable receiving the wanted value. (ANSI)</param>
+        /// <param name="strVal">The string variable receiving the wanted value. (ASCII)</param>
         /// <returns>
         ///     0: OK (no error).<br/>
         ///     -1: error<br/>
@@ -134,7 +134,7 @@ namespace AtgDev.Voicemeeter
         /// <summary>
         ///     Get parameter value. Alternative low-level, faster method.
         /// </summary>
-        /// <param name="paramBuffPtr">Buffer pointer (null terminated ANSI) with the name of the parameter 
+        /// <param name="paramBuffPtr">Buffer pointer (null terminated ASCII) with the name of the parameter 
         /// (see VoicemeeterRemoteAPI parameters name table)</param>
         /// <param name="strBuffPtr">Buffer pointer receiving the wanted value, 512 size (512 * 2 bytes)</param>
         /// <returns>
