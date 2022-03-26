@@ -115,7 +115,7 @@ namespace AtgDev.Voicemeeter
         ///     -5: structure mismatch<br/>
         /// </returns>
         /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="ArgumentException">Thrown if strVal Length is not 512</exception>
+        /// <exception cref="ArgumentException">Thrown if strVal Capacity is not 512</exception>
         public Int32 GetParameter(string paramName, StringBuilder strVal)
         {
             if (strVal is null) throw new ArgumentNullException($"{nameof(strVal)} is null");
