@@ -31,7 +31,7 @@ namespace AtgDev.Voicemeeter
             return m_isParametersDirty();
         }
 
-        private delegate Int32 VBVMR_GetParameterFloat([In, MarshalAs(UnmanagedType.LPStr)] string paramName, out Single value);
+        private delegate Int32 VBVMR_GetParameterFloat(IntPtr paramNamePtr, out Single value);
         private VBVMR_GetParameterFloat m_getParameterFloat;
         /// <summary>
         ///     Get parameter value.
@@ -47,13 +47,33 @@ namespace AtgDev.Voicemeeter
         /// </returns>
         public Int32 GetParameter(string paramName, out Single val)
         {
-            return m_getParameterFloat(paramName, out val);
+            var paramNamePtr = Marshal.StringToHGlobalAnsi(paramName);
+            var res = m_getParameterFloat(paramNamePtr, out val);
+            Marshal.FreeHGlobal(paramNamePtr);
+
+            return res;
         }
 
-        private delegate Int32 VBVMR_GetParameterStringA(
-            [In, MarshalAs(UnmanagedType.LPStr)] string paramName,
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder strVal
-        );
+        /// <summary>
+        ///     Get parameter value. Alternative low-level, faster method.
+        /// </summary>
+        /// <param name="paramNamePtr">Buffer pointer (null terminated ANSI) with the name of the parameter 
+        /// (see VoicemeeterRemoteAPI parameters name table)</param>
+        /// <param name="val">The variable receiving the wanted value.</param>
+        /// <returns>
+        ///     0: OK (no error).<br/>
+        ///     -1: error<br/>
+        ///     -2: no server.<br/>
+        ///     -3: unknown parameter<br/>
+        ///     -5: structure mismatch<br/>
+        /// </returns>
+        public Int32 GetParameter(IntPtr paramNamePtr, out Single val)
+        {
+            return m_getParameterFloat(paramNamePtr, out val);
+
+        }
+
+        private delegate Int32 VBVMR_GetParameterStringA(IntPtr paramNamePtr, IntPtr strValPtr);
         private VBVMR_GetParameterStringA m_getParameterStringA;
         /// <summary>
         ///     Get parameter value.
@@ -69,17 +89,20 @@ namespace AtgDev.Voicemeeter
         /// </returns>
         public Int32 Legacy_GetParameter(string paramName, out string strVal)
         {
-            // 512 characters according to DLL documentation
-            var strB = new StringBuilder(512);
-            var resp = m_getParameterStringA(paramName, strB);
-            strVal = strB.ToString();
+            var paramNamePtr = Marshal.StringToHGlobalAnsi(paramName);
+            // 512 of char (8 bits) according to DLL documentation
+            var strValPtr = Marshal.AllocHGlobal(512);
+
+            var resp = m_getParameterStringW(paramNamePtr, strValPtr);
+            strVal = Marshal.PtrToStringAnsi(strValPtr) ?? string.Empty;
+
+            Marshal.FreeHGlobal(paramNamePtr);
+            Marshal.FreeHGlobal(strValPtr);
+
             return resp;
         }
 
-        private delegate Int32 VBVMR_GetParameterStringW(
-            [In, MarshalAs(UnmanagedType.LPStr)] string paramName,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder strVal
-        );
+        private delegate Int32 VBVMR_GetParameterStringW(IntPtr paramNamePtr, IntPtr strValPtr);
         private VBVMR_GetParameterStringW m_getParameterStringW;
         /// <summary>
         ///     Get parameter value.
@@ -95,18 +118,25 @@ namespace AtgDev.Voicemeeter
         /// </returns>
         public Int32 GetParameter(string paramName, out string strVal)
         {
-            // 512 characters according to DLL documentation
-            var strB = new StringBuilder(512);
-            var resp = m_getParameterStringW(paramName, strB);
-            strVal = strB.ToString();
+            var paramNamePtr = Marshal.StringToHGlobalAnsi(paramName);
+            // 512 of unsigned short (16 bits) according to DLL documentation
+            var strValPtr = Marshal.AllocHGlobal(512 * 2);
+
+            var resp = m_getParameterStringW(paramNamePtr, strValPtr);
+            strVal = Marshal.PtrToStringUni(strValPtr) ?? string.Empty;
+
+            Marshal.FreeHGlobal(paramNamePtr);
+            Marshal.FreeHGlobal(strValPtr);
+
             return resp;
         }
 
         /// <summary>
-        ///     Get parameter value. Alternative method without string allocation
+        ///     Get parameter value. Alternative low-level, faster method.
         /// </summary>
-        /// <param name="paramName">The name of the parameter (see VoicemeeterRemoteAPI parameters name table)</param>
-        /// <param name="strVal">The StringBuilder receiving the wanted value, 512 Capacity. (UTF-16)</param>
+        /// <param name="paramBuffPtr">Buffer pointer (null terminated ANSI) with the name of the parameter 
+        /// (see VoicemeeterRemoteAPI parameters name table)</param>
+        /// <param name="strBuffPtr">Buffer pointer receiving the wanted value, 512 size (512 * 2 bytes)</param>
         /// <returns>
         ///     0: OK (no error).<br/>
         ///     -1: error<br/>
@@ -116,15 +146,9 @@ namespace AtgDev.Voicemeeter
         /// </returns>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="ArgumentException">Thrown if strVal Capacity is not 512</exception>
-        public Int32 GetParameter(string paramName, StringBuilder strVal)
+        public Int32 GetParameter(IntPtr paramBuffPtr, IntPtr strBuffPtr)
         {
-            if (strVal is null) throw new ArgumentNullException($"{nameof(strVal)} is null");
-
-            // 512 characters according to DLL documentation
-            if (strVal.Capacity != 512) throw new ArgumentException($"{nameof(strVal)} Capacity have to be 512");
-
-            var resp = m_getParameterStringW(paramName, strVal);
-            return resp;
+            return m_getParameterStringW(paramBuffPtr, strBuffPtr);
         }
     }
 }
