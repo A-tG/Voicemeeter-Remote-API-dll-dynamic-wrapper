@@ -8,16 +8,16 @@ namespace AtgDev.Voicemeeter
     {
         private void InitDevicesEnumerator()
         {
-            GetReadyDelegate(ref m_output_getDeviceNumber);
-            GetReadyDelegate(ref m_output_getDeviceDescA);
-            GetReadyDelegate(ref m_output_getDeviceDescW);
-            GetReadyDelegate(ref m_input_getDeviceNumber);
-            GetReadyDelegate(ref m_input_getDeviceDescA);
-            GetReadyDelegate(ref m_input_getDeviceDescW);
+            GetReadyDelegate(ref m_input_getDeviceNumber, "VBVMR_Input_GetDeviceNumber");
+            GetReadyDelegate(ref m_output_getDeviceNumber, "VBVMR_Output_GetDeviceNumber");
+            GetReadyDelegate(ref m_output_getDeviceDescA, "VBVMR_Output_GetDeviceDescA");
+            GetReadyDelegate(ref m_output_getDeviceDescW, "VBVMR_Output_GetDeviceDescW");
+            GetReadyDelegate(ref m_input_getDeviceDescA, "VBVMR_Input_GetDeviceDescA");
+            GetReadyDelegate(ref m_input_getDeviceDescW, "VBVMR_Input_GetDeviceDescW");
         }
 
-        private delegate Int32 VBVMR_Output_GetDeviceNumber();
-        private VBVMR_Output_GetDeviceNumber m_output_getDeviceNumber;
+        private delegate Int32 Common_GetDeviceNumber();
+        private Common_GetDeviceNumber m_input_getDeviceNumber, m_output_getDeviceNumber;
         /// <summary>
         ///     Get number of Audio Output Devices available on the system
         /// </summary>
@@ -28,9 +28,52 @@ namespace AtgDev.Voicemeeter
         {
             return m_output_getDeviceNumber();
         }
+        /// <summary>
+        ///     Get number of Audio Input Devices available on the system
+        /// </summary>
+        /// <returns>
+        ///     Return number of devices found.
+        /// </returns>
+        public Int32 GetInputDevicesNumber()
+        {
+            return m_input_getDeviceNumber();
+        }
 
-        private delegate Int32 VBVMR_Output_GetDeviceDescA(Int32 index, out Int32 type, IntPtr deviceNamePtr, IntPtr hardwareIdPtr);
-        private VBVMR_Output_GetDeviceDescA m_output_getDeviceDescA;
+        private delegate Int32 Common_GetDeviceDesc(Int32 index, out Int32 type, IntPtr deviceNamePtr, IntPtr hardwareIdPtr);
+        private Common_GetDeviceDesc m_output_getDeviceDescA, m_output_getDeviceDescW, m_input_getDeviceDescA, m_input_getDeviceDescW;
+        private Int32 Legacy_GetDeviceDescription(Int32 index, out Int32 type, out string deviceName, out string hardwareID, Common_GetDeviceDesc getDeviceFunc)
+        {
+            // 256 characters minimum according to DLL documentation
+            const int len = 256;
+            var deviceNamePtr = Marshal.AllocHGlobal(len + 1);
+            var hardwareIdPtr = Marshal.AllocHGlobal(len + 1);
+
+            var resp = getDeviceFunc(index, out type, deviceNamePtr, hardwareIdPtr);
+            deviceName = Marshal.PtrToStringAnsi(deviceNamePtr) ?? "";
+            hardwareID = Marshal.PtrToStringAnsi(hardwareIdPtr) ?? "";
+
+            Marshal.FreeHGlobal(deviceNamePtr);
+            Marshal.FreeHGlobal(hardwareIdPtr);
+
+            return resp;
+        }
+        private Int32 GetDeviceDescription(Int32 index, out Int32 type, out string deviceName, out string hardwareID, Common_GetDeviceDesc getDeviceFunc)
+        {
+            // 256 characters minimum according to DLL documentation
+            const int len = 256 * 2;
+            var deviceNamePtr = Marshal.AllocHGlobal(len + 2);
+            var hardwareIdPtr = Marshal.AllocHGlobal(len + 2);
+
+            var resp = getDeviceFunc(index, out type, deviceNamePtr, hardwareIdPtr);
+            deviceName = Marshal.PtrToStringUni(deviceNamePtr) ?? "";
+            hardwareID = Marshal.PtrToStringUni(hardwareIdPtr) ?? "";
+
+            Marshal.FreeHGlobal(deviceNamePtr);
+            Marshal.FreeHGlobal(hardwareIdPtr);
+            return resp;
+        }
+
+
         /// <summary>
         ///     Get name and hardware ID (ASCII) of the output device according index
         /// </summary>
@@ -43,22 +86,9 @@ namespace AtgDev.Voicemeeter
         /// </returns>
         public Int32 Legacy_GetOutputDeviceDescriptor(Int32 index, out Int32 type, out string deviceName, out string hardwareID)
         {
-            // 256 characters minimum according to DLL documentation
-            const int len = 256;
-            var deviceNamePtr = Marshal.AllocHGlobal(len);
-            var hardwareIdPtr = Marshal.AllocHGlobal(len);
-
-            var resp = m_output_getDeviceDescA(index, out type, deviceNamePtr, hardwareIdPtr);
-            deviceName = Marshal.PtrToStringAnsi(deviceNamePtr) ?? "";
-            hardwareID = Marshal.PtrToStringAnsi(hardwareIdPtr) ?? "";
-
-            Marshal.FreeHGlobal(deviceNamePtr);
-            Marshal.FreeHGlobal(hardwareIdPtr);
-            return resp;
+            return Legacy_GetDeviceDescription(index, out type, out deviceName, out hardwareID, m_output_getDeviceDescA);
         }
 
-        private delegate Int32 VBVMR_Output_GetDeviceDescW(Int32 index, out Int32 type, IntPtr deviceNamePtr, IntPtr hardwareIdPtr);
-        private VBVMR_Output_GetDeviceDescW m_output_getDeviceDescW;
         /// <summary>
         ///     Get name and hardware ID of the output device according index
         /// </summary>
@@ -71,35 +101,9 @@ namespace AtgDev.Voicemeeter
         /// </returns>
         public Int32 GetOutputDeviceDescriptor(Int32 index, out Int32 type, out string deviceName, out string hardwareID)
         {
-            // 256 characters minimum according to DLL documentation
-            const int len = 256 * 2;
-            var deviceNamePtr = Marshal.AllocHGlobal(len);
-            var hardwareIdPtr = Marshal.AllocHGlobal(len);
-
-            var resp = m_output_getDeviceDescW(index, out type, deviceNamePtr, hardwareIdPtr);
-            deviceName = Marshal.PtrToStringUni(deviceNamePtr) ?? "";
-            hardwareID = Marshal.PtrToStringUni(hardwareIdPtr) ?? "";
-
-            Marshal.FreeHGlobal(deviceNamePtr);
-            Marshal.FreeHGlobal(hardwareIdPtr);
-            return resp;
+            return GetDeviceDescription(index, out type, out deviceName, out hardwareID, m_output_getDeviceDescW);
         }
 
-        private delegate Int32 VBVMR_Input_GetDeviceNumber();
-        private VBVMR_Input_GetDeviceNumber m_input_getDeviceNumber;
-        /// <summary>
-        ///     Get number of Audio Input Devices available on the system
-        /// </summary>
-        /// <returns>
-        ///     Return number of devices found.
-        /// </returns>
-        public Int32 GetInputDevicesNumber()
-        {
-            return m_input_getDeviceNumber();
-        }
-
-        private delegate Int32 VBVMR_Input_GetDeviceDescA(Int32 index, out Int32 type, IntPtr deviceNamePtr, IntPtr hardwareIdPtr);
-        private VBVMR_Input_GetDeviceDescA m_input_getDeviceDescA;
         /// <summary>
         ///     Get name and hardware ID (ASCII) of the input device according index
         /// </summary>
@@ -112,23 +116,9 @@ namespace AtgDev.Voicemeeter
         /// </returns>
         public Int32 Legacy_GetInputDeviceDescriptor(Int32 index, out Int32 type, out string deviceName, out string hardwareID)
         {
-            // 256 characters minimum according to DLL documentation
-            const int len = 256;
-            var deviceNamePtr = Marshal.AllocHGlobal(len);
-            var hardwareIdPtr = Marshal.AllocHGlobal(len);
-
-            var resp = m_input_getDeviceDescA(index, out type, deviceNamePtr, hardwareIdPtr);
-            deviceName = Marshal.PtrToStringAnsi(deviceNamePtr) ?? "";
-            hardwareID = Marshal.PtrToStringAnsi(hardwareIdPtr) ?? "";
-
-            Marshal.FreeHGlobal(deviceNamePtr);
-            Marshal.FreeHGlobal(hardwareIdPtr);
-
-            return resp;
+            return Legacy_GetDeviceDescription(index, out type, out deviceName, out hardwareID, m_input_getDeviceDescA);
         }
 
-        private delegate Int32 VBVMR_Input_GetDeviceDescW(Int32 index, out Int32 type, IntPtr deviceNamePtr, IntPtr hardwareIdPtr);
-        private VBVMR_Input_GetDeviceDescW m_input_getDeviceDescW;
         /// <summary>
         ///     Get name and hardware ID of the input device according index
         /// </summary>
@@ -141,19 +131,7 @@ namespace AtgDev.Voicemeeter
         /// </returns>
         public Int32 GetInputDeviceDescriptor(Int32 index, out Int32 type, out string deviceName, out string hardwareID)
         {
-            // 256 (16 bits each) characters minimum according to DLL documentation
-            const int len = 256 * 2;
-            var deviceNamePtr = Marshal.AllocHGlobal(len);
-            var hardwareIdPtr = Marshal.AllocHGlobal(len);
-
-            var resp = m_input_getDeviceDescW(index, out type, deviceNamePtr, hardwareIdPtr);
-            deviceName = Marshal.PtrToStringUni(deviceNamePtr) ?? "";
-            hardwareID = Marshal.PtrToStringUni(hardwareIdPtr) ?? "";
-
-            Marshal.FreeHGlobal(deviceNamePtr);
-            Marshal.FreeHGlobal(hardwareIdPtr);
-
-            return resp;
+            return GetDeviceDescription(index, out type, out deviceName, out hardwareID, m_input_getDeviceDescW);
         }
     }
 }
