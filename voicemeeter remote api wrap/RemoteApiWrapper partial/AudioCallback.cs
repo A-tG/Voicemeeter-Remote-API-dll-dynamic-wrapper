@@ -24,7 +24,7 @@ namespace AtgDev.Voicemeeter
             Mode mode,
             Callback callback,
             void* customDataP,
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder ClientName
+            IntPtr ClientNamePtr
         );
         unsafe private VBVMR_AudioCallbackRegister m_audioCallbackRegister;
         /// <summary>
@@ -49,11 +49,19 @@ namespace AtgDev.Voicemeeter
         unsafe public Int32 AudioCallbackRegister(Mode mode, Callback callback, void* customDataP, ref string ClientName)
         {
             if (m_audioCallbackRegister is null) return ProcedureNotImportedErrorCode;
+
             const int maxLen = 64;
-            var len = Math.Min(ClientName.Length, maxLen);
-            var name = new StringBuilder(ClientName, 0, len, maxLen);
-            var resp = m_audioCallbackRegister(mode, callback, customDataP, name);
-            ClientName = name.ToString();
+            var len = Math.Min(ClientName.Length, maxLen - 1);
+            ClientName = ClientName.Substring(0, len);
+
+            var namePtr = Marshal.StringToHGlobalAnsi(ClientName);
+            namePtr = Marshal.ReAllocHGlobal(namePtr, (IntPtr)maxLen);
+
+            var resp = m_audioCallbackRegister(mode, callback, customDataP, namePtr);
+
+            ClientName = Marshal.PtrToStringAnsi(namePtr) ?? "";
+            Marshal.FreeHGlobal(namePtr);
+
             return resp;
         }
 
