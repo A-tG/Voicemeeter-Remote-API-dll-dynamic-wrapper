@@ -60,7 +60,7 @@ namespace AtgDev.Voicemeeter
         private delegate Int32 VBVMR_Output_GetDeviceDescW(Int32 index, out Int32 type, IntPtr deviceNamePtr, IntPtr hardwareIdPtr);
         private VBVMR_Output_GetDeviceDescW m_output_getDeviceDescW;
         /// <summary>
-        ///     Get name and hardware ID (ASCII) of the output device according index
+        ///     Get name and hardware ID of the output device according index
         /// </summary>
         /// <param name="index">zero based index</param>
         /// <param name="type">Variable receiving the type</param>
