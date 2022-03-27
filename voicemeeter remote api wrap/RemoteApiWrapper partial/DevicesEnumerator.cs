@@ -60,9 +60,9 @@ namespace AtgDev.Voicemeeter
         private Int32 GetDeviceDescription(Int32 index, out Int32 type, out string deviceName, out string hardwareID, Common_GetDeviceDesc getDeviceFunc)
         {
             // 256 characters minimum according to DLL documentation
-            const int len = 256 * 2;
-            var deviceNamePtr = Marshal.AllocHGlobal(len + 2);
-            var hardwareIdPtr = Marshal.AllocHGlobal(len + 2);
+            const int len = 256 * 2 + 2;
+            var deviceNamePtr = Marshal.AllocHGlobal(len);
+            var hardwareIdPtr = Marshal.AllocHGlobal(len);
 
             var resp = getDeviceFunc(index, out type, deviceNamePtr, hardwareIdPtr);
             deviceName = Marshal.PtrToStringUni(deviceNamePtr) ?? "";
