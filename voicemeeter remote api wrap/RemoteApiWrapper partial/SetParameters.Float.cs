@@ -36,10 +36,7 @@ namespace AtgDev.Voicemeeter
         /// (see VoicemeeterRemoteAPI parameters name table)</param>
         /// <param name="val">The variable containing the new value.</param>
         /// <returns>
-        ///     0: OK (no error).<br/>
-        ///     -1: error<br/>
-        ///     -2: no server.<br/>
-        ///     -3: unknown parameter<br/>
+        ///     <inheritdoc cref="SetParameter(string, Single)" path="/returns"/>
         /// </returns>
         public Int32 SetParameter(IntPtr paramNamePtr, Single val)
         {

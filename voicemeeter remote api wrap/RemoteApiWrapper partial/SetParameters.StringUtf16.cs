@@ -13,10 +13,7 @@ namespace AtgDev.Voicemeeter
         /// <param name="paramName">The name of the parameter (see parameters name table)</param>
         /// <param name="strVal">The variable containing the new value. (UTF-16)</param>
         /// <returns>
-        ///     0: OK (no error).<br/>
-        ///     -1: error<br/>
-        ///     -2: no server.<br/>
-        ///     -3: unknown parameter<br/>
+        ///     <inheritdoc cref="SetParameter(string, Single)" path="/returns"/>
         /// </returns>
         /// <exception cref="ArgumentException">if paramName or strVal length more than 512 (to limit stack allocation)</exception>
         unsafe public Int32 SetParameter(string paramName, string strVal)
@@ -36,10 +33,7 @@ namespace AtgDev.Voicemeeter
         /// <param name="paramNamePtr">Pointer to the string (null terminated ASCII) with the name of the parameter (see parameters name table)</param>
         /// <param name="strVal">The variable containing the new value. (UTF-16)</param>
         /// <returns>
-        ///     0: OK (no error).<br/>
-        ///     -1: error<br/>
-        ///     -2: no server.<br/>
-        ///     -3: unknown parameter<br/>
+        ///     <inheritdoc cref="SetParameter(string, Single)" path="/returns"/>
         /// </returns>
         unsafe public Int32 SetParameter(IntPtr paramNamePtr, string strVal)
         {
@@ -55,10 +49,7 @@ namespace AtgDev.Voicemeeter
         /// <param name="paramNamePtr">Pointer to the string (null terminated ASCII) with the name of the parameter (see parameters name table)</param>
         /// <param name="strValPtr">Buffer pointer containing the new value. (null terminated UTF-16)</param>
         /// <returns>
-        ///     0: OK (no error).<br/>
-        ///     -1: error<br/>
-        ///     -2: no server.<br/>
-        ///     -3: unknown parameter<br/>
+        ///     <inheritdoc cref="SetParameter(string, Single)" path="/returns"/>
         /// </returns>
         public Int32 SetParameter(IntPtr paramNamePtr, IntPtr strValPtr)
         {
@@ -120,12 +111,7 @@ namespace AtgDev.Voicemeeter
         ///     </c>
         /// </param>
         /// <returns>
-        ///     0: OK (no error).<br/> 
-        ///		>0: number of line causing script error.<br/> 
-        ///		-1: error<br/> 
-        ///		-2: no server<br/> 
-        ///		-3: unexpected error<br/> 
-        ///		-4: unexpected error<br/> 
+        ///     <inheritdoc cref="SetParameters(string)" path="/returns"/>
         /// </returns>
         public Int32 SetParameters(IntPtr scriptPtr)
         {
