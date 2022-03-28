@@ -119,9 +119,25 @@ namespace AtgDev.Voicemeeter
                 CopyCharStrBuffToByteStrBuff(c, paramNameBuff, paramLen);
             }
 
+            return SetParameter((IntPtr)paramNameBuff, strVal);
+        }
+
+        /// <summary>
+        ///     Get parameter value.
+        /// </summary>
+        /// <param name="paramNamePtr">Pointer to the string (null terminated ASCII) with the name of the parameter (see parameters name table)</param>
+        /// <param name="strVal">The variable containing the new value. (UTF-16)</param>
+        /// <returns>
+        ///     0: OK (no error).<br/>
+        ///     -1: error<br/>
+        ///     -2: no server.<br/>
+        ///     -3: unknown parameter<br/>
+        /// </returns>
+        unsafe public Int32 SetParameter(IntPtr paramNamePtr, string strVal)
+        {
             fixed (char* strValBuff = strVal)
             {
-                return m_setParameterStringW((IntPtr)paramNameBuff, (IntPtr)strValBuff);
+                return m_setParameterStringW(paramNamePtr, (IntPtr)strValBuff);
             }
         }
 

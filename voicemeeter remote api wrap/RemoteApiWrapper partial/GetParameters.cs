@@ -139,9 +139,7 @@ namespace AtgDev.Voicemeeter
 
             char* strValBuff = stackalloc char[512];
 
-            var res = m_getParameterStringW((IntPtr)paramNameBuff, (IntPtr)strValBuff);
-            strVal = new string(strValBuff);
-            return res;
+            return GetParameter((IntPtr)paramNameBuff, out strVal);
         }
 
         /// <summary>
