@@ -66,5 +66,11 @@ namespace AtgDev.Voicemeeter
             }
             return len;
         }
+
+        /// <inheritdoc cref="CheckGetParameterNameLength"/>
+        internal int CheckGetValueLenght(string val)
+        {
+            return CheckGetParameterNameLength(val);
+        }
     }
 }
