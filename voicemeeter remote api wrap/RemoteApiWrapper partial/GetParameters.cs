@@ -56,7 +56,7 @@ namespace AtgDev.Voicemeeter
                 CopyCharStrBuffToByteStrBuff(c, paramNameBuff, len);
             }
             // (!)For some reason casting to IntPtr variant of function is always bit faster than just unsafe pointer
-            return m_getParameterFloat((IntPtr)paramNameBuff, out val);
+            return GetParameter((IntPtr)paramNameBuff, out val);
         }
 
         /// <summary>
@@ -98,11 +98,8 @@ namespace AtgDev.Voicemeeter
             var len = paramName.Length;
             if (len > 512) throw new ArgumentException("parameter name's length must not exceed 512");
 
-            byte* paramNameBuff = stackalloc byte[++len];
-            fixed (char* c = paramName)
-            {
-                CopyCharStrBuffToByteStrBuff(c, paramNameBuff, len);
-            }
+            byte* paramNameBuff = stackalloc byte[len + 1];
+            CopyStrToByteStrBuff(paramName, paramNameBuff);
 
             char* strValBuff = stackalloc char[512];
 
@@ -131,13 +128,8 @@ namespace AtgDev.Voicemeeter
             var len = paramName.Length;
             if (len > 512) throw new ArgumentException("parameter name's length must not exceed 512");
 
-            byte* paramNameBuff = stackalloc byte[++len];
-            fixed (char* c = paramName)
-            {
-                CopyCharStrBuffToByteStrBuff(c, paramNameBuff, len);
-            }
-
-            char* strValBuff = stackalloc char[512];
+            byte* paramNameBuff = stackalloc byte[len + 1];
+            CopyStrToByteStrBuff(paramName, paramNameBuff);
 
             return GetParameter((IntPtr)paramNameBuff, out strVal);
         }
@@ -158,7 +150,7 @@ namespace AtgDev.Voicemeeter
         unsafe public Int32 GetParameter(IntPtr paramNamePtr, out string strVal)
         {
             char* strValBuff = stackalloc char[512];
-            var res =  m_getParameterStringW(paramNamePtr, (IntPtr)strValBuff);
+            var res = GetParameter(paramNamePtr, (IntPtr)strValBuff);
             strVal = new string(strValBuff);
             return res;
         }

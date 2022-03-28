@@ -42,5 +42,13 @@ namespace AtgDev.Voicemeeter
                 toBuff[lenWithouNull] = 0; // add null character
             }
         }
+
+        unsafe internal void CopyStrToByteStrBuff(string str, byte* toBuff)
+        {
+            fixed (char* c = str)
+            {
+                CopyCharStrBuffToByteStrBuff(c, toBuff, str.Length + 1); // to account null character
+            }
+        }
     }
 }

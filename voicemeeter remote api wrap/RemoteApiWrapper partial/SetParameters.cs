@@ -33,13 +33,10 @@ namespace AtgDev.Voicemeeter
             var len = paramName.Length;
             if (len > 512) throw new ArgumentException("parameter name's length must not exceed 512");
 
-            byte* paramNameBuff = stackalloc byte[++len];
-            fixed (char* c = paramName)
-            {
-                CopyCharStrBuffToByteStrBuff(c, paramNameBuff, len);
-            }
+            byte* paramNameBuff = stackalloc byte[len + 1];
+            CopyStrToByteStrBuff(paramName, paramNameBuff);
 
-            return m_setParameterFloat((IntPtr)paramNameBuff, val);
+            return SetParameter((IntPtr)paramNameBuff, val);
         }
 
         /// <summary>
@@ -80,11 +77,8 @@ namespace AtgDev.Voicemeeter
             if (paramLen > 512) throw new ArgumentException("parameter name's length must not exceed 512");
             if (valLen > 512) throw new ArgumentException("value name's length must not exceed 512");
 
-            byte* paramNameBuff = stackalloc byte[++paramLen];
-            fixed (char* c = paramName)
-            {
-                CopyCharStrBuffToByteStrBuff(c, paramNameBuff, paramLen);
-            }
+            byte* paramNameBuff = stackalloc byte[paramLen + 1];
+            CopyStrToByteStrBuff(paramName, paramNameBuff);
 
             fixed (char* strValBuff = strVal)
             {
@@ -113,11 +107,8 @@ namespace AtgDev.Voicemeeter
             if (paramLen > 512) throw new ArgumentException("parameter name's length must not exceed 512");
             if (valLen > 512) throw new ArgumentException("value name's length must not exceed 512");
 
-            byte* paramNameBuff = stackalloc byte[++paramLen];
-            fixed (char* c = paramName)
-            {
-                CopyCharStrBuffToByteStrBuff(c, paramNameBuff, paramLen);
-            }
+            byte* paramNameBuff = stackalloc byte[paramLen + 1];
+            CopyStrToByteStrBuff(paramName, paramNameBuff);
 
             return SetParameter((IntPtr)paramNameBuff, strVal);
         }
