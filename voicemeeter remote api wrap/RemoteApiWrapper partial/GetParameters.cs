@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Text;
-using System.Runtime.InteropServices;
 
 namespace AtgDev.Voicemeeter
 {
@@ -13,6 +11,7 @@ namespace AtgDev.Voicemeeter
             GetReadyDelegate(ref m_getParameterStringA);
             GetReadyDelegate(ref m_getParameterStringW);
         }
+
 
         private delegate Int32 VBVMR_IsParametersDirty();
         private VBVMR_IsParametersDirty m_isParametersDirty;
@@ -45,17 +44,24 @@ namespace AtgDev.Voicemeeter
         ///     -3: unknown parameter<br/>
         ///     -5: structure mismatch<br/>
         /// </returns>
-        public Int32 GetParameter(string paramName, out Single val)
+        /// <exception cref="ArgumentException">if paramName length more than 512 (to limit stack allocation)</exception>
+        unsafe public Int32 GetParameter(string paramName, out Single val)
         {
-            var paramNamePtr = Marshal.StringToHGlobalAnsi(paramName);
-            var res = m_getParameterFloat(paramNamePtr, out val);
-            Marshal.FreeHGlobal(paramNamePtr);
+            var len = paramName.Length;
+            if (len > 512) throw new ArgumentException("parameter name's length must not exceed 512");
 
-            return res;
+            byte* paramNameBuff = stackalloc byte[++len];
+            fixed (char* c = paramName)
+            {
+                CopyCharStrBuffToByteStrBuff(c, paramNameBuff, len);
+            }
+            // (!)For some reason casting to IntPtr variant of function is always bit faster than just unsafe pointer
+            return m_getParameterFloat((IntPtr)paramNameBuff, out val);
         }
 
         /// <summary>
         ///     Get parameter value. Alternative low-level, faster method.
+        ///     Except ~20% faster execution time with preallocated paramBuffPtr
         /// </summary>
         /// <param name="paramNamePtr">Buffer pointer (null terminated ASCII) with the name of the parameter 
         /// (see VoicemeeterRemoteAPI parameters name table)</param>
@@ -70,7 +76,6 @@ namespace AtgDev.Voicemeeter
         public Int32 GetParameter(IntPtr paramNamePtr, out Single val)
         {
             return m_getParameterFloat(paramNamePtr, out val);
-
         }
 
         private delegate Int32 VBVMR_GetParameterStringA(IntPtr paramNamePtr, IntPtr strValPtr);
@@ -87,19 +92,23 @@ namespace AtgDev.Voicemeeter
         ///     -3: unknown parameter<br/>
         ///     -5: structure mismatch<br/>
         /// </returns>
-        public Int32 Legacy_GetParameter(string paramName, out string strVal)
+        /// <exception cref="ArgumentException">if paramName length more than 512 (to limit stack allocation)</exception>
+        unsafe public Int32 Legacy_GetParameter(string paramName, out string strVal)
         {
-            var paramNamePtr = Marshal.StringToHGlobalAnsi(paramName);
-            // 512 of char (8 bits) according to DLL documentation
-            var strValPtr = Marshal.AllocHGlobal(512);
+            var len = paramName.Length;
+            if (len > 512) throw new ArgumentException("parameter name's length must not exceed 512");
 
-            var resp = m_getParameterStringA(paramNamePtr, strValPtr);
-            strVal = Marshal.PtrToStringAnsi(strValPtr) ?? string.Empty;
+            byte* paramNameBuff = stackalloc byte[++len];
+            fixed (char* c = paramName)
+            {
+                CopyCharStrBuffToByteStrBuff(c, paramNameBuff, len);
+            }
 
-            Marshal.FreeHGlobal(paramNamePtr);
-            Marshal.FreeHGlobal(strValPtr);
+            char* strValBuff = stackalloc char[512];
 
-            return resp;
+            var res = m_getParameterStringA((IntPtr)paramNameBuff, (IntPtr)strValBuff);
+            strVal = new string(strValBuff);
+            return res;
         }
 
         private delegate Int32 VBVMR_GetParameterStringW(IntPtr paramNamePtr, IntPtr strValPtr);
@@ -116,23 +125,28 @@ namespace AtgDev.Voicemeeter
         ///     -3: unknown parameter<br/>
         ///     -5: structure mismatch<br/>
         /// </returns>
-        public Int32 GetParameter(string paramName, out string strVal)
+        /// <exception cref="ArgumentException">if paramName length more than 512 (to limit stack allocation)</exception>
+        unsafe public Int32 GetParameter(string paramName, out string strVal)
         {
-            var paramNamePtr = Marshal.StringToHGlobalAnsi(paramName);
-            // 512 of unsigned short (16 bits) according to DLL documentation
-            var strValPtr = Marshal.AllocHGlobal(512 * 2);
+            var len = paramName.Length;
+            if (len > 512) throw new ArgumentException("parameter name's length must not exceed 512");
 
-            var resp = m_getParameterStringW(paramNamePtr, strValPtr);
-            strVal = Marshal.PtrToStringUni(strValPtr) ?? string.Empty;
+            byte* paramNameBuff = stackalloc byte[++len];
+            fixed (char* c = paramName)
+            {
+                CopyCharStrBuffToByteStrBuff(c, paramNameBuff, len);
+            }
 
-            Marshal.FreeHGlobal(paramNamePtr);
-            Marshal.FreeHGlobal(strValPtr);
+            char* strValBuff = stackalloc char[512 * 2];
 
-            return resp;
+            var res = m_getParameterStringW((IntPtr)paramNameBuff, (IntPtr)strValBuff);
+            strVal = new string(strValBuff);
+            return res;
         }
 
         /// <summary>
         ///     Get parameter value. Alternative low-level, faster method.
+        ///     Except 2-3x faster execution time with preallocated paramBuffPtr and strBuffPtr
         /// </summary>
         /// <param name="paramBuffPtr">Buffer pointer (null terminated ASCII) with the name of the parameter 
         /// (see VoicemeeterRemoteAPI parameters name table)</param>

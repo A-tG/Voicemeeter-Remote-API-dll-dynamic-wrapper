@@ -41,35 +41,31 @@ namespace AtgDev.Voicemeeter
 
         private delegate Int32 Common_GetDeviceDesc(Int32 index, out Int32 type, IntPtr deviceNamePtr, IntPtr hardwareIdPtr);
         private Common_GetDeviceDesc m_output_getDeviceDescA, m_output_getDeviceDescW, m_input_getDeviceDescA, m_input_getDeviceDescW;
-        private Int32 Legacy_GetDeviceDescription(Int32 index, out Int32 type, out string deviceName, out string hardwareID, Common_GetDeviceDesc getDeviceFunc)
+        unsafe private Int32 Legacy_GetDeviceDescription(Int32 index, out Int32 type, out string deviceName, out string hardwareID, Common_GetDeviceDesc getDeviceFunc)
         {
-            // 256 characters minimum according to DLL documentation
-            const int len = 256;
-            var deviceNamePtr = Marshal.AllocHGlobal(len + 1);
-            var hardwareIdPtr = Marshal.AllocHGlobal(len + 1);
+            // 256 char characters minimum according to DLL documentation
+            const int len = 256 + 1;
+            byte* deviceNamePtr = stackalloc byte[len];
+            byte* hardwareIdPtr = stackalloc byte[len];
 
-            var resp = getDeviceFunc(index, out type, deviceNamePtr, hardwareIdPtr);
-            deviceName = Marshal.PtrToStringAnsi(deviceNamePtr) ?? "";
-            hardwareID = Marshal.PtrToStringAnsi(hardwareIdPtr) ?? "";
+            var resp = getDeviceFunc(index, out type, (IntPtr)deviceNamePtr, (IntPtr)hardwareIdPtr);
 
-            Marshal.FreeHGlobal(deviceNamePtr);
-            Marshal.FreeHGlobal(hardwareIdPtr);
+            deviceName = Marshal.PtrToStringAnsi((IntPtr)deviceNamePtr) ?? string.Empty;
+            hardwareID = Marshal.PtrToStringAnsi((IntPtr)hardwareIdPtr) ?? string.Empty;
 
             return resp;
         }
-        private Int32 GetDeviceDescription(Int32 index, out Int32 type, out string deviceName, out string hardwareID, Common_GetDeviceDesc getDeviceFunc)
+        unsafe private Int32 GetDeviceDescription(Int32 index, out Int32 type, out string deviceName, out string hardwareID, Common_GetDeviceDesc getDeviceFunc)
         {
-            // 256 characters minimum according to DLL documentation
-            const int len = 256 * 2 + 2;
-            var deviceNamePtr = Marshal.AllocHGlobal(len);
-            var hardwareIdPtr = Marshal.AllocHGlobal(len);
+            // 256 wchar characters minimum according to DLL documentation
+            const int len = 256 + 1; // bugged if addional space is not added
+            char* deviceNamePtr = stackalloc char[len];
+            char* hardwareIdPtr = stackalloc char[len];
 
-            var resp = getDeviceFunc(index, out type, deviceNamePtr, hardwareIdPtr);
-            deviceName = Marshal.PtrToStringUni(deviceNamePtr) ?? "";
-            hardwareID = Marshal.PtrToStringUni(hardwareIdPtr) ?? "";
+            var resp = getDeviceFunc(index, out type, (IntPtr)deviceNamePtr, (IntPtr)hardwareIdPtr);
+            deviceName = new string(deviceNamePtr);
+            hardwareID = new string(hardwareIdPtr);
 
-            Marshal.FreeHGlobal(deviceNamePtr);
-            Marshal.FreeHGlobal(hardwareIdPtr);
             return resp;
         }
 

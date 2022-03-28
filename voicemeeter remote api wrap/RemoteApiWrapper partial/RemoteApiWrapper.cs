@@ -29,5 +29,18 @@ namespace AtgDev.Voicemeeter
             InitAudioCallback();
             InitMacroButtons();
         }
+
+        unsafe internal void CopyCharStrBuffToByteStrBuff(char* frombuff, byte* toBuff, int lenWithNull)
+        {
+            var lenWithouNull = lenWithNull - 1;
+            for (int i = 0; i < lenWithouNull; i++)
+            {
+                toBuff[i] = (byte)frombuff[i];
+            }
+            if (lenWithouNull > 0)
+            {
+                toBuff[lenWithouNull] = 0; // add null character
+            }
+        }
     }
 }

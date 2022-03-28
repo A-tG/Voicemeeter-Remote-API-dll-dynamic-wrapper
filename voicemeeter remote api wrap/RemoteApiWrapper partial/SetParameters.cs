@@ -27,13 +27,19 @@ namespace AtgDev.Voicemeeter
         ///     -2: no server.<br/>
         ///     -3: unknown parameter<br/>
         /// </returns>
-        public Int32 SetParameter(string paramName, Single val)
+        /// <exception cref="ArgumentException">if paramName length more than 512 (to limit stack allocation)</exception>
+        unsafe public Int32 SetParameter(string paramName, Single val)
         {
-            var paramNamePtr = Marshal.StringToHGlobalAnsi(paramName);
-            var res = m_setParameterFloat(paramNamePtr, val);
-            Marshal.FreeHGlobal(paramNamePtr);
+            var len = paramName.Length;
+            if (len > 512) throw new ArgumentException("parameter name's length must not exceed 512");
 
-            return res;
+            byte* paramNameBuff = stackalloc byte[++len];
+            fixed (char* c = paramName)
+            {
+                CopyCharStrBuffToByteStrBuff(c, paramNameBuff, len);
+            }
+
+            return m_setParameterFloat((IntPtr)paramNameBuff, val);
         }
 
         /// <summary>
@@ -66,17 +72,24 @@ namespace AtgDev.Voicemeeter
         ///     -2: no server.<br/>
         ///     -3: unknown parameter<br/>
         /// </returns>
-        public Int32 Legacy_SetParameter(string paramName, string strVal)
+        /// <exception cref="ArgumentException">if paramName or strVal length more than 512 (to limit stack allocation)</exception>
+        unsafe public Int32 Legacy_SetParameter(string paramName, string strVal)
         {
-            var paramNamePtr = Marshal.StringToHGlobalAnsi(paramName);
-            var strValPtr = Marshal.StringToHGlobalAnsi(strVal);
+            var paramLen = paramName.Length;
+            var valLen = strVal.Length;
+            if (paramLen > 512) throw new ArgumentException("parameter name's length must not exceed 512");
+            if (valLen > 512) throw new ArgumentException("value name's length must not exceed 512");
 
-            var resp = m_setParameterStringA(paramNamePtr, strValPtr);
+            byte* paramNameBuff = stackalloc byte[++paramLen];
+            fixed (char* c = paramName)
+            {
+                CopyCharStrBuffToByteStrBuff(c, paramNameBuff, paramLen);
+            }
 
-            Marshal.FreeHGlobal(paramNamePtr);
-            Marshal.FreeHGlobal(strValPtr);
-
-            return resp;
+            fixed (char* strValBuff = strVal)
+            {
+                return m_setParameterStringA((IntPtr)paramNameBuff, (IntPtr)strValBuff);
+            }
         }
 
         private delegate Int32 VBVMR_SetParameterStringW(IntPtr paramNamePtr, IntPtr strValPtr);
@@ -92,17 +105,24 @@ namespace AtgDev.Voicemeeter
         ///     -2: no server.<br/>
         ///     -3: unknown parameter<br/>
         /// </returns>
-        public Int32 SetParameter(string paramName, string strVal)
+        /// <exception cref="ArgumentException">if paramName or strVal length more than 512 (to limit stack allocation)</exception>
+        unsafe public Int32 SetParameter(string paramName, string strVal)
         {
-            var paramNamePtr = Marshal.StringToHGlobalAnsi(paramName);
-            var strValPtr = Marshal.StringToHGlobalUni(strVal);
+            var paramLen = paramName.Length;
+            var valLen = strVal.Length;
+            if (paramLen > 512) throw new ArgumentException("parameter name's length must not exceed 512");
+            if (valLen > 512) throw new ArgumentException("value name's length must not exceed 512");
 
-            var resp = m_setParameterStringW(paramNamePtr, strValPtr);
+            byte* paramNameBuff = stackalloc byte[++paramLen];
+            fixed (char* c = paramName)
+            {
+                CopyCharStrBuffToByteStrBuff(c, paramNameBuff, paramLen);
+            }
 
-            Marshal.FreeHGlobal(paramNamePtr);
-            Marshal.FreeHGlobal(strValPtr);
-
-            return resp;
+            fixed (char* strValBuff = strVal)
+            {
+                return m_setParameterStringW((IntPtr)paramNameBuff, (IntPtr)strValBuff);
+            }
         }
 
         /// <summary>
@@ -197,7 +217,7 @@ namespace AtgDev.Voicemeeter
         ///     Set one or several parameters by a script (&lt; 48 kB). Alternative low-level, faster method.
         /// </summary>
         /// <param name="scriptPtr">
-        ///     Buffer pointer of the
+        ///     Buffer pointer to the
         ///     string giving the script (null terminated UTF-16)<br/>                  
         ///     (script allows to change several parameters in the same time - SYNCHRO).<br/>                  
         ///     Possible Instuction separators: ',' ';' or '\n'(CR)<br/> 

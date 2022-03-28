@@ -54,15 +54,13 @@ namespace AtgDev.Voicemeeter
             var len = Math.Min(ClientName.Length, maxLen - 1);
             ClientName = ClientName.Substring(0, len);
 
-            var namePtr = Marshal.StringToHGlobalAnsi(ClientName);
-            namePtr = Marshal.ReAllocHGlobal(namePtr, (IntPtr)maxLen);
+            byte* nameBuff = stackalloc byte[maxLen];
+            fixed (char* c = ClientName)
+            {
+                CopyCharStrBuffToByteStrBuff(c, nameBuff, maxLen);
+            }
 
-            var resp = m_audioCallbackRegister(mode, callback, customDataP, namePtr);
-
-            ClientName = Marshal.PtrToStringAnsi(namePtr) ?? "";
-            Marshal.FreeHGlobal(namePtr);
-
-            return resp;
+            return m_audioCallbackRegister(mode, callback, customDataP, (IntPtr)nameBuff);
         }
 
         private delegate Int32 VBVMR_AudioCallbackStart();
