@@ -14,10 +14,16 @@
     <Compile Include="$(MSBuildThisFileDirectory)RemoteApiWrapper partial\DevicesEnumerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RemoteApiWrapper partial\GeneralInformation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RemoteApiWrapper partial\GetLevels.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RemoteApiWrapper partial\GetParameters.StringASCII.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RemoteApiWrapper partial\GetParameters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RemoteApiWrapper partial\GetParameters.Float.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RemoteApiWrapper partial\GetParameters.StringUtf16.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RemoteApiWrapper partial\Login.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RemoteApiWrapper partial\MacroButtons.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RemoteApiWrapper partial\RemoteApiWrapper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RemoteApiWrapper partial\SetParameters.StringASCII.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RemoteApiWrapper partial\SetParameters.StringUtf16.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RemoteApiWrapper partial\SetParameters.Float.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RemoteApiWrapper partial\SetParameters.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\AudioCallback.cs" />
   </ItemGroup>
