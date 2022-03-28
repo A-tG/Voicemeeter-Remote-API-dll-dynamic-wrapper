@@ -21,10 +21,8 @@ namespace AtgDev.Voicemeeter
         /// <exception cref="ArgumentException">if paramName or strVal length more than 512 (to limit stack allocation)</exception>
         unsafe public Int32 SetParameter(string paramName, string strVal)
         {
-            var paramLen = paramName.Length;
-            var valLen = strVal.Length;
-            if (paramLen > 512) throw new ArgumentException("parameter name's length must not exceed 512");
-            if (valLen > 512) throw new ArgumentException("value name's length must not exceed 512");
+            var paramLen = CheckGetParameterNameLength(paramName);
+            var valLen = CheckGetValueLenght(strVal);
 
             byte* paramNameBuff = stackalloc byte[paramLen + 1];
             CopyStrToByteStrBuff(paramName, paramNameBuff);
