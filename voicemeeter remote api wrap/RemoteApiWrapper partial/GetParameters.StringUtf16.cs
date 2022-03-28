@@ -12,11 +12,7 @@ namespace AtgDev.Voicemeeter
         /// <param name="paramName">The name of the parameter (see VoicemeeterRemoteAPI parameters name table)</param>
         /// <param name="strVal">The string variable receiving the wanted value. (UTF-16)</param>
         /// <returns>
-        ///     0: OK (no error).<br/>
-        ///     -1: error<br/>
-        ///     -2: no server.<br/>
-        ///     -3: unknown parameter<br/>
-        ///     -5: structure mismatch<br/>
+        ///     <inheritdoc cref="GetParameter(string, out Single)" path="/returns"/>
         /// </returns>
         /// <exception cref="ArgumentException">if paramName length more than 512 (to limit stack allocation)</exception>
         unsafe public Int32 GetParameter(string paramName, out string strVal)
@@ -36,11 +32,7 @@ namespace AtgDev.Voicemeeter
         /// (see VoicemeeterRemoteAPI parameters name table)</param>
         /// <param name="strVal">The string variable receiving the wanted value. (UTF-16)</param>
         /// <returns>
-        ///     0: OK (no error).<br/>
-        ///     -1: error<br/>
-        ///     -2: no server.<br/>
-        ///     -3: unknown parameter<br/>
-        ///     -5: structure mismatch<br/>
+        ///     <inheritdoc cref="GetParameter(string, out Single)" path="/returns"/>
         /// </returns>
         unsafe public Int32 GetParameter(IntPtr paramNamePtr, out string strVal)
         {
@@ -56,11 +48,7 @@ namespace AtgDev.Voicemeeter
         /// <param name="paramName">The name of the parameter (see VoicemeeterRemoteAPI parameters name table)</param>
         /// <param name="strValPtr">Buffer pointer receiving the wanted value, 512 size (512 * 2 bytes)</param>
         /// <returns>
-        ///     0: OK (no error).<br/>
-        ///     -1: error<br/>
-        ///     -2: no server.<br/>
-        ///     -3: unknown parameter<br/>
-        ///     -5: structure mismatch<br/>
+        ///     <inheritdoc cref="GetParameter(string, out Single)" path="/returns"/>
         /// </returns>
         /// <exception cref="ArgumentException">if paramName length more than 512 (to limit stack allocation)</exception>
         unsafe public Int32 GetParameter(string paramName, IntPtr strValPtr)
@@ -82,11 +70,7 @@ namespace AtgDev.Voicemeeter
         /// (see VoicemeeterRemoteAPI parameters name table)</param>
         /// <param name="strValPtr">Buffer pointer receiving the wanted value, 512 size (512 * 2 bytes)</param>
         /// <returns>
-        ///     0: OK (no error).<br/>
-        ///     -1: error<br/>
-        ///     -2: no server.<br/>
-        ///     -3: unknown parameter<br/>
-        ///     -5: structure mismatch<br/>
+        ///     <inheritdoc cref="GetParameter(string, out Single)" path="/returns"/>
         /// </returns>
         public Int32 GetParameter(IntPtr paramNamePtr, IntPtr strValPtr)
         {

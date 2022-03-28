@@ -39,11 +39,7 @@ namespace AtgDev.Voicemeeter
         /// (see VoicemeeterRemoteAPI parameters name table)</param>
         /// <param name="val">The variable receiving the wanted value.</param>
         /// <returns>
-        ///     0: OK (no error).<br/>
-        ///     -1: error<br/>
-        ///     -2: no server.<br/>
-        ///     -3: unknown parameter<br/>
-        ///     -5: structure mismatch<br/>
+        ///     <inheritdoc cref="GetParameter(string, out Single)" path="/returns"/>
         /// </returns>
         public Int32 GetParameter(IntPtr paramNamePtr, out Single val)
         {
