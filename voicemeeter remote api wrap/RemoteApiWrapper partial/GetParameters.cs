@@ -148,9 +148,9 @@ namespace AtgDev.Voicemeeter
         ///     Get parameter value. Alternative low-level, faster method.
         ///     Except 2-3x faster execution time with preallocated paramBuffPtr and strBuffPtr
         /// </summary>
-        /// <param name="paramBuffPtr">Buffer pointer (null terminated ASCII) with the name of the parameter 
+        /// <param name="paramNamePtr">Buffer pointer (null terminated ASCII) with the name of the parameter 
         /// (see VoicemeeterRemoteAPI parameters name table)</param>
-        /// <param name="strBuffPtr">Buffer pointer receiving the wanted value, 512 size (512 * 2 bytes)</param>
+        /// <param name="strValPtr">Buffer pointer receiving the wanted value, 512 size (512 * 2 bytes)</param>
         /// <returns>
         ///     0: OK (no error).<br/>
         ///     -1: error<br/>
@@ -158,9 +158,9 @@ namespace AtgDev.Voicemeeter
         ///     -3: unknown parameter<br/>
         ///     -5: structure mismatch<br/>
         /// </returns>
-        public Int32 GetParameter(IntPtr paramPtr, IntPtr strValPtr)
+        public Int32 GetParameter(IntPtr paramNamePtr, IntPtr strValPtr)
         {
-            return m_getParameterStringW(paramPtr, strValPtr);
+            return m_getParameterStringW(paramNamePtr, strValPtr);
         }
     }
 }
