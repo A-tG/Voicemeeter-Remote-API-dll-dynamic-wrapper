@@ -31,9 +31,7 @@ namespace AtgDev.Voicemeeter
         /// <summary>
         ///     Get number of Audio Input Devices available on the system
         /// </summary>
-        /// <returns>
-        ///     Return number of devices found.
-        /// </returns>
+        /// <inheritdoc cref="GetOutputDevicesNumber" path="/returns"/>
         public Int32 GetInputDevicesNumber()
         {
             return m_input_getDeviceNumber();
@@ -69,17 +67,10 @@ namespace AtgDev.Voicemeeter
             return resp;
         }
 
-
         /// <summary>
         ///     Get name and hardware ID (ASCII) of the output device according index
         /// </summary>
-        /// <param name="index">zero based index</param>
-        /// <param name="type">Variable receiving the type</param>
-        /// <param name="deviceName">Variable receiving the the device name</param>
-        /// <param name="hardwareID">Variable receiving the the hardware ID</param>
-        /// <returns>
-        ///     0: OK (no error).<br/>
-        /// </returns>
+        /// <inheritdoc cref="GetInputDeviceDescriptor(int, out int, out string, out string)"/>
         public Int32 Legacy_GetOutputDeviceDescriptor(Int32 index, out Int32 type, out string deviceName, out string hardwareID)
         {
             return Legacy_GetDeviceDescription(index, out type, out deviceName, out hardwareID, m_output_getDeviceDescA);
@@ -88,13 +79,7 @@ namespace AtgDev.Voicemeeter
         /// <summary>
         ///     Get name and hardware ID of the output device according index
         /// </summary>
-        /// <param name="index">zero based index</param>
-        /// <param name="type">Variable receiving the type</param>
-        /// <param name="deviceName">Variable receiving the the device name</param>
-        /// <param name="hardwareID">Variable receiving the the hardware ID</param>
-        /// <returns>
-        ///     0: OK (no error).<br/>
-        /// </returns>
+        /// <inheritdoc cref="GetInputDeviceDescriptor(int, out int, out string, out string)"/>
         public Int32 GetOutputDeviceDescriptor(Int32 index, out Int32 type, out string deviceName, out string hardwareID)
         {
             return GetDeviceDescription(index, out type, out deviceName, out hardwareID, m_output_getDeviceDescW);
@@ -103,13 +88,7 @@ namespace AtgDev.Voicemeeter
         /// <summary>
         ///     Get name and hardware ID (ASCII) of the input device according index
         /// </summary>
-        /// <param name="index">zero based index</param>
-        /// <param name="type">Variable receiving the type</param>
-        /// <param name="deviceName">Variable receiving the the device name</param>
-        /// <param name="hardwareID">Variable receiving the the hardware ID</param>
-        /// <returns>
-        ///     0: OK (no error).<br/>
-        /// </returns>
+        /// <inheritdoc cref="GetInputDeviceDescriptor(int, out int, out string, out string)"/>
         public Int32 Legacy_GetInputDeviceDescriptor(Int32 index, out Int32 type, out string deviceName, out string hardwareID)
         {
             return Legacy_GetDeviceDescription(index, out type, out deviceName, out hardwareID, m_input_getDeviceDescA);
