@@ -12,6 +12,11 @@ namespace AtgDev.Voicemeeter
     {
         public const int ProcedureNotImportedErrorCode = -100;
 
+        /// <summary>
+        /// 512
+        /// </summary>
+        private const int ParameterMaxLength = 512; // to limit stackalloc inside GetParameter(), SetParameter()
+
         public RemoteApiWrapper(string dllPath) : base(dllPath) 
         {
             InitProcedures();
@@ -49,6 +54,17 @@ namespace AtgDev.Voicemeeter
             {
                 CopyCharStrBuffToByteStrBuff(c, toBuff, str.Length + 1); // to account null character
             }
+        }
+
+        /// <exception cref="ArgumentException">if paramName length more than <inheritdoc cref="ParameterMaxLength" path="//summary"/> (to limit stack allocation)</exception>
+        internal int CheckGetParameterNameLength(string param)
+        {
+            var len = param.Length;
+            if (len > ParameterMaxLength)
+            {
+                throw new ArgumentException("parameter name's length must not exceed " + ParameterMaxLength);
+            }
+            return len;
         }
     }
 }
