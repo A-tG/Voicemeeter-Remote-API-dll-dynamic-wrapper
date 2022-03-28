@@ -50,11 +50,9 @@ namespace AtgDev.Voicemeeter
             var len = paramName.Length;
             if (len > 512) throw new ArgumentException("parameter name's length must not exceed 512");
 
-            byte* paramNameBuff = stackalloc byte[++len];
-            fixed (char* c = paramName)
-            {
-                CopyCharStrBuffToByteStrBuff(c, paramNameBuff, len);
-            }
+            byte* paramNameBuff = stackalloc byte[len + 1];
+            CopyStrToByteStrBuff(paramName, paramNameBuff);
+
             // (!)For some reason casting to IntPtr variant of function is always bit faster than just unsafe pointer
             return GetParameter((IntPtr)paramNameBuff, out val);
         }
