@@ -62,7 +62,7 @@ namespace AtgDev.Voicemeeter
         private delegate Int32 VBVMR_SetParameterStringA(IntPtr paramNamePtr, IntPtr strValPtr);
         private VBVMR_SetParameterStringA m_setParameterStringA;
         /// <summary>
-        ///     Get parameter value.
+        ///     Set parameter value.
         /// </summary>
         /// <param name="paramName">The name of the parameter (see parameters name table)</param>
         /// <param name="strVal">The variable containing the new value (ASCII).</param>
@@ -95,7 +95,7 @@ namespace AtgDev.Voicemeeter
         private delegate Int32 VBVMR_SetParameterStringW(IntPtr paramNamePtr, IntPtr strValPtr);
         private VBVMR_SetParameterStringW m_setParameterStringW;
         /// <summary>
-        ///     Get parameter value.
+        ///     Set parameter value.
         /// </summary>
         /// <param name="paramName">The name of the parameter (see parameters name table)</param>
         /// <param name="strVal">The variable containing the new value. (UTF-16)</param>
@@ -123,7 +123,7 @@ namespace AtgDev.Voicemeeter
         }
 
         /// <summary>
-        ///     Get parameter value.
+        ///     Set parameter value.
         /// </summary>
         /// <param name="paramNamePtr">Pointer to the string (null terminated ASCII) with the name of the parameter (see parameters name table)</param>
         /// <param name="strVal">The variable containing the new value. (UTF-16)</param>
