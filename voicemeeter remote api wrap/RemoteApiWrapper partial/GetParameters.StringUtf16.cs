@@ -53,6 +53,31 @@ namespace AtgDev.Voicemeeter
 
         /// <summary>
         ///     Get parameter value. Alternative low-level, faster method.
+        /// </summary>
+        /// <param name="paramName">The name of the parameter (see VoicemeeterRemoteAPI parameters name table)</param>
+        /// <param name="strValPtr">Buffer pointer receiving the wanted value, 512 size (512 * 2 bytes)</param>
+        /// <returns>
+        ///     0: OK (no error).<br/>
+        ///     -1: error<br/>
+        ///     -2: no server.<br/>
+        ///     -3: unknown parameter<br/>
+        ///     -5: structure mismatch<br/>
+        /// </returns>
+        /// <exception cref="ArgumentException">if paramName length more than 512 (to limit stack allocation)</exception>
+        unsafe public Int32 GetParameter(string paramName, IntPtr strValPtr)
+        {
+            var len = paramName.Length;
+            if (len > 512) throw new ArgumentException("parameter name's length must not exceed 512");
+
+            byte* paramNameBuff = stackalloc byte[len + 1];
+            CopyStrToByteStrBuff(paramName, paramNameBuff);
+
+            var res = GetParameter((IntPtr)paramNameBuff, strValPtr);
+            return res;
+        }
+
+        /// <summary>
+        ///     Get parameter value. Alternative low-level, faster method.
         ///     Except 2-3x faster execution time with preallocated paramBuffPtr and strBuffPtr
         /// </summary>
         /// <param name="paramNamePtr">Buffer pointer (null terminated ASCII) with the name of the parameter 
