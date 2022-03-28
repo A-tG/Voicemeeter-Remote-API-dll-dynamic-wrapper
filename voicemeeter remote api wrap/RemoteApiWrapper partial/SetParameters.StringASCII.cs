@@ -26,11 +26,10 @@ namespace AtgDev.Voicemeeter
 
             byte* paramNameBuff = stackalloc byte[paramLen + 1];
             CopyStrToByteStrBuff(paramName, paramNameBuff);
+            byte* strValBuff = stackalloc byte[valLen + 1];
+            CopyStrToByteStrBuff(strVal, strValBuff);
 
-            fixed (char* strValBuff = strVal)
-            {
-                return m_setParameterStringA((IntPtr)paramNameBuff, (IntPtr)strValBuff);
-            }
+            return m_setParameterStringA((IntPtr)paramNameBuff, (IntPtr)strValBuff);
         }
 
         private delegate Int32 VBVMR_SetParameters(IntPtr scriptPtr);
