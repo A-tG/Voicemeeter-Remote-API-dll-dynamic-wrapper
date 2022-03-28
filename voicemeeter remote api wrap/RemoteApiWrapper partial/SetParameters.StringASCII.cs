@@ -12,10 +12,8 @@ namespace AtgDev.Voicemeeter
         /// </summary>
         /// <param name="paramName">The name of the parameter (see parameters name table)</param>
         /// <param name="strVal">The variable containing the new value (ASCII).</param>
-        /// <returns>
-        ///     <inheritdoc cref="SetParameter(string, Single)" path="/returns"/>
-        /// </returns>
-        /// <exception cref="ArgumentException">if paramName or strVal length more than 512 (to limit stack allocation)</exception>
+        /// <inheritdoc cref="SetParameter(string, Single)" path="/returns"/>
+        /// <inheritdoc cref="SetParameter(string, Single)" path="/exception"/>
         unsafe public Int32 Legacy_SetParameter(string paramName, string strVal)
         {
             var paramLen = CheckGetParameterNameLength(paramName);
@@ -48,9 +46,7 @@ namespace AtgDev.Voicemeeter
         ///         Strip[3].name = "Skype Caller" "
         ///     </c>
         /// </param>
-        /// <returns>
-        ///     <inheritdoc cref="SetParameters(string)" path="/returns"/>
-        /// </returns>
+        /// <inheritdoc cref="SetParameters(string)" path="/returns"/>
         public Int32 Legacy_SetParameters(string script)
         {
             var scriptPtr = Marshal.StringToHGlobalAnsi(script);

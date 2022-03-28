@@ -11,10 +11,8 @@ namespace AtgDev.Voicemeeter
         /// </summary>
         /// <param name="paramName">The name of the parameter (see VoicemeeterRemoteAPI parameters name table)</param>
         /// <param name="strVal">The string variable receiving the wanted value. (UTF-16)</param>
-        /// <returns>
-        ///     <inheritdoc cref="GetParameter(string, out Single)" path="/returns"/>
-        /// </returns>
-        /// <exception cref="ArgumentException">if paramName length more than 512 (to limit stack allocation)</exception>
+        /// <inheritdoc cref="GetParameter(string, out Single)" path="/returns"/>
+        /// <inheritdoc cref="GetParameter(string, out Single)" path="/exception"/>
         unsafe public Int32 GetParameter(string paramName, out string strVal)
         {
             var len = CheckGetParameterNameLength(paramName);
@@ -31,9 +29,7 @@ namespace AtgDev.Voicemeeter
         /// <param name="paramNamePtr">Buffer pointer (null terminated ASCII) with the name of the parameter 
         /// (see VoicemeeterRemoteAPI parameters name table)</param>
         /// <param name="strVal">The string variable receiving the wanted value. (UTF-16)</param>
-        /// <returns>
-        ///     <inheritdoc cref="GetParameter(string, out Single)" path="/returns"/>
-        /// </returns>
+        /// <inheritdoc cref="GetParameter(string, out Single)" path="/returns"/>
         unsafe public Int32 GetParameter(IntPtr paramNamePtr, out string strVal)
         {
             char* strValBuff = stackalloc char[512];
@@ -47,10 +43,8 @@ namespace AtgDev.Voicemeeter
         /// </summary>
         /// <param name="paramName">The name of the parameter (see VoicemeeterRemoteAPI parameters name table)</param>
         /// <param name="strValPtr">Buffer pointer receiving the wanted value, 512 size (512 * 2 bytes)</param>
-        /// <returns>
-        ///     <inheritdoc cref="GetParameter(string, out Single)" path="/returns"/>
-        /// </returns>
-        /// <exception cref="ArgumentException">if paramName length more than 512 (to limit stack allocation)</exception>
+        /// <inheritdoc cref="GetParameter(string, out Single)" path="/returns"/>
+        /// <inheritdoc cref="GetParameter(string, out Single)" path="/exception"/>
         unsafe public Int32 GetParameter(string paramName, IntPtr strValPtr)
         {
             var len = CheckGetParameterNameLength(paramName);
@@ -69,9 +63,7 @@ namespace AtgDev.Voicemeeter
         /// <param name="paramNamePtr">Buffer pointer (null terminated ASCII) with the name of the parameter 
         /// (see VoicemeeterRemoteAPI parameters name table)</param>
         /// <param name="strValPtr">Buffer pointer receiving the wanted value, 512 size (512 * 2 bytes)</param>
-        /// <returns>
-        ///     <inheritdoc cref="GetParameter(string, out Single)" path="/returns"/>
-        /// </returns>
+        /// <inheritdoc cref="GetParameter(string, out Single)" path="/returns"/>
         public Int32 GetParameter(IntPtr paramNamePtr, IntPtr strValPtr)
         {
             return m_getParameterStringW(paramNamePtr, strValPtr);

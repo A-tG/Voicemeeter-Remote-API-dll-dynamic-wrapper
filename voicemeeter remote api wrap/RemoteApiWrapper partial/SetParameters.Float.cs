@@ -18,7 +18,7 @@ namespace AtgDev.Voicemeeter
         ///     -2: no server.<br/>
         ///     -3: unknown parameter<br/>
         /// </returns>
-        /// <exception cref="ArgumentException">if paramName length more than 512 (to limit stack allocation)</exception>
+        /// <inheritdoc cref="CheckGetParameterNameLength(string)" path="/exception"/>
         unsafe public Int32 SetParameter(string paramName, Single val)
         {
             var len = CheckGetParameterNameLength(paramName);
@@ -35,9 +35,7 @@ namespace AtgDev.Voicemeeter
         /// <param name="paramNamePtr">Buffer pointer (null terminated ASCII) with the name of the parameter 
         /// (see VoicemeeterRemoteAPI parameters name table)</param>
         /// <param name="val">The variable containing the new value.</param>
-        /// <returns>
-        ///     <inheritdoc cref="SetParameter(string, Single)" path="/returns"/>
-        /// </returns>
+        /// <inheritdoc cref="SetParameter(string, Single)" path="/returns"/>
         public Int32 SetParameter(IntPtr paramNamePtr, Single val)
         {
             return m_setParameterFloat(paramNamePtr, val);

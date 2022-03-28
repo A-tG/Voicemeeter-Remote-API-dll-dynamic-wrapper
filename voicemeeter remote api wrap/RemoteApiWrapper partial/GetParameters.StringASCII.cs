@@ -11,10 +11,8 @@ namespace AtgDev.Voicemeeter
         /// </summary>
         /// <param name="paramName">The name of the parameter (see VoicemeeterRemoteAPI parameters name table)</param>
         /// <param name="strVal">The string variable receiving the wanted value. (ASCII)</param>
-        /// <returns>
-        ///     <inheritdoc cref="GetParameter(string, out Single)" path="/returns"/>
-        /// </returns>
-        /// <exception cref="ArgumentException">if paramName length more than 512 (to limit stack allocation)</exception>
+        /// <inheritdoc cref="GetParameter(string, out Single)" path="/returns"/>
+        /// <inheritdoc cref="GetParameter(string, out Single)" path="/exception"/>
         unsafe public Int32 Legacy_GetParameter(string paramName, out string strVal)
         {
             var len = CheckGetParameterNameLength(paramName);

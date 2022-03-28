@@ -18,7 +18,7 @@ namespace AtgDev.Voicemeeter
         ///     -3: unknown parameter<br/>
         ///     -5: structure mismatch<br/>
         /// </returns>
-        /// <exception cref="ArgumentException">if paramName length more than 512 (to limit stack allocation)</exception>
+        /// <inheritdoc cref="CheckGetParameterNameLength(string)" path="/exception"/>
         unsafe public Int32 GetParameter(string paramName, out Single val)
         {
             var len = paramName.Length;
@@ -38,9 +38,7 @@ namespace AtgDev.Voicemeeter
         /// <param name="paramNamePtr">Buffer pointer (null terminated ASCII) with the name of the parameter 
         /// (see VoicemeeterRemoteAPI parameters name table)</param>
         /// <param name="val">The variable receiving the wanted value.</param>
-        /// <returns>
-        ///     <inheritdoc cref="GetParameter(string, out Single)" path="/returns"/>
-        /// </returns>
+        /// <inheritdoc cref="GetParameter(string, out Single)" path="/returns"/>
         public Int32 GetParameter(IntPtr paramNamePtr, out Single val)
         {
             return m_getParameterFloat(paramNamePtr, out val);

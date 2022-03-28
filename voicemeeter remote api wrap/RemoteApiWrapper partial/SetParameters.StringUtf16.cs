@@ -12,10 +12,8 @@ namespace AtgDev.Voicemeeter
         /// </summary>
         /// <param name="paramName">The name of the parameter (see parameters name table)</param>
         /// <param name="strVal">The variable containing the new value. (UTF-16)</param>
-        /// <returns>
-        ///     <inheritdoc cref="SetParameter(string, Single)" path="/returns"/>
-        /// </returns>
-        /// <exception cref="ArgumentException">if paramName or strVal length more than 512 (to limit stack allocation)</exception>
+        /// <inheritdoc cref="SetParameter(string, Single)" path="/returns"/>
+        /// <inheritdoc cref="SetParameter(string, Single)" path="/exception"/>
         unsafe public Int32 SetParameter(string paramName, string strVal)
         {
             var paramLen = CheckGetParameterNameLength(paramName);
@@ -32,9 +30,7 @@ namespace AtgDev.Voicemeeter
         /// </summary>
         /// <param name="paramNamePtr">Pointer to the string (null terminated ASCII) with the name of the parameter (see parameters name table)</param>
         /// <param name="strVal">The variable containing the new value. (UTF-16)</param>
-        /// <returns>
-        ///     <inheritdoc cref="SetParameter(string, Single)" path="/returns"/>
-        /// </returns>
+        /// <inheritdoc cref="SetParameter(string, Single)" path="/returns"/>
         unsafe public Int32 SetParameter(IntPtr paramNamePtr, string strVal)
         {
             fixed (char* strValBuff = strVal)
@@ -48,9 +44,7 @@ namespace AtgDev.Voicemeeter
         /// </summary>
         /// <param name="paramNamePtr">Pointer to the string (null terminated ASCII) with the name of the parameter (see parameters name table)</param>
         /// <param name="strValPtr">Buffer pointer containing the new value. (null terminated UTF-16)</param>
-        /// <returns>
-        ///     <inheritdoc cref="SetParameter(string, Single)" path="/returns"/>
-        /// </returns>
+        /// <inheritdoc cref="SetParameter(string, Single)" path="/returns"/>
         public Int32 SetParameter(IntPtr paramNamePtr, IntPtr strValPtr)
         {
             return m_setParameterStringW(paramNamePtr, strValPtr);
@@ -110,9 +104,7 @@ namespace AtgDev.Voicemeeter
         ///         Strip[3].name = "Skype Caller" "
         ///     </c>
         /// </param>
-        /// <returns>
-        ///     <inheritdoc cref="SetParameters(string)" path="/returns"/>
-        /// </returns>
+        /// <inheritdoc cref="SetParameters(string)" path="/returns"/>
         public Int32 SetParameters(IntPtr scriptPtr)
         {
             return m_setParametersW(scriptPtr);
