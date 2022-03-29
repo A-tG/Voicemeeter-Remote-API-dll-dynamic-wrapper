@@ -35,6 +35,18 @@ namespace AtgDev.Voicemeeter
             }
         }
 
+        /// <inheritdoc cref="SetParameter(IntPtr, IntPtr)"/>
+        /// <inheritdoc cref="SetParameter(string, string)"/>
+        unsafe public Int32 SetParameter(string paramName, IntPtr strValPtr)
+        {
+            var paramLen = CheckGetParameterNameLength(paramName);
+
+            byte* paramNameBuff = stackalloc byte[paramLen + 1];
+            CopyStrToByteStrBuff(paramName, paramNameBuff);
+
+            return m_setParameterStringW((IntPtr)paramNameBuff, strValPtr);
+        }
+
         /// <summary>
         ///    Alternative low-level method for pre allocated buffers. For maximum performance
         /// </summary>
