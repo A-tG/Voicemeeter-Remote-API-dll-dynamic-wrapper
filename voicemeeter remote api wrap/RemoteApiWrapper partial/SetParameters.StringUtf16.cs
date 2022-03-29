@@ -25,12 +25,8 @@ namespace AtgDev.Voicemeeter
             return SetParameter((IntPtr)paramNameBuff, strVal);
         }
 
-        /// <summary>
-        ///     Set parameter value.
-        /// </summary>
-        /// <param name="paramNamePtr">Pointer to the string (null terminated ASCII) with the name of the parameter (see parameters name table)</param>
-        /// <param name="strVal">The variable containing the new value. (UTF-16)</param>
-        /// <inheritdoc cref="SetParameter(string, Single)" path="/returns"/>
+        /// <inheritdoc cref="SetParameter(IntPtr, IntPtr)"/>
+        /// <inheritdoc cref="SetParameter(string, string)"/>
         unsafe public Int32 SetParameter(IntPtr paramNamePtr, string strVal)
         {
             fixed (char* strValBuff = strVal)
@@ -40,10 +36,12 @@ namespace AtgDev.Voicemeeter
         }
 
         /// <summary>
-        ///     Get parameter value.
+        ///    Alternative low-level method for pre allocated buffers. For maximum performance
         /// </summary>
-        /// <param name="paramNamePtr">Pointer to the string (null terminated ASCII) with the name of the parameter (see parameters name table)</param>
-        /// <param name="strValPtr">Buffer pointer containing the new value. (null terminated UTF-16)</param>
+        /// <param name="paramNamePtr">
+        ///     <inheritdoc cref="GetParameter(IntPtr, IntPtr)" path="/param[@name='paramNamePtr']"/>
+        /// </param>
+        /// <param name="strValPtr">Buffer pointer containing the new value. (C string, null terminated UTF-16)</param>
         /// <inheritdoc cref="SetParameter(string, Single)" path="/returns"/>
         public Int32 SetParameter(IntPtr paramNamePtr, IntPtr strValPtr)
         {
@@ -53,10 +51,10 @@ namespace AtgDev.Voicemeeter
         private delegate Int32 VBVMR_SetParametersW(IntPtr scriptPtr);
         private VBVMR_SetParametersW m_setParametersW;
         /// <summary>
-        ///     Set one or several parameters by a script (&lt; 48 kB).
+        ///     Set one or several parameters by a script (&lt; 48 kB). (UTF-16)
         /// </summary>
         /// <param name="script">
-        ///     String giving the script (UTF16)<br/>                  
+        ///     String giving the script<br/>                  
         ///     (script allows to change several parameters in the same time - SYNCHRO).<br/>                  
         ///     Possible Instuction separators: ',' ';' or '\n'(CR)<br/> 
         ///     EXAMPLE:<br/>
@@ -86,9 +84,6 @@ namespace AtgDev.Voicemeeter
             return res;
         }
 
-        /// <summary>
-        ///     Set one or several parameters by a script (&lt; 48 kB). Alternative low-level, faster method.
-        /// </summary>
         /// <param name="scriptPtr">
         ///     Buffer pointer to the
         ///     string giving the script (null terminated UTF-16)<br/>                  
@@ -104,7 +99,7 @@ namespace AtgDev.Voicemeeter
         ///         Strip[3].name = "Skype Caller" "
         ///     </c>
         /// </param>
-        /// <inheritdoc cref="SetParameters(string)" path="/returns"/>
+        /// <inheritdoc cref="SetParameters(string)"/>
         public Int32 SetParameters(IntPtr scriptPtr)
         {
             return m_setParametersW(scriptPtr);

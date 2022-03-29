@@ -31,14 +31,8 @@ namespace AtgDev.Voicemeeter
             return GetParameter((IntPtr)paramNameBuff, out val);
         }
 
-        /// <summary>
-        ///     Get parameter value. Alternative low-level, faster method.
-        ///     Except ~20% faster execution time with preallocated paramBuffPtr
-        /// </summary>
-        /// <param name="paramNamePtr">Buffer pointer (null terminated ASCII) with the name of the parameter 
-        /// (see VoicemeeterRemoteAPI parameters name table)</param>
-        /// <param name="val">The variable receiving the wanted value.</param>
-        /// <inheritdoc cref="GetParameter(string, out Single)" path="/returns"/>
+        /// <inheritdoc cref="GetParameter(IntPtr, IntPtr)"/>
+        /// <inheritdoc cref="GetParameter(string, out Single)"/>
         public Int32 GetParameter(IntPtr paramNamePtr, out Single val)
         {
             return m_getParameterFloat(paramNamePtr, out val);

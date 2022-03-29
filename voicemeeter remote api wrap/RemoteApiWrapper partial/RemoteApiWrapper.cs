@@ -10,11 +10,11 @@ namespace AtgDev.Voicemeeter
     /// </summary>
     public partial class RemoteApiWrapper : DllWrapperBase
     {
+        // shortcut for <inheritdoc> 
+        /// <summary>-100: procedure was not successfully imported</summary>
         public const int ProcedureNotImportedErrorCode = -100;
 
-        /// <summary>
-        /// 512
-        /// </summary>
+        /// <summary>512</summary>
         private const int ParameterMaxLength = 512; // to limit stackalloc inside GetParameter(), SetParameter()
 
         public RemoteApiWrapper(string dllPath) : base(dllPath) 

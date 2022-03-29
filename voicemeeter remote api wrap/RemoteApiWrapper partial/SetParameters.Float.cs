@@ -29,13 +29,8 @@ namespace AtgDev.Voicemeeter
             return SetParameter((IntPtr)paramNameBuff, val);
         }
 
-        /// <summary>
-        ///     Set a single parameter. Alternative low-level, faster method.
-        /// </summary>
-        /// <param name="paramNamePtr">Buffer pointer (null terminated ASCII) with the name of the parameter 
-        /// (see VoicemeeterRemoteAPI parameters name table)</param>
-        /// <param name="val">The variable containing the new value.</param>
-        /// <inheritdoc cref="SetParameter(string, Single)" path="/returns"/>
+        /// <inheritdoc cref="SetParameter(IntPtr, IntPtr)"/>
+        /// <inheritdoc cref="SetParameter(string, Single)"/>
         public Int32 SetParameter(IntPtr paramNamePtr, Single val)
         {
             return m_setParameterFloat(paramNamePtr, val);

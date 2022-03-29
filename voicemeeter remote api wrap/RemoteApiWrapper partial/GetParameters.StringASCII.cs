@@ -7,12 +7,10 @@ namespace AtgDev.Voicemeeter
         private delegate Int32 VBVMR_GetParameterStringA(IntPtr paramNamePtr, IntPtr strValPtr);
         private VBVMR_GetParameterStringA m_getParameterStringA;
         /// <summary>
-        ///     Get parameter value.
+        ///     Get parameter value (ASCII value)
         /// </summary>
-        /// <param name="paramName">The name of the parameter (see VoicemeeterRemoteAPI parameters name table)</param>
         /// <param name="strVal">The string variable receiving the wanted value. (ASCII)</param>
-        /// <inheritdoc cref="GetParameter(string, out Single)" path="/returns"/>
-        /// <inheritdoc cref="GetParameter(string, out Single)" path="/exception"/>
+        /// <inheritdoc cref="GetParameter(string, out Single)"/>
         unsafe public Int32 Legacy_GetParameter(string paramName, out string strVal)
         {
             var len = CheckGetParameterNameLength(paramName);

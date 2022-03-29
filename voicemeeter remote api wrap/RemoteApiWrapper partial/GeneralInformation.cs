@@ -40,11 +40,7 @@ namespace AtgDev.Voicemeeter
 		/// 	        v4 = version &amp; 0x000000FF;<br/>
         /// 	   </c>
         /// </param>
-        /// <returns>
-        ///     0: OK (no error).<br/>
-        ///     -1: cannot get client (unexpected)<br/>
-        ///     -2: no server.<br/>
-        /// </returns>
+        /// <inheritdoc cref="GetVoicemeeterType(out Int32)" path="/returns"/>
         public Int32 GetVoicemeeterVersion(out Int32 ver)
         {
             return m_getVoicemeeterVersion(out ver);
