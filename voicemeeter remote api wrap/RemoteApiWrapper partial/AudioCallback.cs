@@ -44,7 +44,7 @@ namespace AtgDev.Voicemeeter
         ///     0: OK (no error).<br/>
         ///     -1: error<br/>
         ///     1: callback already registered (by another application).<br/>
-        ///     -100: procedure was not successfully imported from the DLL<br/>
+        ///     <inheritdoc cref="ProcedureNotImportedErrorCode" path="/summary"/>
         /// </returns>
         unsafe public Int32 AudioCallbackRegister(Mode mode, Callback callback, void* customDataP, ref string ClientName)
         {
@@ -75,7 +75,7 @@ namespace AtgDev.Voicemeeter
         ///     0: OK (no error).<br/>
         ///     -1: error<br/>
         ///     -2: no callback registred.<br/>
-        ///     -100: procedure was not successfully imported from the DLL<br/>
+        ///     <inheritdoc cref="ProcedureNotImportedErrorCode" path="/summary"/>
         /// </returns>
         public Int32 AudioCallbackStart()
         {
@@ -88,12 +88,7 @@ namespace AtgDev.Voicemeeter
         /// <summary>
         ///     Stop Audio processing
         /// </summary>
-        /// <returns>
-        ///     0: OK (no error).<br/>
-        ///     -1: error<br/>
-        ///     -2: no callback registred.<br/>
-        ///     -100: procedure was not successfully imported from the DLL<br/>
-        /// </returns>
+        /// <inheritdoc cref="AudioCallbackStart" path="/returns"/>
         public Int32 AudioCallbackStop()
         {
             if (m_audioCallbackStop is null) return ProcedureNotImportedErrorCode;
@@ -110,7 +105,7 @@ namespace AtgDev.Voicemeeter
         ///     0: OK (no error).<br/>
         ///     -1: error<br/>
         ///     1: callback already unregistered.<br/>
-        ///     -100: procedure was not successfully imported from the DLL<br/>
+        ///     <inheritdoc cref="ProcedureNotImportedErrorCode" path="/summary"/>
         /// </returns>
         public Int32 AudioCallbackUnregister()
         {

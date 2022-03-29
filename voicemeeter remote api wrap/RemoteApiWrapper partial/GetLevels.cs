@@ -65,22 +65,8 @@ namespace AtgDev.Voicemeeter
             return m_getMidiMessage(midiBuffer, bufferSize);
         }
 
-        /// <summary>
-        ///     <para>Get MIDI message from M.I.D.I. input device used by Voicemeeter M.I.D.I. mapping.</para>
-        ///     this function must be called from one thread only
-        /// </summary>
-        /// <param name="midiBuffer">
-        ///     MIDI Buffer array. Expected message size is below 4 bytes, 
-        ///     but it's recommended to use larger buffer (1024 length) to receive
-        ///     possible multiple MIDI event message in optimal way.
-        /// </param>
-        /// <returns>
-        ///     >0: number of bytes placed in buffer (2 or 3 byte for usual M.I.D.I. message)<br/>
-        ///     -1: error<br/>
-        ///     -2: no server.<br/>
-        ///     -5: no MIDI data<br/>
-        ///     -6: no MIDI data<br/>
-        /// </returns>
+
+        /// <inheritdoc cref="GetMidiMessage(out byte[], int)" path="/summary"/>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="ArgumentException">Thrown if midiBuffer Length is 0</exception>
         public Int32 GetMidiMessage(byte[] midiBuffer)
