@@ -87,13 +87,12 @@ namespace AtgDev.Voicemeeter
         ///		-3: unexpected error<br/> 
         ///		-4: unexpected error<br/> 
         /// </returns>
-        public Int32 SetParameters(string script)
+        unsafe public Int32 SetParameters(string script)
         {
-            var scriptPtr = Marshal.StringToHGlobalUni(script);
-            var res = m_setParametersW(scriptPtr);
-            Marshal.FreeHGlobal(scriptPtr);
-
-            return res;
+            fixed(char* scriptPtr = script)
+            {
+                return m_setParametersW((IntPtr)scriptPtr);
+            }
         }
 
         /// <param name="scriptPtr">
