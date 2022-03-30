@@ -66,7 +66,7 @@ namespace AtgDev.Voicemeeter
         }
 
 
-        /// <inheritdoc cref="GetMidiMessage(out byte[], int)" path="/summary"/>
+        /// <inheritdoc cref="GetMidiMessage(out byte[], int)"/>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="ArgumentException">Thrown if midiBuffer Length is 0</exception>
         public Int32 GetMidiMessage(byte[] midiBuffer)
