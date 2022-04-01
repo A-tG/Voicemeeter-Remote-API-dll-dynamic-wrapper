@@ -45,7 +45,7 @@ namespace AtgDev.Voicemeeter
             const int len = 256;
             byte* deviceNamePtr = stackalloc byte[len];
             byte* hardwareIdPtr = stackalloc byte[len];
-            hardwareIdPtr[0] = 0;
+            hardwareIdPtr[0] = deviceNamePtr[0] = 0;
 
             var resp = getDeviceFunc(index, out type, (IntPtr)deviceNamePtr, (IntPtr)hardwareIdPtr);
 
@@ -60,7 +60,7 @@ namespace AtgDev.Voicemeeter
             const int len = 256;
             char* deviceNamePtr = stackalloc char[len];
             char* hardwareIdPtr = stackalloc char[len];
-            hardwareIdPtr[0] = '\0';
+            hardwareIdPtr[0] = deviceNamePtr[0] = '\0';
 
             var resp = getDeviceFunc(index, out type, (IntPtr)deviceNamePtr, (IntPtr)hardwareIdPtr);
             deviceName = new string(deviceNamePtr);

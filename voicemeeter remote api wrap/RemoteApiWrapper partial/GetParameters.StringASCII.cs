@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 
 namespace AtgDev.Voicemeeter
 {
@@ -18,10 +19,12 @@ namespace AtgDev.Voicemeeter
             byte* paramNameBuff = stackalloc byte[len + 1];
             CopyStrToByteStrBuff(paramName, paramNameBuff);
 
-            char* strValBuff = stackalloc char[512];
+            byte* strValBuff = stackalloc byte[512];
+            strValBuff[0] = 0;
+            var strPtr = (IntPtr)strValBuff;
 
-            var res = m_getParameterStringA((IntPtr)paramNameBuff, (IntPtr)strValBuff);
-            strVal = new string(strValBuff);
+            var res = m_getParameterStringA((IntPtr)paramNameBuff, strPtr);
+            strVal = Marshal.PtrToStringAnsi(strPtr);
             return res;
         }
     }

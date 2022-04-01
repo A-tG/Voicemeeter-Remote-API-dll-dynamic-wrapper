@@ -26,6 +26,7 @@ namespace AtgDev.Voicemeeter
         unsafe public Int32 GetParameter(IntPtr paramNamePtr, out string strVal)
         {
             char* strValBuff = stackalloc char[512];
+            strValBuff[0] = '\0';
             var res = GetParameter(paramNamePtr, (IntPtr)strValBuff);
             strVal = new string(strValBuff);
             return res;
@@ -40,8 +41,7 @@ namespace AtgDev.Voicemeeter
             byte* paramNameBuff = stackalloc byte[len + 1];
             CopyStrToByteStrBuff(paramName, paramNameBuff);
 
-            var res = GetParameter((IntPtr)paramNameBuff, strValPtr);
-            return res;
+            return GetParameter((IntPtr)paramNameBuff, strValPtr);
         }
 
         /// <summary>
