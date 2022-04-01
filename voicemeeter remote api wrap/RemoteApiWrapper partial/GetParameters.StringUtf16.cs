@@ -13,9 +13,7 @@ namespace AtgDev.Voicemeeter
         /// <inheritdoc cref="GetParameter(string, out Single)"/>
         unsafe public Int32 GetParameter(string paramName, out string strVal)
         {
-            var len = CheckAndGetParameterNameLength(paramName);
-
-            byte* paramNameBuff = stackalloc byte[len + 1];
+            byte* paramNameBuff = stackalloc byte[CheckAndGetParameterNameLength(paramName) + 1];
             CopyStrToByteStrBuff(paramName, paramNameBuff);
 
             return GetParameter((IntPtr)paramNameBuff, out strVal);
@@ -27,6 +25,7 @@ namespace AtgDev.Voicemeeter
         {
             char* strValBuff = stackalloc char[512];
             strValBuff[0] = '\0';
+
             var res = GetParameter(paramNamePtr, (IntPtr)strValBuff);
             strVal = new string(strValBuff);
             return res;
@@ -36,9 +35,7 @@ namespace AtgDev.Voicemeeter
         /// <inheritdoc cref="GetParameter(string, out string)"/>
         unsafe public Int32 GetParameter(string paramName, IntPtr strValPtr)
         {
-            var len = CheckAndGetParameterNameLength(paramName);
-
-            byte* paramNameBuff = stackalloc byte[len + 1];
+            byte* paramNameBuff = stackalloc byte[CheckAndGetParameterNameLength(paramName) + 1];
             CopyStrToByteStrBuff(paramName, paramNameBuff);
 
             return GetParameter((IntPtr)paramNameBuff, strValPtr);

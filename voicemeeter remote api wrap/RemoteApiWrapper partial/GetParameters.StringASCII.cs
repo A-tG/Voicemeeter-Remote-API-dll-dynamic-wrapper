@@ -14,9 +14,7 @@ namespace AtgDev.Voicemeeter
         /// <inheritdoc cref="GetParameter(string, out Single)"/>
         unsafe public Int32 Legacy_GetParameter(string paramName, out string strVal)
         {
-            var len = CheckAndGetParameterNameLength(paramName);
-
-            byte* paramNameBuff = stackalloc byte[len + 1];
+            byte* paramNameBuff = stackalloc byte[CheckAndGetParameterNameLength(paramName) + 1];
             CopyStrToByteStrBuff(paramName, paramNameBuff);
 
             byte* strValBuff = stackalloc byte[512];

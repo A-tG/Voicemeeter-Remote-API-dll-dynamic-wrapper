@@ -14,12 +14,9 @@ namespace AtgDev.Voicemeeter
         /// <inheritdoc cref="SetParameter(string, Single)"/>
         unsafe public Int32 Legacy_SetParameter(string paramName, string strVal)
         {
-            var paramLen = CheckAndGetParameterNameLength(paramName);
-            var valLen = CheckGetValueLenght(strVal);
-
-            byte* paramNameBuff = stackalloc byte[paramLen + 1];
+            byte* paramNameBuff = stackalloc byte[CheckAndGetParameterNameLength(paramName) + 1];
+            byte* strValBuff = stackalloc byte[CheckAndGetValueLenght(strVal) + 1];
             CopyStrToByteStrBuff(paramName, paramNameBuff);
-            byte* strValBuff = stackalloc byte[valLen + 1];
             CopyStrToByteStrBuff(strVal, strValBuff);
 
             return m_setParameterStringA((IntPtr)paramNameBuff, (IntPtr)strValBuff);

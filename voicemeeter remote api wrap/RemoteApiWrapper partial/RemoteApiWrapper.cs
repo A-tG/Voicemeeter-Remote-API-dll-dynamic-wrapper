@@ -71,7 +71,7 @@ namespace AtgDev.Voicemeeter
         }
 
         /// <inheritdoc cref="CheckAndGetParameterNameLength"/>
-        internal int CheckGetValueLenght(string val)
+        internal int CheckAndGetValueLenght(string val)
         {
             return CheckAndGetParameterNameLength(val);
         }
