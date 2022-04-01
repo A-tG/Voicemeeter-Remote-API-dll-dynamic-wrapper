@@ -42,9 +42,10 @@ namespace AtgDev.Voicemeeter
         unsafe private Int32 Legacy_GetDeviceDescription(Int32 index, out Int32 type, out string deviceName, out string hardwareID, Common_GetDeviceDesc getDeviceFunc)
         {
             // 256 char characters minimum according to DLL documentation
-            const int len = 256 + 1;
+            const int len = 256;
             byte* deviceNamePtr = stackalloc byte[len];
             byte* hardwareIdPtr = stackalloc byte[len];
+            hardwareIdPtr[0] = 0;
 
             var resp = getDeviceFunc(index, out type, (IntPtr)deviceNamePtr, (IntPtr)hardwareIdPtr);
 
@@ -56,9 +57,10 @@ namespace AtgDev.Voicemeeter
         unsafe private Int32 GetDeviceDescription(Int32 index, out Int32 type, out string deviceName, out string hardwareID, Common_GetDeviceDesc getDeviceFunc)
         {
             // 256 wchar characters minimum according to DLL documentation
-            const int len = 256 + 1; // bugged if addional space is not added
+            const int len = 256;
             char* deviceNamePtr = stackalloc char[len];
             char* hardwareIdPtr = stackalloc char[len];
+            hardwareIdPtr[0] = '\0';
 
             var resp = getDeviceFunc(index, out type, (IntPtr)deviceNamePtr, (IntPtr)hardwareIdPtr);
             deviceName = new string(deviceNamePtr);
