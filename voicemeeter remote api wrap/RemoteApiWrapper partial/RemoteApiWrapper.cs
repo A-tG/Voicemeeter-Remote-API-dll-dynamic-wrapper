@@ -60,7 +60,7 @@ namespace AtgDev.Voicemeeter
         }
 
         /// <exception cref="ArgumentException">if paramName length more than <inheritdoc cref="ParameterMaxLength" path="/summary"/> (to limit stack allocation)</exception>
-        internal int CheckGetParameterNameLength(string param)
+        internal int CheckAndGetParameterNameLength(string param)
         {
             var len = param.Length;
             if (len > ParameterMaxLength)
@@ -70,10 +70,10 @@ namespace AtgDev.Voicemeeter
             return len;
         }
 
-        /// <inheritdoc cref="CheckGetParameterNameLength"/>
+        /// <inheritdoc cref="CheckAndGetParameterNameLength"/>
         internal int CheckGetValueLenght(string val)
         {
-            return CheckGetParameterNameLength(val);
+            return CheckAndGetParameterNameLength(val);
         }
     }
 }

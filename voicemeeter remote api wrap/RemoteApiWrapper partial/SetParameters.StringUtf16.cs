@@ -16,7 +16,7 @@ namespace AtgDev.Voicemeeter
         /// <inheritdoc cref="SetParameter(string, Single)" path="/exception"/>
         unsafe public Int32 SetParameter(string paramName, string strVal)
         {
-            var paramLen = CheckGetParameterNameLength(paramName);
+            var paramLen = CheckAndGetParameterNameLength(paramName);
             var valLen = CheckGetValueLenght(strVal);
 
             byte* paramNameBuff = stackalloc byte[paramLen + 1];
@@ -39,7 +39,7 @@ namespace AtgDev.Voicemeeter
         /// <inheritdoc cref="SetParameter(string, string)"/>
         unsafe public Int32 SetParameter(string paramName, IntPtr strValPtr)
         {
-            var paramLen = CheckGetParameterNameLength(paramName);
+            var paramLen = CheckAndGetParameterNameLength(paramName);
 
             byte* paramNameBuff = stackalloc byte[paramLen + 1];
             CopyStrToByteStrBuff(paramName, paramNameBuff);
