@@ -46,7 +46,7 @@ namespace AtgDev.Voicemeeter
         /// </summary>
         /// <param name="paramNamePtr">Buffer pointer (null terminated ASCII) with the name of the parameter 
         /// (see VoicemeeterRemoteAPI parameters name table)</param>
-        /// <param name="strValPtr">Buffer pointer receiving the wanted value, 512 size (512 * 2 bytes)</param>
+        /// <param name="strValPtr">Buffer pointer receiving the wanted value, UTF-16 512 size (512 * 2 bytes)</param>
         /// <inheritdoc cref="GetParameter(string, out Single)"/>
         public Int32 GetParameter(IntPtr paramNamePtr, IntPtr strValPtr)
         {

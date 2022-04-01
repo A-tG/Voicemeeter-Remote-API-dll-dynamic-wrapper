@@ -48,7 +48,7 @@ namespace AtgDev.Voicemeeter
         /// <param name="paramNamePtr">
         ///     <inheritdoc cref="GetParameter(IntPtr, IntPtr)" path="/param[@name='paramNamePtr']"/>
         /// </param>
-        /// <param name="strValPtr">Buffer pointer containing the new value. (C string, null terminated UTF-16)</param>
+        /// <param name="strValPtr">Buffer pointer containing the new value. (null terminated UTF-16)</param>
         /// <inheritdoc cref="SetParameter(string, Single)" path="/returns"/>
         public Int32 SetParameter(IntPtr paramNamePtr, IntPtr strValPtr)
         {
