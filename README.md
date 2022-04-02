@@ -12,7 +12,7 @@ I optimized marshalling by replacing "MarshalAs" attributes with pointers and th
 ```csharp
 GetParameter(string paramName, out string strVal)
 ``` 
-+ for all Get/SetParameter funcitons - parameter's name length * 1 + 1 byte (so "Strip[0].Gain" == 15 bytes (with null character)). 
+plus for all Get/SetParameter funcitons - parameter's name length * 1 + 1 byte (so "Strip[0].Gain" == 15 bytes (with null character)). 
 And there is also overloaded variants without allocation that recieve IntPtr as arguments, so you can use pre-allocated buffers (using something like Marshal.StringToHGlobalAnsi(), Marshal.AllocHGlobal(), or pinning managed array) to achieve native-like performance.
 
 And regarding performance: on AMD Ryzen2600x you can except 66 ns for GetParameter(string, float), and for variant with pre-allocated buffers 55-60 ns for "out string" and "out float" variant. Overall now it is 1.5-2x faster than pre 1.2 version.
