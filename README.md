@@ -18,7 +18,7 @@ And there is also overloaded variants without allocation that recieve IntPtr as 
 And regarding performance: on AMD Ryzen2600x you can except 66 ns for GetParameter(string, float), and for variant with pre-allocated buffers 55-60 ns for "out string" and "out float" variant. Overall now it is 1.5-2x faster than pre 1.2 version.
 
 
-Usage:
+### Usage:
 ```csharp
 using AtgDev.Voicemeeter;
 using AtgDev.Voicemeeter.Utils;
