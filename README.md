@@ -7,6 +7,17 @@ Helps to dynamically load VoicemeeterRemote64.dll or VoicemeeterRemote.dll.
 
 **Basic return codes, methods and types similar to original DLL. Use extended class for more functionality or you can write your own.**
 
+### Note for 1.2 and later versions:
+I optimized marshalling by replacing "MarshalAs" attributes with pointers and then allocating buffers on stack, and by sending pointer to a string with "fixed" statement. So there is a risk of getting stack overflow in some unsual cases, so keep in mind: maximum allocation size is 1024 bytes for out string in
+```csharp
+GetParameter(string paramName, out string strVal)
+``` 
++ for all Get/SetParameter funcitons - parameter's name length * 1 + 1 byte (so "Strip[0].Gain" == 15 bytes (with null character)). 
+And there is also overloaded variants without allocation that recieve IntPtr as arguments, so you can use pre-allocated buffers (using something like Marshal.StringToHGlobalAnsi(), Marshal.AllocHGlobal(), or pinning managed array) to achieve native-like performance.
+
+And regarding performance: on AMD Ryzen2600x you can except 66 ns for GetParameter(string, float), and for variant with pre-allocated buffers 55-60 ns for "out string" and "out float" variant. Overall now it is 1.5-2x faster than pre 1.2 version.
+
+
 Usage:
 ```csharp
 using AtgDev.Voicemeeter;
