@@ -8,7 +8,7 @@ Helps to dynamically load VoicemeeterRemote64.dll or VoicemeeterRemote.dll.
 **Basic return codes, methods and types similar to original DLL. Use extended class for more functionality or you can write your own.**
 
 ### Note for 1.2 and later versions:
-I optimized marshalling by replacing "MarshalAs" attributes with pointers and then allocating buffers on stack, and by sending pointer to a string with "fixed" statement. So there is a risk of getting stack overflow in some unsual cases, so keep in mind: maximum allocation size is 1024 bytes for out string in
+I optimized marshalling by replacing "MarshalAs" attributes with pointers and then allocating buffers on stack, and by sending pointer to a string with "fixed" statement. So there is a risk of getting stack overflow in some unusual cases, so keep in mind: maximum allocation size is 1024 bytes for out string in
 ```csharp
 GetParameter(string paramName, out string strVal)
 ``` 
