@@ -22,7 +22,7 @@ namespace AtgDev.Voicemeeter
         unsafe public Int32 SetParameter(string paramName, Single val)
         {
             byte* paramNameBuff = stackalloc byte[CheckAndGetParameterNameLength(paramName) + 1];
-            CopyStrToByteStrBuff(paramName, paramNameBuff);
+            CopyStrToAsciiBuff(paramName, paramNameBuff);
 
             return SetParameter((IntPtr)paramNameBuff, val);
         }

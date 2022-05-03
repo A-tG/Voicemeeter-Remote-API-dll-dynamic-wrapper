@@ -15,7 +15,7 @@ namespace AtgDev.Voicemeeter
         unsafe public Int32 Legacy_GetParameter(string paramName, out string strVal)
         {
             byte* paramNameBuff = stackalloc byte[CheckAndGetParameterNameLength(paramName) + 1];
-            CopyStrToByteStrBuff(paramName, paramNameBuff);
+            CopyStrToAsciiBuff(paramName, paramNameBuff);
 
             byte* strValBuff = stackalloc byte[512];
             strValBuff[0] = 0;

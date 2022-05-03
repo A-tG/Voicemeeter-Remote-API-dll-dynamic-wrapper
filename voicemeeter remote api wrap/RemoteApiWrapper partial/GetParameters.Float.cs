@@ -24,7 +24,7 @@ namespace AtgDev.Voicemeeter
             var len = CheckAndGetParameterNameLength(paramName);
 
             byte* paramNameBuff = stackalloc byte[len + 1];
-            CopyStrToByteStrBuff(paramName, paramNameBuff);
+            CopyStrToAsciiBuff(paramName, paramNameBuff);
 
             // (!)For some reason casting to IntPtr variant of function is always bit faster than just unsafe pointer
             return GetParameter((IntPtr)paramNameBuff, out val);

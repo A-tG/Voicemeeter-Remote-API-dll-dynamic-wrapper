@@ -14,7 +14,7 @@ namespace AtgDev.Voicemeeter
         unsafe public Int32 GetParameter(string paramName, out string strVal)
         {
             byte* paramNameBuff = stackalloc byte[CheckAndGetParameterNameLength(paramName) + 1];
-            CopyStrToByteStrBuff(paramName, paramNameBuff);
+            CopyStrToAsciiBuff(paramName, paramNameBuff);
 
             return GetParameter((IntPtr)paramNameBuff, out strVal);
         }
@@ -36,7 +36,7 @@ namespace AtgDev.Voicemeeter
         unsafe public Int32 GetParameter(string paramName, IntPtr strValPtr)
         {
             byte* paramNameBuff = stackalloc byte[CheckAndGetParameterNameLength(paramName) + 1];
-            CopyStrToByteStrBuff(paramName, paramNameBuff);
+            CopyStrToAsciiBuff(paramName, paramNameBuff);
 
             return GetParameter((IntPtr)paramNameBuff, strValPtr);
         }

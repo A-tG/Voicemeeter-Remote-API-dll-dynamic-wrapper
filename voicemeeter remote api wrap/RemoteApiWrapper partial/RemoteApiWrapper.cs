@@ -3,6 +3,7 @@
 namespace AtgDev.Voicemeeter
 {
     using AtgDev.Utils.Native;
+    using System.Text;
 
     /// <summary>
     ///     <para>Voicemeeter Remote API</para>
@@ -35,27 +36,21 @@ namespace AtgDev.Voicemeeter
             InitMacroButtons();
         }
 
-        unsafe internal void CopyCharStrBuffToByteStrBuff(char* frombuff, byte* toBuff, int lenWithNull)
+        unsafe internal void CopyCharStrBuffToAsciiBuff(char* frombuff, byte* toBuff, int lenWithNull)
         {
             var lenWithouNull = lenWithNull - 1;
-            for (int i = 0; i < lenWithouNull; i++)
-            {
-                unchecked
-                {
-                    toBuff[i] = (byte)frombuff[i];
-                }
-            }
-            if (lenWithouNull > 0)
+            ASCIIEncoding.ASCII.GetBytes(frombuff, lenWithouNull, toBuff, lenWithouNull);
+            if (lenWithouNull >= 0)
             {
                 toBuff[lenWithouNull] = 0; // add null character
             }
         }
 
-        unsafe internal void CopyStrToByteStrBuff(string str, byte* toBuff)
+        unsafe internal void CopyStrToAsciiBuff(string str, byte* toBuff)
         {
             fixed (char* c = str)
             {
-                CopyCharStrBuffToByteStrBuff(c, toBuff, str.Length + 1); // to account null character
+                CopyCharStrBuffToAsciiBuff(c, toBuff, str.Length + 1); // to account null character
             }
         }
 

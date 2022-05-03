@@ -57,7 +57,7 @@ namespace AtgDev.Voicemeeter
             byte* nameBuff = stackalloc byte[maxLen];
             fixed (char* c = ClientName)
             {
-                CopyCharStrBuffToByteStrBuff(c, nameBuff, maxLen);
+                CopyCharStrBuffToAsciiBuff(c, nameBuff, maxLen);
             }
 
             return m_audioCallbackRegister(mode, callback, customDataP, (IntPtr)nameBuff);

@@ -16,8 +16,8 @@ namespace AtgDev.Voicemeeter
         {
             byte* paramNameBuff = stackalloc byte[CheckAndGetParameterNameLength(paramName) + 1];
             byte* strValBuff = stackalloc byte[CheckAndGetValueLenght(strVal) + 1];
-            CopyStrToByteStrBuff(paramName, paramNameBuff);
-            CopyStrToByteStrBuff(strVal, strValBuff);
+            CopyStrToAsciiBuff(paramName, paramNameBuff);
+            CopyStrToAsciiBuff(strVal, strValBuff);
 
             return m_setParameterStringA((IntPtr)paramNameBuff, (IntPtr)strValBuff);
         }
