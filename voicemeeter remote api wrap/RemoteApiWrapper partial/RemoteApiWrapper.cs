@@ -39,7 +39,7 @@ namespace AtgDev.Voicemeeter
         unsafe internal void CopyCharStrBuffToAsciiBuff(char* frombuff, byte* toBuff, int lenWithNull)
         {
             var lenWithouNull = lenWithNull - 1;
-            ASCIIEncoding.ASCII.GetBytes(frombuff, lenWithouNull, toBuff, lenWithouNull);
+            Encoding.ASCII.GetBytes(frombuff, lenWithouNull, toBuff, lenWithouNull);
             if (lenWithouNull >= 0)
             {
                 toBuff[lenWithouNull] = 0; // add null character
