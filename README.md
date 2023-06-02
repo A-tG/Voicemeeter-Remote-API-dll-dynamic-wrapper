@@ -48,4 +48,4 @@ Not tested on 32 bit Windows manually, but supposed to work anyway.
 * [Extended class with custom types and methods](https://github.com/A-tG/voicemeeter-remote-api-extended)
 
 ## Do you like my projects? Donate
-[![Paypal Logo](https://www.paypalobjects.com/webstatic/paypalme/images/pp_logo_small.png)](https://www.paypal.me/atgDeveloperMusician/5)
+[Available methods](https://taplink.cc/atgdev)
