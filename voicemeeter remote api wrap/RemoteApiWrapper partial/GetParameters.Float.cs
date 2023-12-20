@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 
 namespace AtgDev.Voicemeeter
 {
@@ -20,9 +19,6 @@ namespace AtgDev.Voicemeeter
         ///     -5: structure mismatch<br/>
         /// </returns>
         /// <inheritdoc cref="CheckAndGetParameterNameLength(string)" path="/exception"/>
-#if NET5_0_OR_GREATER
-        [SkipLocalsInit]
-#endif
         unsafe public Int32 GetParameter(string paramName, out Single val)
         {
             var len = CheckAndGetParameterNameLength(paramName);

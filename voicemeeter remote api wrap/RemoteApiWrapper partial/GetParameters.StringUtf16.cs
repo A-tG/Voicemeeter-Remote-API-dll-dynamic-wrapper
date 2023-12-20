@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 
 namespace AtgDev.Voicemeeter
 {
@@ -12,9 +11,6 @@ namespace AtgDev.Voicemeeter
         /// </summary>
         /// <param name="strVal">The string variable receiving the wanted value. (UTF-16)</param>
         /// <inheritdoc cref="GetParameter(string, out Single)"/>
-#if NET5_0_OR_GREATER
-        [SkipLocalsInit]
-#endif
         unsafe public Int32 GetParameter(string paramName, out string strVal)
         {
             byte* paramNameBuff = stackalloc byte[CheckAndGetParameterNameLength(paramName) + 1];
@@ -25,9 +21,6 @@ namespace AtgDev.Voicemeeter
 
         /// <inheritdoc cref="GetParameter(IntPtr, IntPtr)"/>
         /// <inheritdoc cref="GetParameter(string, out string)"/>
-#if NET5_0_OR_GREATER
-        [SkipLocalsInit]
-#endif
         unsafe public Int32 GetParameter(IntPtr paramNamePtr, out string strVal)
         {
             char* strValBuff = stackalloc char[512];
@@ -40,9 +33,6 @@ namespace AtgDev.Voicemeeter
 
         /// <inheritdoc cref="GetParameter(IntPtr, IntPtr)"/>
         /// <inheritdoc cref="GetParameter(string, out string)"/>
-#if NET5_0_OR_GREATER
-        [SkipLocalsInit]
-#endif
         unsafe public Int32 GetParameter(string paramName, IntPtr strValPtr)
         {
             byte* paramNameBuff = stackalloc byte[CheckAndGetParameterNameLength(paramName) + 1];
