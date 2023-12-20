@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Text;
 using System.Runtime.InteropServices;
+using System.Runtime.CompilerServices;
 
 namespace AtgDev.Voicemeeter
 {
@@ -39,6 +39,9 @@ namespace AtgDev.Voicemeeter
 
         private delegate Int32 Common_GetDeviceDesc(Int32 index, out Int32 type, IntPtr deviceNamePtr, IntPtr hardwareIdPtr);
         private Common_GetDeviceDesc m_output_getDeviceDescA, m_output_getDeviceDescW, m_input_getDeviceDescA, m_input_getDeviceDescW;
+#if NET5_0_OR_GREATER
+        [SkipLocalsInit]
+#endif
         unsafe private Int32 Legacy_GetDeviceDescription(Int32 index, out Int32 type, out string deviceName, out string hardwareID, Common_GetDeviceDesc getDeviceFunc)
         {
             // 256 char characters minimum according to DLL documentation
@@ -54,6 +57,9 @@ namespace AtgDev.Voicemeeter
 
             return resp;
         }
+#if NET5_0_OR_GREATER
+        [SkipLocalsInit]
+#endif
         unsafe private Int32 GetDeviceDescription(Int32 index, out Int32 type, out string deviceName, out string hardwareID, Common_GetDeviceDesc getDeviceFunc)
         {
             // 256 wchar characters minimum according to DLL documentation

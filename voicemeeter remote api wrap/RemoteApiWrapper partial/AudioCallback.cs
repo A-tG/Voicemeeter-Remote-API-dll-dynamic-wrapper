@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Runtime.InteropServices;
-using System.Text;
+using System.Runtime.CompilerServices;
 
 namespace AtgDev.Voicemeeter
 {
@@ -30,12 +29,12 @@ namespace AtgDev.Voicemeeter
         /// <summary>
         ///     Register your audio callback function to receive real time audio buffer
         ///     it's possible to register up to 3x different Audio Callback in the same application or in 
-		///	    3x different applications.In the same application, this is possible because Voicemeeter
+        ///	    3x different applications.In the same application, this is possible because Voicemeeter
         ///     provides 3 kind of audio Streams:<br/>
-		///		    - AUDIO INPUT INSERT(to process all Voicemeeter inputs as insert)<br/>
-		///		    - AUDIO OUTPUT INSERT(to process all Voicemeeter BUS outputs as insert)<br/>
-		///		    - ALL AUDIO I/O(to process all Voicemeeter i/o).<br/>
-		///	    Note: a single callback can be used to receive the 3 possible audio streams.
+        ///		    - AUDIO INPUT INSERT(to process all Voicemeeter inputs as insert)<br/>
+        ///		    - AUDIO OUTPUT INSERT(to process all Voicemeeter BUS outputs as insert)<br/>
+        ///		    - ALL AUDIO I/O(to process all Voicemeeter i/o).<br/>
+        ///	    Note: a single callback can be used to receive the 3 possible audio streams.
         /// </summary>
         /// <param name="mode">callback type</param>
         /// <param name="customDataP">Pointer that will be passed in callback first argument</param>
@@ -46,6 +45,9 @@ namespace AtgDev.Voicemeeter
         ///     1: callback already registered (by another application).<br/>
         ///     <inheritdoc cref="ProcedureNotImportedErrorCode" path="/summary"/>
         /// </returns>
+#if NET5_0_OR_GREATER
+        [SkipLocalsInit]
+#endif
         unsafe public Int32 AudioCallbackRegister(Mode mode, Callback callback, void* customDataP, ref string ClientName)
         {
             if (m_audioCallbackRegister is null) return ProcedureNotImportedErrorCode;
