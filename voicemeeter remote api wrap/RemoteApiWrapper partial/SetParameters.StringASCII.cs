@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace AtgDev.Voicemeeter
@@ -12,6 +13,9 @@ namespace AtgDev.Voicemeeter
         /// </summary>
         /// <param name="strVal">The variable containing the new value (ASCII).</param>
         /// <inheritdoc cref="SetParameter(string, Single)"/>
+#if NET5_0_OR_GREATER
+        [SkipLocalsInit]
+#endif
         unsafe public Int32 Legacy_SetParameter(string paramName, string strVal)
         {
             byte* paramNameBuff = stackalloc byte[CheckAndGetParameterNameLength(paramName) + 1];

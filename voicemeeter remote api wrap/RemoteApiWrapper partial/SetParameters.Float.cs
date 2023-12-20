@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace AtgDev.Voicemeeter
@@ -19,6 +20,9 @@ namespace AtgDev.Voicemeeter
         ///     -3: unknown parameter<br/>
         /// </returns>
         /// <inheritdoc cref="CheckAndGetParameterNameLength(string)" path="/exception"/>
+#if NET5_0_OR_GREATER
+        [SkipLocalsInit]
+#endif
         unsafe public Int32 SetParameter(string paramName, Single val)
         {
             byte* paramNameBuff = stackalloc byte[CheckAndGetParameterNameLength(paramName) + 1];

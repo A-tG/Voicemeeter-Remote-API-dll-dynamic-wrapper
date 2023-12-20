@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace AtgDev.Voicemeeter
@@ -14,6 +15,9 @@ namespace AtgDev.Voicemeeter
         /// <param name="strVal">The variable containing the new value. (UTF-16)</param>
         /// <inheritdoc cref="SetParameter(string, Single)" path="/returns"/>
         /// <inheritdoc cref="SetParameter(string, Single)" path="/exception"/>
+#if NET5_0_OR_GREATER
+        [SkipLocalsInit]
+#endif
         unsafe public Int32 SetParameter(string paramName, string strVal)
         {
             byte* paramNameBuff = stackalloc byte[CheckAndGetParameterNameLength(paramName) + 1];
@@ -34,6 +38,9 @@ namespace AtgDev.Voicemeeter
 
         /// <inheritdoc cref="SetParameter(IntPtr, IntPtr)"/>
         /// <inheritdoc cref="SetParameter(string, string)"/>
+#if NET5_0_OR_GREATER
+        [SkipLocalsInit]
+#endif
         unsafe public Int32 SetParameter(string paramName, IntPtr strValPtr)
         {
             byte* paramNameBuff = stackalloc byte[CheckAndGetParameterNameLength(paramName) + 1];
