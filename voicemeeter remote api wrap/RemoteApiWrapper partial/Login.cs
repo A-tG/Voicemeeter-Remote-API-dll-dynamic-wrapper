@@ -45,7 +45,24 @@ namespace AtgDev.Voicemeeter
         /// <summary>
         ///     Run Voicemeeter Application (get installation directory and run Voicemeeter Application).
         /// </summary>
-        /// <param name="type">Voicemeeter type (1 = Voicemeeter, 2 = Voicemeeter Banana, 3 = Voicemeeter Potato, 6 = Potato x64).</param>
+        /// <param name="type">Voicemeeter type<br/> 
+        ///     1 = Standard<br/>
+        ///     2 = Banana<br/>
+        ///     3 = Potato<br/>
+        ///     4 = Standard x64<br/>
+        ///     5 = Banana x64<br/>
+        ///     6 = Potato x64<br/>
+        ///     10 = VBDeviceCheck<br/>
+        ///     11 = VoicemeeterMacroButtons<br/>
+        ///     12 = VMStreamerView<br/>
+        ///     13 = VoicemeeterBUSMatrix8<br/>
+        ///     14 = VoicemeeterBUSGEQ15<br/>
+        ///     15 = VBAN2MIDI<br/>
+        ///     20 = VBCABLE_ControlPanel<br/>
+        ///     21 = VBVMAUX_ControlPanel<br/>
+        ///     22 = VBVMVAIO3_ControlPanel<br/>
+        ///     23 = VBVoicemeeterVAIO_ControlPanel<br/>
+        /// </param>
         /// <returns>
         ///     0: Ok.<br/>
 		///     -1: not installed<br/>
