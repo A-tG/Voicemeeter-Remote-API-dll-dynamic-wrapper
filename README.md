@@ -26,7 +26,7 @@ Now ~5-20% faster due to SkipLocalsInit attribute (.NET 5.0+)
 using AtgDev.Voicemeeter;
 using AtgDev.Voicemeeter.Utils;
 
-var vmrApi = new RemoteApi(PathHelper.GetDllPath())
+var vmrApi = new RemoteApiWrapper(PathHelper.GetDllPath())
 ```
 
 All API procedures have been implemented at the moment (March 2021).
