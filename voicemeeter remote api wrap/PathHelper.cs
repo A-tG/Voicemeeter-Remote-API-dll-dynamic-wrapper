@@ -12,6 +12,7 @@ namespace AtgDev.Voicemeeter.Utils
         private const string regKeyTail = @"Microsoft\Windows\CurrentVersion\Uninstall\" + VmKey;
         private const string regKeyMiddle = @"WOW6432Node\";
         private const string valueName = "UninstallString";
+        private const string VmSubPath = @"VB\Voicemeeter";
 
         private static string GetDllName()
         {
@@ -23,26 +24,40 @@ namespace AtgDev.Voicemeeter.Utils
             return name + ".dll";
         }
 
-        /// <exception cref="DirectoryNotFoundException">Thrown when cannot find Voicemeeter registry key</exception>
+        private static string GetProgramFolderFromEnvVars()
+        {
+            var envVars = new string[] { "ProgramFiles(x86)", "ProgramFiles", "ProgramW6432" };
+            foreach (var v in envVars)
+            {
+                string pfPath = Environment.GetEnvironmentVariable(v);
+                if (string.IsNullOrWhiteSpace(pfPath)) continue;
+
+                var vmPath = Path.Combine(pfPath, VmSubPath);
+                if (Directory.Exists(vmPath)) return vmPath;
+            }
+            return "";
+        }
+
+        /// <exception cref="DirectoryNotFoundException">Thrown when cannot find Voicemeeter folder from registry or in Program Files</exception>
         /// <exception cref="System.Security.SecurityException"/>
         /// <exception cref="IOException"/>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="PathTooLongException"/>
         public static string GetProgramFolder()
         {
+            var path = GetProgramFolderFromEnvVars();
+            if (!string.IsNullOrWhiteSpace(path)) return path;
+
             var regKey = regkeyHead + regKeyTail;
             var result = Registry.GetValue(regKey, valueName, null);
-            if (result == null)
-            {
-                // try to search in WOW6432Node node
-                regKey = regkeyHead + regKeyMiddle + regKeyTail;
-                result = Registry.GetValue(regKey, valueName, null);
-                if (result == null)
-                {
-                    throw new DirectoryNotFoundException($"Error reading registry path: {regKey}");
-                }
-            }
-            return Path.GetDirectoryName((string)result);
+            if (result != null) return Path.GetDirectoryName((string)result);
+
+            // try to search in WOW6432Node node
+            regKey = regkeyHead + regKeyMiddle + regKeyTail;
+            result = Registry.GetValue(regKey, valueName, null);
+            if (result != null) return Path.GetDirectoryName((string)result);
+
+            throw new DirectoryNotFoundException($"Error reading registry path: {regKey}\nAnd unable to find Voicemeeter in Program Files");
         }
 
 #if (NET5_0_OR_GREATER || NETCOREAPP3_0_OR_GREATER)
