@@ -54,6 +54,19 @@ namespace AtgDev.Voicemeeter
             }
         }
 
+        unsafe internal void CopyStrToWcharBuff(string str, char* toBuff)
+        {
+            var len = str.Length;
+            fixed (char* c = str)
+            {
+                for (int i = 0; i < len; i++)
+                {
+                    toBuff[i] = c[i];
+                }
+                toBuff[len] = '\0';
+            }
+        }
+
         /// <exception cref="ArgumentException">if paramName length more than <inheritdoc cref="ParameterMaxLength" path="/summary"/> (to limit stack allocation)</exception>
         internal int CheckAndGetParameterNameLength(string param)
         {

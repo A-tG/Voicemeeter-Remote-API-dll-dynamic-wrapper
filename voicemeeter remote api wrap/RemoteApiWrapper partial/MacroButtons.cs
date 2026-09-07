@@ -9,6 +9,7 @@ namespace AtgDev.Voicemeeter
             TryGetReadyDelegate(ref m_macroButtonIsDirty);
             TryGetReadyDelegate(ref m_macroButtonGetStatus);
             TryGetReadyDelegate(ref m_MacroButtonSetStatus);
+            TryGetReadyDelegate(ref m_setCustomButton);
         }
 
         private delegate Int32 VBVMR_MacroButton_IsDirty();
@@ -74,6 +75,24 @@ namespace AtgDev.Voicemeeter
             if (m_MacroButtonSetStatus is null) return ProcedureNotImportedErrorCode;
 
             return m_MacroButtonSetStatus(buttonIndex, val, mode);
+        }
+
+#if NET5_0_OR_GREATER
+        [SkipLocalsInit]
+#endif
+        private delegate Int32 VBVMR_SetCustomButton(Int32 buttonIndex, Int32 type, Int32 state, IntPtr labelPtr, IntPtr hwnd, Int32 command);
+        private VBVMR_SetCustomButton m_setCustomButton;
+        unsafe public Int32 SetCustomButton(Int32 buttonIndex, Int32 type, Int32 state, string label, IntPtr hwnd, Int32 command)
+        {
+            if (m_setCustomButton is null) return ProcedureNotImportedErrorCode;
+
+            var len = label.Length;
+            if (len > 32) throw new ArgumentOutOfRangeException("label 32 character maximum");
+
+            char* labelBuff = stackalloc char[len + 1];
+            CopyStrToWcharBuff(label, labelBuff);
+
+            return m_setCustomButton(buttonIndex, type, state, (IntPtr)labelBuff, hwnd, command);
         }
     }
 }
