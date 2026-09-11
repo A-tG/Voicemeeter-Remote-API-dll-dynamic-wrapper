@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace AtgDev.Voicemeeter
 {
@@ -77,11 +78,11 @@ namespace AtgDev.Voicemeeter
             return m_MacroButtonSetStatus(buttonIndex, val, mode);
         }
 
+        private delegate Int32 VBVMR_SetCustomButton(Int32 buttonIndex, Int32 type, Int32 state, IntPtr labelPtr, IntPtr hwnd, Int32 command);
+        private VBVMR_SetCustomButton m_setCustomButton;
 #if NET5_0_OR_GREATER
         [SkipLocalsInit]
 #endif
-        private delegate Int32 VBVMR_SetCustomButton(Int32 buttonIndex, Int32 type, Int32 state, IntPtr labelPtr, IntPtr hwnd, Int32 command);
-        private VBVMR_SetCustomButton m_setCustomButton;
         unsafe public Int32 SetCustomButton(Int32 buttonIndex, Int32 type, Int32 state, string label, IntPtr hwnd, Int32 command)
         {
             if (m_setCustomButton is null) return ProcedureNotImportedErrorCode;
@@ -89,10 +90,22 @@ namespace AtgDev.Voicemeeter
             var len = label.Length;
             if (len > 32) throw new ArgumentOutOfRangeException("label 32 character maximum");
 
-            char* labelBuff = stackalloc char[len + 1];
-            CopyStrToWcharBuff(label, labelBuff);
+            char* pLabelBuff = stackalloc char[len + 1];
+#if NETSTANDARD2_1_OR_GREATER
+            label.AsSpan().CopyTo(new Span<char>(pLabelBuff, len));
+            pLabelBuff[len] = '\0';
+#else
+            CopyStrToWcharBuff(label, pLabelBuff);
+#endif
 
-            return m_setCustomButton(buttonIndex, type, state, (IntPtr)labelBuff, hwnd, command);
+            return m_setCustomButton(buttonIndex, type, state, (IntPtr)pLabelBuff, hwnd, command);
+        }
+
+        public Int32 SetCustomButton(Int32 buttonIndex, Int32 type, Int32 state, IntPtr pLabel, IntPtr hwnd, Int32 command)
+        {
+            if (m_setCustomButton is null) return ProcedureNotImportedErrorCode;
+
+            return m_setCustomButton(buttonIndex, type, state, pLabel, hwnd, command);
         }
     }
 }
