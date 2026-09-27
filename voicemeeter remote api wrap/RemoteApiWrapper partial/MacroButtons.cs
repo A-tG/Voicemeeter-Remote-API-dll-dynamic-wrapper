@@ -80,10 +80,26 @@ namespace AtgDev.Voicemeeter
 
         private delegate Int32 VBVMR_SetCustomButton(Int32 buttonIndex, Int32 type, Int32 state, IntPtr labelPtr, IntPtr hwnd, Int32 command);
         private VBVMR_SetCustomButton m_setCustomButton;
+        /// <summary>
+        ///     Added in 3.1.2.5 / 2.1.2.5 / 1.1.2.5<br/> 
+        ///     Set custom button on Voicemeeter to get Push message and display information
+        /// </summary>
+        /// <param name="buttonIndex">Button index</param>
+        /// <param name="type">-1: no button displayed / 0: no position / 1: Push button, / 2: 2x Positions button (Click behavior)</param>
+        /// <param name="state">-1: no change, 0: released, 1: pushed</param>
+        /// <param name="label">Button label (32 char max)</param>
+        /// <param name="hwnd">Windows handle that will receive WM_COMMAND message</param>
+        /// <param name="command">Command ID (WPARAM) / LPARAM: button state</param>
+        /// <returns>
+        ///     0: OK (no error).<br/>
+        ///     -1: error<br/>
+        ///     -2: no server.<br/>
+        ///     <inheritdoc cref="ProcedureNotImportedErrorCode" path="/summary"/>
+        /// </returns>
 #if NET5_0_OR_GREATER
         [SkipLocalsInit]
 #endif
-        unsafe public Int32 SetCustomButton(Int32 buttonIndex, Int32 type, Int32 state, string label, IntPtr hwnd, Int32 command)
+        unsafe public Int32 SetCustomButton(Int32 buttonIndex, Int32 type, Int32 state, string label, IntPtr hwnd, IntPtr command)
         {
             if (m_setCustomButton is null) return ProcedureNotImportedErrorCode;
 
@@ -91,7 +107,7 @@ namespace AtgDev.Voicemeeter
             if (len > 32) throw new ArgumentOutOfRangeException("label 32 character maximum");
 
             char* pLabelBuff = stackalloc char[len + 1];
-#if NETSTANDARD2_1_OR_GREATER
+#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER || NETCOREAPP3_1_OR_GREATER
             label.AsSpan().CopyTo(new Span<char>(pLabelBuff, len));
             pLabelBuff[len] = '\0';
 #else
@@ -101,7 +117,11 @@ namespace AtgDev.Voicemeeter
             return m_setCustomButton(buttonIndex, type, state, (IntPtr)pLabelBuff, hwnd, command);
         }
 
-        public Int32 SetCustomButton(Int32 buttonIndex, Int32 type, Int32 state, IntPtr pLabel, IntPtr hwnd, Int32 command)
+        /// <summary>
+        ///     Alternative low-level method for pre allocated buffers. For maximum performance
+        /// </summary>
+        /// <inheritdoc cref="SetCustomButton(Int32, Int32, Int32, string, IntPtr, IntPtr)"/>
+        public Int32 SetCustomButton(Int32 buttonIndex, Int32 type, Int32 state, IntPtr pLabel, IntPtr hwnd, IntPtr command)
         {
             if (m_setCustomButton is null) return ProcedureNotImportedErrorCode;
 
