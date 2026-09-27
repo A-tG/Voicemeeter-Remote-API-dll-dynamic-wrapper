@@ -78,7 +78,7 @@ namespace AtgDev.Voicemeeter
             return m_MacroButtonSetStatus(buttonIndex, val, mode);
         }
 
-        private delegate Int32 VBVMR_SetCustomButton(Int32 buttonIndex, Int32 type, Int32 state, IntPtr labelPtr, IntPtr hwnd, Int32 command);
+        private delegate Int32 VBVMR_SetCustomButton(Int32 buttonIndex, Int32 type, Int32 state, IntPtr labelPtr, IntPtr hwnd, IntPtr command);
         private VBVMR_SetCustomButton m_setCustomButton;
         /// <summary>
         ///     Added in 3.1.2.5 / 2.1.2.5 / 1.1.2.5<br/> 
