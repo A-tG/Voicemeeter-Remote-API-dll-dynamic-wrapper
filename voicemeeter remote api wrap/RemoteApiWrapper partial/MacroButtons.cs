@@ -120,7 +120,7 @@ namespace AtgDev.Voicemeeter
         /// <summary>
         ///     Alternative low-level method for pre allocated buffers. For maximum performance
         /// </summary>
-        /// <inheritdoc cref="SetCustomButton(Int32, Int32, Int32, string, IntPtr, IntPtr)"/>
+        /// <inheritdoc cref="SetCustomButton(Int32, Int32, Int32, string, IntPtr, Int32)"/>
         public Int32 SetCustomButton(Int32 buttonIndex, Int32 type, Int32 state, IntPtr pLabel, IntPtr hwnd, Int32 command)
         {
             if (m_setCustomButton is null) return ProcedureNotImportedErrorCode;
