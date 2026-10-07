@@ -3,6 +3,7 @@
 namespace AtgDev.Voicemeeter
 {
     using AtgDev.Utils.Native;
+    using System.Reflection.Emit;
     using System.Text;
 
     /// <summary>
@@ -36,39 +37,37 @@ namespace AtgDev.Voicemeeter
             InitMacroButtons();
         }
 
-        unsafe internal void CopyCharStrBuffToAsciiBuff(char* frombuff, byte* toBuff, int lenWithNull)
-        {
-            var lenWithouNull = lenWithNull - 1;
-            Encoding.ASCII.GetBytes(frombuff, lenWithouNull, toBuff, lenWithouNull);
-            if (lenWithouNull >= 0)
-            {
-                toBuff[lenWithouNull] = 0; // add null character
-            }
-        }
-
-        unsafe internal void CopyStrToAsciiBuff(string str, byte* toBuff)
-        {
-            fixed (char* c = str)
-            {
-                CopyCharStrBuffToAsciiBuff(c, toBuff, str.Length + 1); // to account null character
-            }
-        }
-
-        unsafe internal void CopyStrToWcharBuff(string str, char* toBuff)
+        unsafe static internal void CopyStrToAsciiBuff(string str, byte* toBuff)
         {
             var len = str.Length;
+#if NET8_0_OR_GREATER
+            Ascii.FromUtf16(str.AsSpan(), new Span<byte>(toBuff, len), out int _);
+#else
             fixed (char* c = str)
             {
-                for (int i = 0; i < len; i++)
-                {
-                    toBuff[i] = c[i];
-                }
-                toBuff[len] = '\0';
+                Encoding.ASCII.GetBytes(c, len, toBuff, len);
             }
+#endif
+            toBuff[len] = 0;
+        }
+
+        unsafe static internal void CopyStrToWcharBuff(string str, char* toBuff)
+        {
+            var len = str.Length;
+#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+            str.AsSpan().CopyTo(new Span<char>(toBuff, len));
+#else
+            var size = sizeof(char);
+            fixed (char* c = str)
+            {
+                Buffer.MemoryCopy(c, toBuff, size * (len + 1), size * len);
+            }
+#endif
+            toBuff[len] = '\0';
         }
 
         /// <exception cref="ArgumentException">if paramName length more than <inheritdoc cref="ParameterMaxLength" path="/summary"/> (to limit stack allocation)</exception>
-        internal int CheckAndGetParameterNameLength(string param)
+        internal static int CheckAndGetParameterNameLength(string param)
         {
             var len = param.Length;
             if (len > ParameterMaxLength)
@@ -79,7 +78,7 @@ namespace AtgDev.Voicemeeter
         }
 
         /// <inheritdoc cref="CheckAndGetParameterNameLength"/>
-        internal int CheckAndGetValueLenght(string val)
+        internal static int CheckAndGetValueLenght(string val)
         {
             return CheckAndGetParameterNameLength(val);
         }
