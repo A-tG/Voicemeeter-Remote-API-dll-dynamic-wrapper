@@ -107,12 +107,7 @@ namespace AtgDev.Voicemeeter
             if (len > 32) throw new ArgumentOutOfRangeException("label 32 character maximum");
 
             char* pLabelBuff = stackalloc char[len + 1];
-#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-            label.AsSpan().CopyTo(new Span<char>(pLabelBuff, len));
-            pLabelBuff[len] = '\0';
-#else
             CopyStrToWcharBuff(label, pLabelBuff);
-#endif
 
             return m_setCustomButton(buttonIndex, type, state, (IntPtr)pLabelBuff, hwnd, command);
         }
