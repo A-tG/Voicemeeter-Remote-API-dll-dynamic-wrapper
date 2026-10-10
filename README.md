@@ -3,9 +3,9 @@
 
 Visual Studio C# [**Shared Project**](https://github.com/A-tG/Voicemeeter-Remote-API-dll-dynamic-wrapper/wiki/Useful-Info#how-to-useadd-a-visual-studio-shared-project).
 
-Helps to dynamically load VoicemeeterRemote64.dll or VoicemeeterRemote.dll.
+Very high performance Vmrapi wrapper. Helps to dynamically load VoicemeeterRemote64.dll or VoicemeeterRemote.dll.
 
-**Basic return codes, methods and types similar to original DLL. Use extended class for more functionality or you can write your own.**
+**Basic return codes, methods and types similar to original DLL. Use [extended class](https://github.com/A-tG/voicemeeter-remote-api-extended) for more functionality or you can write your own.**
 
 ### Note for 1.2 and later versions:
 I optimized marshalling by replacing "MarshalAs" attributes with pointers and then allocating buffers on stack, and by sending pointer to a string with "fixed" statement. So there is a risk of getting stack overflow in some unusual cases, so keep in mind: maximum allocation size is 1024 bytes for out string in
